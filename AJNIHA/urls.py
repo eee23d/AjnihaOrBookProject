@@ -8,6 +8,10 @@ urlpatterns = [
     path('register',views.register,name='register'),
     path('loginPage',views.loginPage,name='loginPage'),
     path('logoutUser',views.logoutUser,name='logoutUser'),
+    path('userHome',views.userHome,name='userHome'),
+    path('notes',views.notes,name='notes'),
+    path('contact',views.contact,name='contact'),
+    path('library',views.library,name='library')
     #I add a comment here to try use commit why
 
 ]

@@ -11,13 +11,26 @@ from django.contrib.auth.decorators import login_required
 
 
 #string-->http response
-@login_required(login_url='loginPage')
+#@login_required(login_url='loginPage')
 def index(request):
-    return render(request,['AJNIHA/index.html'])
+    return render(request,['AJNIHA/indexa.html'])
+
+def notes(request):
+    return render(request,['AJNIHA/notes.html'])
+
+def contact(request):
+    return render(request,['AJNIHA/contact.html'])
+
+def library(request):
+    return render(request,['AJNIHA/library.html'])
+
+@login_required(login_url='loginPage')
+def userHome(request):
+    return render(request,['AJNIHA/userHomePage.html'])
 
 def register(request):
     if request.user.is_authenticated:
-        return redirect('index')
+        return redirect('userHome')
     else:
         form=CreateUserForm()
         if request.method=='POST':
@@ -45,7 +58,7 @@ def loginPage(request):
             print(user)
             if user is not None:
                 login(request,user)
-                return redirect('index')
+                return redirect('userHome')
             else:
                 messages.info(request,'username or password is incorrect')
 
