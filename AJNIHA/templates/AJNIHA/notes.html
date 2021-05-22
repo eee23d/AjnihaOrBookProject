@@ -4,158 +4,186 @@
 
 {% block content %}
 
-    <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio section-bg">
-        <div style="direction:rtl;border-color: #f00d95;border-style: solid;background-color: rgba(211,243,214,0.37) "
-             class="container">
-            <div class="section-title">
-                <h2>مدوناتي</h2>
+<!-- ======= Portfolio Section ======= -->
+<section id="portfolio" class="portfolio section-bg">
+<div style="direction:rtl;background-color: rgba(211,243,214,0.37);margin: auto; "
+ class="container">
+<div class="section-title">
+    <h2>مدوناتي</h2>
+</div>
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<!-- Button trigger modal -->
+<div class="form__group">
+    <input data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="myBtn" type="text"
+           class="form__input" placeholder="اضف تدوينة" required=""/>
+</div>
+
+
+<!-- Modal -->
+<div align="right"  class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="margin-left: 180px" class="modal-title" id="staticBackdropLabel">اضف تدوينة</h5>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">X</button>
             </div>
-
-
-            <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-            <div class="form__group">
-                <input id="myBtn" type="text" class="form__input" placeholder="اضف تدوينة" required=""/>
-            </div>
-
-            <!-- The Modal -->
-            <div id="myModal" class="modal">
-
-                <!-- Modal content -->
-                <div class="modal-content">
-
-                    <div class="form__group field">
-                        <div class="container">
-                            <div>
-                                <h2>اضف تدوينة</h2>
-                                <hr>
-
-
-
-                                <div class="dropdown">
-            <button class="dropbtn">Category</button>
-      <div class="dropdown-content">
-        <a href="#">Link 1</a>
-        <a href="#">Link 2</a>
-        <a href="#">Link 3</a>
-      </div>
-    </div>
-<div class="dropdown">
-            <button class="dropbtn">Location</button>
-      <div class="dropdown-content">
-        <a href="#">Link 1</a>
-        <a href="#">Link 2</a>
-        <a href="#">Link 3</a>
-      </div>
-    </div>
-                                <hr style="color: transparent">
-
-                                <form>
-
-                                    <label class="field field_v1">
-                                        <input class="form__input" placeholder="العنوان">
-
-                                    </label>
-                                    <br>
-                                    <textarea id="story" name="story"
-                                              rows="5" cols="33" placeholder="التدوينة"></textarea>
-                                                                    <hr style="color: transparent">
-
-                                    اضافة ورد من
-              <input type="number" id="quantity" name="quantity" min="1" >
-                                    إلى
-               <input type="number" id="quantity" name="quantity" min="1">
-                                                                    <hr style="color: transparent">
-
-                                    <button style="width: 100%;">اضافة</button>
-
-
-                                </form>
-                            </div>
-
-                        </div>
-
+            <div class="modal-body">
+                <div class="dropdown">
+                    <button style="background-color: #788696;" class="dropbtn">الرف</button>
+                    <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
                     </div>
                 </div>
+                <div class="dropdown">
+                    <button style="background-color: #788696;" class="dropbtn">الكتاب</button>
+                    <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </div>
+                <form>
+
+                    <label class="field field_v1">
+                        <input class="form__input" placeholder="العنوان">
+
+                    </label>
+                    <br>
+                    <textarea id="story" name="story"
+                              rows="5" cols="33" placeholder="التدوينة"></textarea>
+                    <hr style="color: transparent">
+                    <h5  class="modal-title" id="staticBackdropLabel">اضافة ورد</h5>
+                    <hr style="color: transparent">
+
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                من
+                    <div  style="direction: rtl;margin-right: 20px;" class="number-input">
+                        <button style="background-color: #788696;" type="button" class="btn btn-primary"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
+                        </button>
+                        <input style="font-size: 20px;" class="quantity" min="0" name="quantity" value="1" type="number">
+                        <button style="background-color: #788696" type="button" class="btn btn-primary"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                class="plus">+
+                        </button>
+
+                    </div>
+إلى
+                    <div style="direction: rtl;margin-right: 20px;" class="number-input">
+                        <button style="background-color: #788696" type="button" class="btn btn-primary"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
+                        </button>
+                        <input style="font-size: 20px;" class="quantity" min="0" name="quantity" value="1" type="number">
+                        <button style="background-color: #788696" type="button" class="btn btn-primary"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                class="plus">+
+                        </button>
+                    </div>
+                </form>
+
             </div>
-
-
-            <div style="border-color: #0dcaf0;border-style: solid" class="row" data-aos="fade-up">
-                <div style="border-color: #3ba2b7;border-style: solid" class="col-lg-12 d-flex justify-content-center">
-                    <ul id="portfolio-flters">
-                        <li data-filter="*" class="filter-active">الكل</li>
-                        <li data-filter=".filter-app">رف1</li>
-                        <li data-filter=".filter-card">رف2</li>
-                        <li data-filter=".filter-web">رف3</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div style="border-color: #5c0df0;border-style: solid" class="row" data-aos="fade-up" data-aos-delay="100">
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                    <div style="background-color: white" class="portfolio-wrap">
-                        <p>
-                            <b style="font-size: 24px;">انهضوا كل صباح</b>
-                            |
-                            الثلاثاء، 14\2\2021
-                            <br><br>
-                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                            مهما كان شعوركم، فانهضوا كل صباح، واستعدوا لتدعوا نوركم ينشر شعاعه.
-                            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-
-                        </p>
-                        <div class="portfolio-links">
-                            <a href="" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i
-                                    class="bx bx-plus"></i></a>
-                            <a href="" title="More Details"><i class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                    <div class="portfolio-wrap">
-                        <p>
-                            <b style="font-size: 24px;">انهضوا كل صباح</b>
-                            |
-                            الثلاثاء، 14\2\2021
-                            <br><br>
-                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                            مهما كان شعوركم، فانهضوا كل صباح، واستعدوا لتدعوا نوركم ينشر شعاعه.
-                            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-
-                        </p>
-                        <div class="portfolio-links">
-                            <a href="" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i
-                                    class="bx bx-plus"></i></a>
-                            <a href="" title="More Details"><i class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                    <div class="portfolio-wrap">
-                        <p>
-                            <b style="font-size: 24px;">انهضوا كل صباح</b>
-                            |
-                            الثلاثاء، 14\2\2021
-                            <br><br>
-                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                            مهما كان شعوركم، فانهضوا كل صباح، واستعدواعه.
-                            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-
-                        </p>
-                        <div class="portfolio-links">
-                            <a href="" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i
-                                    class="bx bx-plus"></i></a>
-                            <a href="" title="More Details"><i class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-
+            <div class="modal-footer">
+                <button style="width: 100%;background-color:#253853 " type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">اضافة
+                </button>
             </div>
         </div>
-    </section><!-- End Portfolio Section -->
+    </div>
+</div>
+
+
+<div style="" class="row" data-aos="fade-up">
+    <div style="" class="col-lg-12 d-flex justify-content-center">
+        <ul id="portfolio-flters">
+            <li data-filter="*" class="filter-active">الكل</li>
+            <li data-filter=".filter-app">رف1</li>
+            <li data-filter=".filter-card">رف2</li>
+            <li data-filter=".filter-web">رف3</li>
+        </ul>
+    </div>
+</div>
+
+<div style="" class="row" data-aos="fade-up" data-aos-delay="100">
+
+    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+        <div style="background-color: white" class="portfolio-wrap">
+            <p>
+                <b style="font-size: 24px;">انهضوا كل صباح</b>
+                |
+                الثلاثاء، 14\2\2021
+                <br><br>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                مهما كان شعوركم، فانهضوا كل صباح، واستعدوا لتدعوا نوركم ينشر شعاعه.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+
+            </p>
+            <div class="portfolio-links">
+                <a href="" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i
+                        class="bx bx-plus"></i></a>
+                <a href="" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+        <div class="portfolio-wrap">
+            <p>
+                <b style="font-size: 24px;">انهضوا كل صباح</b>
+                |
+                الثلاثاء، 14\2\2021
+                <br><br>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                مهما كان شعوركم، فانهضوا كل صباح، واستعدوا لتدعوا نوركم ينشر شعاعه.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+
+            </p>
+            <div class="portfolio-links">
+                <a href="" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i
+                        class="bx bx-plus"></i></a>
+                <a href="" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+        <div class="portfolio-wrap">
+            <p>
+                <b style="font-size: 24px;">انهضوا كل صباح</b>
+                |
+                الثلاثاء، 14\2\2021
+                <br><br>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                مهما كان شعوركم، فانهضوا كل صباح، واستعدواعه.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+
+            </p>
+            <div class="portfolio-links">
+                <a href="" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i
+                        class="bx bx-plus"></i></a>
+                <a href="" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>
+</section><!-- End Portfolio Section -->
 
 {% endblock %}
