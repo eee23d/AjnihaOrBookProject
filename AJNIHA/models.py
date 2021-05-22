@@ -56,6 +56,7 @@ def create_auto_sheleves(sender, instance, created, **kwargs):
         Shelves.objects.create(shelfName="يقرأ حالياً",Reader=instance,shelfType=1)
         Shelves.objects.create(shelfName="أود قرائته", Reader=instance, shelfType=2)
         Shelves.objects.create(shelfName="تمت قراءته", Reader=instance, shelfType=4)
+        Shelves.objects.create(shelfName="مفضلة", Reader=instance, shelfType=5)
         print('Profile created!')
 
 
