@@ -8,6 +8,7 @@ from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+from .models import Book,ReaderAccount,ReadingRecords,contacts,Shelves,shelves_Readers_Books,booksuggest,follow,liked_post
 
 
 #string-->http response
@@ -22,7 +23,18 @@ def contact(request):
     return render(request,['AJNIHA/contact.html'])
 
 def library(request):
-    return render(request,['AJNIHA/library.html'])
+    if request.method == "POST":
+        pass
+    else:
+        user = request.user
+        print(user)
+        shelves = Shelves.objects.filter(Reader__username__iexact= user)
+        print(shelves)
+        shelf_reader_books = shelves_Readers_Books.objects.filter(reader__username__exact=user)
+        print(shelf_reader_books)
+        shelf_books= Book.objects.filter(id__in=shelf_reader_books)
+
+    return render(request,['AJNIHA/library.html'],{'shelves': shelves,'shelf_books':shelf_books,'bookForShelf':shelf_reader_books})
 
 @login_required(login_url='loginPage')
 def userHome(request):
@@ -31,7 +43,7 @@ def userHome(request):
 def register(request):
     if request.user.is_authenticated:
         return redirect('userHome')
-    else:
+    if True:
         form=CreateUserForm()
         if request.method=='POST':
             form=CreateUserForm(request.POST)

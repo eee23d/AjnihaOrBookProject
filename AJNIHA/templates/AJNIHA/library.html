@@ -5,190 +5,45 @@
 
 
     <section id="portfolio" class="portfolio section-bg">
+        {% for shelf in shelves %}
       <div style="" class="container">
 
         <div class="section-title">
-          <h2>اقرأ حالياً</h2>
+          <h2> {{ shelf.shelfName }}</h2>
+
         </div>
 
         <div style="" class="row" data-aos="fade-up" data-aos-delay="100">
+             {% for book in bookForShelf %}
+                 {% if book.shelf == shelf %}
+
           <div style="width: 360px" class="portfolio-item filter-app">
+
             <div style="" class="portfolio-wrap">
-              <img src="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-1.jpg'%}" class="img-fluid" alt="">
+              <img src="{% static 'wingsApp/userHome/assets/img/portfolio/bookFly.png'%}" class="img-fluid" alt="">
               <div  class="portfolio-links">
-                  <a href="{% url 'userHome' %}"> عنوان الكتاب: زيزون
+
+                  <a href="{% url 'userHome' %}"> {{ book.book.bookTitle }}
                       <br>
-                  المؤلف:سعد الدين
+                  {{ book.book.author }}
                   </a>
 
               </div>
+
             </div>
+
 </div>
+{% endif %}
+{% endfor %}
+            <div style="width: 40px;height: 40px;top: 90px; margin-left: 50px "  >
 
-          <div style="width: 360px" class="portfolio-item filter-app">
-            <div style="" class="portfolio-wrap">
-              <img src="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-1.jpg'%}" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                  <a href="{% url 'userHome' %}"> عنوان الكتاب: يي
-                      <br>
-                  المؤلف:سعد الدين
-                  </a>
-
-              </div>
-            </div>
-</div>
-            <div style="width: 360px;" class="portfolio-item filter-app">
-            <div style="" class="portfolio-wrap">
-
-              <img src="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-1.jpg'%}" class="img-fluid" alt="">
-
-              <div style="width: 360px;" class="portfolio-links">
-                  <a title="عرض الكتاب" href="{% url 'userHome' %}"> عنوان الكتاب: زهراء الشمس
-                      <br>
-                  المؤلف:سعد الدين
-                  </a>
-              </div>
-            </div>
-</div>
-            <div style="width: 60px;height: 60px;position:relative;top: 90px; margin-left: 50px "  >
              <a  href="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-9.jpg'%}"
                 data-gallery="portfolioGallery" class="portfolio-lightbox" title=" اضافة">
-            <img width="60px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTI1NiAwYy0xNDEuMTY0MDYyIDAtMjU2IDExNC44MzU5MzgtMjU2IDI1NnMxMTQuODM1OTM4IDI1NiAyNTYgMjU2IDI1Ni0xMTQuODM1OTM4IDI1Ni0yNTYtMTE0LjgzNTkzOC0yNTYtMjU2LTI1NnptMTEyIDI3Ny4zMzIwMzFoLTkwLjY2Nzk2OXY5MC42Njc5NjljMCAxMS43NzczNDQtOS41NTQ2ODcgMjEuMzMyMDMxLTIxLjMzMjAzMSAyMS4zMzIwMzFzLTIxLjMzMjAzMS05LjU1NDY4Ny0yMS4zMzIwMzEtMjEuMzMyMDMxdi05MC42Njc5NjloLTkwLjY2Nzk2OWMtMTEuNzc3MzQ0IDAtMjEuMzMyMDMxLTkuNTU0Njg3LTIxLjMzMjAzMS0yMS4zMzIwMzFzOS41NTQ2ODctMjEuMzMyMDMxIDIxLjMzMjAzMS0yMS4zMzIwMzFoOTAuNjY3OTY5di05MC42Njc5NjljMC0xMS43NzczNDQgOS41NTQ2ODctMjEuMzMyMDMxIDIxLjMzMjAzMS0yMS4zMzIwMzFzMjEuMzMyMDMxIDkuNTU0Njg3IDIxLjMzMjAzMSAyMS4zMzIwMzF2OTAuNjY3OTY5aDkwLjY2Nzk2OWMxMS43NzczNDQgMCAyMS4zMzIwMzEgOS41NTQ2ODcgMjEuMzMyMDMxIDIxLjMzMjAzMXMtOS41NTQ2ODcgMjEuMzMyMDMxLTIxLjMzMjAzMSAyMS4zMzIwMzF6bTAgMCIgZmlsbD0iIzE0OWRkZCIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPjwvZz48L3N2Zz4=" />
+            <img width="40px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTI1NiAwYy0xNDEuMTY0MDYyIDAtMjU2IDExNC44MzU5MzgtMjU2IDI1NnMxMTQuODM1OTM4IDI1NiAyNTYgMjU2IDI1Ni0xMTQuODM1OTM4IDI1Ni0yNTYtMTE0LjgzNTkzOC0yNTYtMjU2LTI1NnptMTEyIDI3Ny4zMzIwMzFoLTkwLjY2Nzk2OXY5MC42Njc5NjljMCAxMS43NzczNDQtOS41NTQ2ODcgMjEuMzMyMDMxLTIxLjMzMjAzMSAyMS4zMzIwMzFzLTIxLjMzMjAzMS05LjU1NDY4Ny0yMS4zMzIwMzEtMjEuMzMyMDMxdi05MC42Njc5NjloLTkwLjY2Nzk2OWMtMTEuNzc3MzQ0IDAtMjEuMzMyMDMxLTkuNTU0Njg3LTIxLjMzMjAzMS0yMS4zMzIwMzFzOS41NTQ2ODctMjEuMzMyMDMxIDIxLjMzMjAzMS0yMS4zMzIwMzFoOTAuNjY3OTY5di05MC42Njc5NjljMC0xMS43NzczNDQgOS41NTQ2ODctMjEuMzMyMDMxIDIxLjMzMjAzMS0yMS4zMzIwMzFzMjEuMzMyMDMxIDkuNTU0Njg3IDIxLjMzMjAzMSAyMS4zMzIwMzF2OTAuNjY3OTY5aDkwLjY2Nzk2OWMxMS43NzczNDQgMCAyMS4zMzIwMzEgOS41NTQ2ODcgMjEuMzMyMDMxIDIxLjMzMjAzMXMtOS41NTQ2ODcgMjEuMzMyMDMxLTIxLjMzMjAzMSAyMS4zMzIwMzF6bTAgMCIgZmlsbD0iIzE0OWRkZCIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPjwvZz48L3N2Zz4=" />
              </a>
+
             </div>
 
-            <div style="width: 60px;height: 60px;position:relative;top: 90px; margin-left: 50px " >
-             <a  href="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-9.jpg'%}"
-                data-gallery="portfolioGallery" class="portfolio-lightbox" title=" عرض الكل">
-                 <img width="60px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgoJPGc+CgkJPHBhdGggZD0iTTUwOC4xNzcsMjQ1Ljk5NUM1MDMuNjA3LDI0MC44OTcsMzkzLjY4MiwxMjEsMjU2LDEyMVM4LjM5NCwyNDAuODk3LDMuODIzLDI0NS45OTVjLTUuMDk4LDUuNjk4LTUuMDk4LDE0LjMxMiwwLDIwLjAxICAgIEM4LjM5NCwyNzEuMTAzLDExOC4zMiwzOTEsMjU2LDM5MXMyNDcuNjA2LTExOS44OTcsMjUyLjE3Ny0xMjQuOTk1QzUxMy4yNzQsMjYwLjMwNyw1MTMuMjc0LDI1MS42OTMsNTA4LjE3NywyNDUuOTk1eiBNMjU2LDM2MSAgICBjLTU3Ljg5MSwwLTEwNS00Ny4xMDktMTA1LTEwNXM0Ny4xMDktMTA1LDEwNS0xMDVzMTA1LDQ3LjEwOSwxMDUsMTA1UzMxMy44OTEsMzYxLDI1NiwzNjF6IiBmaWxsPSIjMTQ5ZGRkIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+Cgk8L2c+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KCTxnPgoJCTxwYXRoIGQ9Ik0yNzEsMjI2YzAtMTUuMDksNy40OTEtMjguMzY1LDE4Ljg4Ny0zNi41M0MyNzkuNjYxLDE4NC4yMzUsMjY4LjI1NSwxODEsMjU2LDE4MWMtNDEuMzUzLDAtNzUsMzMuNjQ3LTc1LDc1ICAgIGMwLDQxLjM1MywzMy42NDcsNzUsNzUsNzVjMzcuMDI0LDAsNjcuNjY4LTI3LjAzNCw3My43MjItNjIuMzU4QzI5OS41MTYsMjc4LjM2NywyNzEsMjU1LjUyMiwyNzEsMjI2eiIgZmlsbD0iIzE0OWRkZCIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjwvZz48L3N2Zz4=" />
-             </a>
-            </div>
-
-        </div>
-
-      </div>
-
-
-          <div style="" class="container">
-
-        <div class="section-title">
-          <h2>كتب أود قراءتها</h2>
-        </div>
-
-        <div style="" class="row" data-aos="fade-up" data-aos-delay="100">
-          <div style="width: 360px" class="portfolio-item filter-app">
-            <div style="" class="portfolio-wrap">
-              <img src="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-1.jpg'%}" class="img-fluid" alt="">
-              <div  class="portfolio-links">
-                  <a href="{% url 'userHome' %}"> عنوان الكتاب: زيزون
-                      <br>
-                  المؤلف:سعد الدين
-                  </a>
-
-              </div>
-            </div>
-</div>
-
-          <div style="width: 360px" class="portfolio-item filter-app">
-            <div style="" class="portfolio-wrap">
-              <img src="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-1.jpg'%}" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                  <a href="{% url 'userHome' %}"> عنوان الكتاب: يي
-                      <br>
-                  المؤلف:سعد الدين
-                  </a>
-
-              </div>
-            </div>
-</div>
-            <div style="width: 360px;" class="portfolio-item filter-app">
-            <div style="" class="portfolio-wrap">
-              <img src="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-1.jpg'%}" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                  <a title="عرض الكتاب" href="{% url 'userHome' %}"> عنوان الكتاب: زهراء الشمس
-                      <br>
-                  المؤلف:سعد الدين
-                  </a>
-
-              </div>
-            </div>
-</div>
-            <div style="width: 60px;height: 60px;position:relative;top: 90px; margin-left: 50px "  >
-             <a  href="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-9.jpg'%}"
-                data-gallery="portfolioGallery" class="portfolio-lightbox" title=" اضافة">
-            <img width="60px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTI1NiAwYy0xNDEuMTY0MDYyIDAtMjU2IDExNC44MzU5MzgtMjU2IDI1NnMxMTQuODM1OTM4IDI1NiAyNTYgMjU2IDI1Ni0xMTQuODM1OTM4IDI1Ni0yNTYtMTE0LjgzNTkzOC0yNTYtMjU2LTI1NnptMTEyIDI3Ny4zMzIwMzFoLTkwLjY2Nzk2OXY5MC42Njc5NjljMCAxMS43NzczNDQtOS41NTQ2ODcgMjEuMzMyMDMxLTIxLjMzMjAzMSAyMS4zMzIwMzFzLTIxLjMzMjAzMS05LjU1NDY4Ny0yMS4zMzIwMzEtMjEuMzMyMDMxdi05MC42Njc5NjloLTkwLjY2Nzk2OWMtMTEuNzc3MzQ0IDAtMjEuMzMyMDMxLTkuNTU0Njg3LTIxLjMzMjAzMS0yMS4zMzIwMzFzOS41NTQ2ODctMjEuMzMyMDMxIDIxLjMzMjAzMS0yMS4zMzIwMzFoOTAuNjY3OTY5di05MC42Njc5NjljMC0xMS43NzczNDQgOS41NTQ2ODctMjEuMzMyMDMxIDIxLjMzMjAzMS0yMS4zMzIwMzFzMjEuMzMyMDMxIDkuNTU0Njg3IDIxLjMzMjAzMSAyMS4zMzIwMzF2OTAuNjY3OTY5aDkwLjY2Nzk2OWMxMS43NzczNDQgMCAyMS4zMzIwMzEgOS41NTQ2ODcgMjEuMzMyMDMxIDIxLjMzMjAzMXMtOS41NTQ2ODcgMjEuMzMyMDMxLTIxLjMzMjAzMSAyMS4zMzIwMzF6bTAgMCIgZmlsbD0iIzE0OWRkZCIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPjwvZz48L3N2Zz4=" />
-             </a>
-            </div>
-
-            <div style="width: 60px;height: 60px;position:relative;top: 90px; margin-left: 50px " >
-             <a  href="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-9.jpg'%}"
-                data-gallery="portfolioGallery" class="portfolio-lightbox" title=" عرض الكل">
-                 <img width="60px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgoJPGc+CgkJPHBhdGggZD0iTTUwOC4xNzcsMjQ1Ljk5NUM1MDMuNjA3LDI0MC44OTcsMzkzLjY4MiwxMjEsMjU2LDEyMVM4LjM5NCwyNDAuODk3LDMuODIzLDI0NS45OTVjLTUuMDk4LDUuNjk4LTUuMDk4LDE0LjMxMiwwLDIwLjAxICAgIEM4LjM5NCwyNzEuMTAzLDExOC4zMiwzOTEsMjU2LDM5MXMyNDcuNjA2LTExOS44OTcsMjUyLjE3Ny0xMjQuOTk1QzUxMy4yNzQsMjYwLjMwNyw1MTMuMjc0LDI1MS42OTMsNTA4LjE3NywyNDUuOTk1eiBNMjU2LDM2MSAgICBjLTU3Ljg5MSwwLTEwNS00Ny4xMDktMTA1LTEwNXM0Ny4xMDktMTA1LDEwNS0xMDVzMTA1LDQ3LjEwOSwxMDUsMTA1UzMxMy44OTEsMzYxLDI1NiwzNjF6IiBmaWxsPSIjMTQ5ZGRkIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+Cgk8L2c+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KCTxnPgoJCTxwYXRoIGQ9Ik0yNzEsMjI2YzAtMTUuMDksNy40OTEtMjguMzY1LDE4Ljg4Ny0zNi41M0MyNzkuNjYxLDE4NC4yMzUsMjY4LjI1NSwxODEsMjU2LDE4MWMtNDEuMzUzLDAtNzUsMzMuNjQ3LTc1LDc1ICAgIGMwLDQxLjM1MywzMy42NDcsNzUsNzUsNzVjMzcuMDI0LDAsNjcuNjY4LTI3LjAzNCw3My43MjItNjIuMzU4QzI5OS41MTYsMjc4LjM2NywyNzEsMjU1LjUyMiwyNzEsMjI2eiIgZmlsbD0iIzE0OWRkZCIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjwvZz48L3N2Zz4=" />
-             </a>
-            </div>
-
-        </div>
-
-      </div>
-
-
-              <div style="" class="container">
-
-        <div class="section-title">
-          <h2>كتب تمت قراءتها</h2>
-        </div>
-
-        <div style="" class="row" data-aos="fade-up" data-aos-delay="100">
-          <div style="width: 360px" class="portfolio-item filter-app">
-            <div style="" class="portfolio-wrap">
-              <img src="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-1.jpg'%}" class="img-fluid" alt="">
-              <div  class="portfolio-links">
-                  <a href="{% url 'userHome' %}"> عنوان الكتاب: زيزون
-                      <br>
-                  المؤلف:سعد الدين
-                  </a>
-
-              </div>
-            </div>
-</div>
-
-          <div style="width: 360px" class="portfolio-item filter-app">
-            <div style="" class="portfolio-wrap">
-              <img src="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-1.jpg'%}" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                  <a href="{% url 'userHome' %}"> عنوان الكتاب: يي
-                      <br>
-                  المؤلف:سعد الدين
-                  </a>
-
-              </div>
-            </div>
-</div>
-            <div style="width: 360px;" class="portfolio-item filter-app">
-            <div style="" class="portfolio-wrap">
-              <img src="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-1.jpg'%}" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                  <a title="عرض الكتاب" href="{% url 'userHome' %}"> عنوان الكتاب: زهراء الشمس
-                      <br>
-                  المؤلف:سعد الدين
-                  </a>
-
-              </div>
-            </div>
-</div>
-            <div style="width: 60px;height: 60px;position:relative;top: 90px; margin-left: 50px "  >
-             <a  href="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-9.jpg'%}"
-                data-gallery="portfolioGallery" class="portfolio-lightbox" title=" اضافة">
-            <img width="60px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTI1NiAwYy0xNDEuMTY0MDYyIDAtMjU2IDExNC44MzU5MzgtMjU2IDI1NnMxMTQuODM1OTM4IDI1NiAyNTYgMjU2IDI1Ni0xMTQuODM1OTM4IDI1Ni0yNTYtMTE0LjgzNTkzOC0yNTYtMjU2LTI1NnptMTEyIDI3Ny4zMzIwMzFoLTkwLjY2Nzk2OXY5MC42Njc5NjljMCAxMS43NzczNDQtOS41NTQ2ODcgMjEuMzMyMDMxLTIxLjMzMjAzMSAyMS4zMzIwMzFzLTIxLjMzMjAzMS05LjU1NDY4Ny0yMS4zMzIwMzEtMjEuMzMyMDMxdi05MC42Njc5NjloLTkwLjY2Nzk2OWMtMTEuNzc3MzQ0IDAtMjEuMzMyMDMxLTkuNTU0Njg3LTIxLjMzMjAzMS0yMS4zMzIwMzFzOS41NTQ2ODctMjEuMzMyMDMxIDIxLjMzMjAzMS0yMS4zMzIwMzFoOTAuNjY3OTY5di05MC42Njc5NjljMC0xMS43NzczNDQgOS41NTQ2ODctMjEuMzMyMDMxIDIxLjMzMjAzMS0yMS4zMzIwMzFzMjEuMzMyMDMxIDkuNTU0Njg3IDIxLjMzMjAzMSAyMS4zMzIwMzF2OTAuNjY3OTY5aDkwLjY2Nzk2OWMxMS43NzczNDQgMCAyMS4zMzIwMzEgOS41NTQ2ODcgMjEuMzMyMDMxIDIxLjMzMjAzMXMtOS41NTQ2ODcgMjEuMzMyMDMxLTIxLjMzMjAzMSAyMS4zMzIwMzF6bTAgMCIgZmlsbD0iIzE0OWRkZCIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPjwvZz48L3N2Zz4=" />
-             </a>
-            </div>
-
-            <div style="width: 60px;height: 60px;position:relative;top: 90px; margin-left: 50px " >
-             <a  href="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-9.jpg'%}"
-                data-gallery="portfolioGallery" class="portfolio-lightbox" title=" عرض الكل">
-                 <img width="60px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgoJPGc+CgkJPHBhdGggZD0iTTUwOC4xNzcsMjQ1Ljk5NUM1MDMuNjA3LDI0MC44OTcsMzkzLjY4MiwxMjEsMjU2LDEyMVM4LjM5NCwyNDAuODk3LDMuODIzLDI0NS45OTVjLTUuMDk4LDUuNjk4LTUuMDk4LDE0LjMxMiwwLDIwLjAxICAgIEM4LjM5NCwyNzEuMTAzLDExOC4zMiwzOTEsMjU2LDM5MXMyNDcuNjA2LTExOS44OTcsMjUyLjE3Ny0xMjQuOTk1QzUxMy4yNzQsMjYwLjMwNyw1MTMuMjc0LDI1MS42OTMsNTA4LjE3NywyNDUuOTk1eiBNMjU2LDM2MSAgICBjLTU3Ljg5MSwwLTEwNS00Ny4xMDktMTA1LTEwNXM0Ny4xMDktMTA1LDEwNS0xMDVzMTA1LDQ3LjEwOSwxMDUsMTA1UzMxMy44OTEsMzYxLDI1NiwzNjF6IiBmaWxsPSIjMTQ5ZGRkIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+Cgk8L2c+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KCTxnPgoJCTxwYXRoIGQ9Ik0yNzEsMjI2YzAtMTUuMDksNy40OTEtMjguMzY1LDE4Ljg4Ny0zNi41M0MyNzkuNjYxLDE4NC4yMzUsMjY4LjI1NSwxODEsMjU2LDE4MWMtNDEuMzUzLDAtNzUsMzMuNjQ3LTc1LDc1ICAgIGMwLDQxLjM1MywzMy42NDcsNzUsNzUsNzVjMzcuMDI0LDAsNjcuNjY4LTI3LjAzNCw3My43MjItNjIuMzU4QzI5OS41MTYsMjc4LjM2NywyNzEsMjU1LjUyMiwyNzEsMjI2eiIgZmlsbD0iIzE0OWRkZCIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjwvZz48L3N2Zz4=" />
-             </a>
-            </div>
 
         </div>
 
@@ -196,133 +51,9 @@
 
 
 
-                  <div style="" class="container">
-
-        <div class="section-title">
-          <h2>كتبي المفضلة</h2>
-        </div>
-
-        <div style="" class="row" data-aos="fade-up" data-aos-delay="100">
-          <div style="width: 360px" class="portfolio-item filter-app">
-            <div style="" class="portfolio-wrap">
-              <img src="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-1.jpg'%}" class="img-fluid" alt="">
-              <div  class="portfolio-links">
-                  <a href="{% url 'userHome' %}"> عنوان الكتاب: زيزون
-                      <br>
-                  المؤلف:سعد الدين
-                  </a>
-
-              </div>
-            </div>
-</div>
-
-          <div style="width: 360px" class="portfolio-item filter-app">
-            <div style="" class="portfolio-wrap">
-              <img src="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-1.jpg'%}" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                  <a href="{% url 'userHome' %}"> عنوان الكتاب: يي
-                      <br>
-                  المؤلف:سعد الدين
-                  </a>
-
-              </div>
-            </div>
-</div>
-            <div style="width: 360px;" class="portfolio-item filter-app">
-            <div style="" class="portfolio-wrap">
-              <img src="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-1.jpg'%}" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                  <a title="عرض الكتاب" href="{% url 'userHome' %}"> عنوان الكتاب: زهراء الشمس
-                      <br>
-                  المؤلف:سعد الدين
-                  </a>
-
-              </div>
-            </div>
-</div>
-            <div style="width: 60px;height: 60px;position:relative;top: 90px; margin-left: 50px "  >
-             <a  href="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-9.jpg'%}"
-                data-gallery="portfolioGallery" class="portfolio-lightbox" title=" اضافة">
-            <img width="60px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTI1NiAwYy0xNDEuMTY0MDYyIDAtMjU2IDExNC44MzU5MzgtMjU2IDI1NnMxMTQuODM1OTM4IDI1NiAyNTYgMjU2IDI1Ni0xMTQuODM1OTM4IDI1Ni0yNTYtMTE0LjgzNTkzOC0yNTYtMjU2LTI1NnptMTEyIDI3Ny4zMzIwMzFoLTkwLjY2Nzk2OXY5MC42Njc5NjljMCAxMS43NzczNDQtOS41NTQ2ODcgMjEuMzMyMDMxLTIxLjMzMjAzMSAyMS4zMzIwMzFzLTIxLjMzMjAzMS05LjU1NDY4Ny0yMS4zMzIwMzEtMjEuMzMyMDMxdi05MC42Njc5NjloLTkwLjY2Nzk2OWMtMTEuNzc3MzQ0IDAtMjEuMzMyMDMxLTkuNTU0Njg3LTIxLjMzMjAzMS0yMS4zMzIwMzFzOS41NTQ2ODctMjEuMzMyMDMxIDIxLjMzMjAzMS0yMS4zMzIwMzFoOTAuNjY3OTY5di05MC42Njc5NjljMC0xMS43NzczNDQgOS41NTQ2ODctMjEuMzMyMDMxIDIxLjMzMjAzMS0yMS4zMzIwMzFzMjEuMzMyMDMxIDkuNTU0Njg3IDIxLjMzMjAzMSAyMS4zMzIwMzF2OTAuNjY3OTY5aDkwLjY2Nzk2OWMxMS43NzczNDQgMCAyMS4zMzIwMzEgOS41NTQ2ODcgMjEuMzMyMDMxIDIxLjMzMjAzMXMtOS41NTQ2ODcgMjEuMzMyMDMxLTIxLjMzMjAzMSAyMS4zMzIwMzF6bTAgMCIgZmlsbD0iIzE0OWRkZCIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPjwvZz48L3N2Zz4=" />
-             </a>
-            </div>
-
-            <div style="width: 60px;height: 60px;position:relative;top: 90px; margin-left: 50px " >
-             <a  href="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-9.jpg'%}"
-                data-gallery="portfolioGallery" class="portfolio-lightbox" title=" عرض الكل">
-                 <img width="60px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgoJPGc+CgkJPHBhdGggZD0iTTUwOC4xNzcsMjQ1Ljk5NUM1MDMuNjA3LDI0MC44OTcsMzkzLjY4MiwxMjEsMjU2LDEyMVM4LjM5NCwyNDAuODk3LDMuODIzLDI0NS45OTVjLTUuMDk4LDUuNjk4LTUuMDk4LDE0LjMxMiwwLDIwLjAxICAgIEM4LjM5NCwyNzEuMTAzLDExOC4zMiwzOTEsMjU2LDM5MXMyNDcuNjA2LTExOS44OTcsMjUyLjE3Ny0xMjQuOTk1QzUxMy4yNzQsMjYwLjMwNyw1MTMuMjc0LDI1MS42OTMsNTA4LjE3NywyNDUuOTk1eiBNMjU2LDM2MSAgICBjLTU3Ljg5MSwwLTEwNS00Ny4xMDktMTA1LTEwNXM0Ny4xMDktMTA1LDEwNS0xMDVzMTA1LDQ3LjEwOSwxMDUsMTA1UzMxMy44OTEsMzYxLDI1NiwzNjF6IiBmaWxsPSIjMTQ5ZGRkIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+Cgk8L2c+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KCTxnPgoJCTxwYXRoIGQ9Ik0yNzEsMjI2YzAtMTUuMDksNy40OTEtMjguMzY1LDE4Ljg4Ny0zNi41M0MyNzkuNjYxLDE4NC4yMzUsMjY4LjI1NSwxODEsMjU2LDE4MWMtNDEuMzUzLDAtNzUsMzMuNjQ3LTc1LDc1ICAgIGMwLDQxLjM1MywzMy42NDcsNzUsNzUsNzVjMzcuMDI0LDAsNjcuNjY4LTI3LjAzNCw3My43MjItNjIuMzU4QzI5OS41MTYsMjc4LjM2NywyNzEsMjU1LjUyMiwyNzEsMjI2eiIgZmlsbD0iIzE0OWRkZCIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjwvZz48L3N2Zz4=" />
-             </a>
-            </div>
-
-        </div>
-
-      </div>
 
 
-<div style="" class="container">
-
-        <div class="section-title">
-          <h2>رفوف القارئ</h2>
-        </div>
-
-        <div style="" class="row" data-aos="fade-up" data-aos-delay="100">
-          <div style="width: 360px" class="portfolio-item filter-app">
-            <div style="" class="portfolio-wrap">
-              <img src="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-1.jpg'%}" class="img-fluid" alt="">
-              <div  class="portfolio-links">
-                  <a href="{% url 'userHome' %}"> عنوان الكتاب: زيزون
-                      <br>
-                  المؤلف:سعد الدين
-                  </a>
-
-              </div>
-            </div>
-</div>
-
-          <div style="width: 360px" class="portfolio-item filter-app">
-            <div style="" class="portfolio-wrap">
-              <img src="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-1.jpg'%}" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                  <a href="{% url 'userHome' %}"> عنوان الكتاب: يي
-                      <br>
-                  المؤلف:سعد الدين
-                  </a>
-
-              </div>
-            </div>
-</div>
-            <div style="width: 360px;" class="portfolio-item filter-app">
-            <div style="" class="portfolio-wrap">
-              <img src="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-1.jpg'%}" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                  <a title="عرض الكتاب" href="{% url 'userHome' %}"> عنوان الكتاب: زهراء الشمس
-                      <br>
-                  المؤلف:سعد الدين
-                  </a>
-
-              </div>
-            </div>
-</div>
-            <div style="width: 60px;height: 60px;position:relative;top: 90px; margin-left: 50px "  >
-             <a  href="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-9.jpg'%}"
-                data-gallery="portfolioGallery" class="portfolio-lightbox" title=" اضافة">
-            <img width="60px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTI1NiAwYy0xNDEuMTY0MDYyIDAtMjU2IDExNC44MzU5MzgtMjU2IDI1NnMxMTQuODM1OTM4IDI1NiAyNTYgMjU2IDI1Ni0xMTQuODM1OTM4IDI1Ni0yNTYtMTE0LjgzNTkzOC0yNTYtMjU2LTI1NnptMTEyIDI3Ny4zMzIwMzFoLTkwLjY2Nzk2OXY5MC42Njc5NjljMCAxMS43NzczNDQtOS41NTQ2ODcgMjEuMzMyMDMxLTIxLjMzMjAzMSAyMS4zMzIwMzFzLTIxLjMzMjAzMS05LjU1NDY4Ny0yMS4zMzIwMzEtMjEuMzMyMDMxdi05MC42Njc5NjloLTkwLjY2Nzk2OWMtMTEuNzc3MzQ0IDAtMjEuMzMyMDMxLTkuNTU0Njg3LTIxLjMzMjAzMS0yMS4zMzIwMzFzOS41NTQ2ODctMjEuMzMyMDMxIDIxLjMzMjAzMS0yMS4zMzIwMzFoOTAuNjY3OTY5di05MC42Njc5NjljMC0xMS43NzczNDQgOS41NTQ2ODctMjEuMzMyMDMxIDIxLjMzMjAzMS0yMS4zMzIwMzFzMjEuMzMyMDMxIDkuNTU0Njg3IDIxLjMzMjAzMSAyMS4zMzIwMzF2OTAuNjY3OTY5aDkwLjY2Nzk2OWMxMS43NzczNDQgMCAyMS4zMzIwMzEgOS41NTQ2ODcgMjEuMzMyMDMxIDIxLjMzMjAzMXMtOS41NTQ2ODcgMjEuMzMyMDMxLTIxLjMzMjAzMSAyMS4zMzIwMzF6bTAgMCIgZmlsbD0iIzE0OWRkZCIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPjwvZz48L3N2Zz4=" />
-             </a>
-            </div>
-
-            <div style="width: 60px;height: 60px;position:relative;top: 90px; margin-left: 50px " >
-             <a  href="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-9.jpg'%}"
-                data-gallery="portfolioGallery" class="portfolio-lightbox" title=" عرض الكل">
-                 <img width="60px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgoJPGc+CgkJPHBhdGggZD0iTTUwOC4xNzcsMjQ1Ljk5NUM1MDMuNjA3LDI0MC44OTcsMzkzLjY4MiwxMjEsMjU2LDEyMVM4LjM5NCwyNDAuODk3LDMuODIzLDI0NS45OTVjLTUuMDk4LDUuNjk4LTUuMDk4LDE0LjMxMiwwLDIwLjAxICAgIEM4LjM5NCwyNzEuMTAzLDExOC4zMiwzOTEsMjU2LDM5MXMyNDcuNjA2LTExOS44OTcsMjUyLjE3Ny0xMjQuOTk1QzUxMy4yNzQsMjYwLjMwNyw1MTMuMjc0LDI1MS42OTMsNTA4LjE3NywyNDUuOTk1eiBNMjU2LDM2MSAgICBjLTU3Ljg5MSwwLTEwNS00Ny4xMDktMTA1LTEwNXM0Ny4xMDktMTA1LDEwNS0xMDVzMTA1LDQ3LjEwOSwxMDUsMTA1UzMxMy44OTEsMzYxLDI1NiwzNjF6IiBmaWxsPSIjMTQ5ZGRkIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+Cgk8L2c+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KCTxnPgoJCTxwYXRoIGQ9Ik0yNzEsMjI2YzAtMTUuMDksNy40OTEtMjguMzY1LDE4Ljg4Ny0zNi41M0MyNzkuNjYxLDE4NC4yMzUsMjY4LjI1NSwxODEsMjU2LDE4MWMtNDEuMzUzLDAtNzUsMzMuNjQ3LTc1LDc1ICAgIGMwLDQxLjM1MywzMy42NDcsNzUsNzUsNzVjMzcuMDI0LDAsNjcuNjY4LTI3LjAzNCw3My43MjItNjIuMzU4QzI5OS41MTYsMjc4LjM2NywyNzEsMjU1LjUyMiwyNzEsMjI2eiIgZmlsbD0iIzE0OWRkZCIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjwvZz48L3N2Zz4=" />
-             </a>
-            </div>
-
-        </div>
-
-      </div>
-
-
+ {% endfor %}
 
     </section><!-- End Portfolio Section -->
-
 {% endblock %}
