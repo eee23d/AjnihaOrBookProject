@@ -1,0 +1,162 @@
+{% extends 'AJNIHA/layout.html' %}
+{% load static %}
+{% block title %}أجنحة | مكتبتي {% endblock %}
+{% block content %}
+
+
+<section id="portfolio" class="portfolio section-bg">
+{% for shelf in shelves %}
+    <div style="" class="container">
+        <div class="section-title">
+            <h2> {{ shelf.shelfName }}</h2>
+
+        </div>
+
+        <div style="" class="row" data-aos="fade-up" data-aos-delay="100">
+            {% for book in bookForShelf %}
+                {% if book.shelf == shelf %}
+
+                    <div style="width: 360px" class="portfolio-item filter-app">
+
+                        <div style="" class="portfolio-wrap">
+                            <img src="{% static 'wingsApp/userHome/assets/img/portfolio/bookFly.png' %}"
+                                 class="img-fluid" alt="">
+                            <div class="portfolio-links">
+
+                                <a href="{% url 'userHome' %}"> {{ book.book.bookTitle }}
+                                    <br>
+                                    {{ book.book.author }}
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div style="width: 40px;height: 40px;top: 90px; margin-left: 50px ">
+
+                <div class="form__group">
+                    <a href="{% url 'search' %}">     <button style="border-radius: 50%; background-color: rgba(104,142,200,0.72);">+</button>
+</a>
+</div>
+
+
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+
+
+{% endfor %}
+<div  class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div  class="modal-dialog">
+        <div  class="modal-content">
+            <div class="modal-header">
+                <h5 style="" class="modal-title" id="staticBackdropLabel">اضف كتاب إلى الرف</h5>
+                <div class="dropdown">
+                    <button style="background-color: #788696;" class="dropbtn">الرف</button>
+                    <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">X</button>
+            </div>
+
+
+                        <div  class="modal-header">
+
+                  <input placeholder=" ابحث عن كتاب" style="width: 80%" type="search" id="form1" class="form-control" />
+
+                <div class="dropdown">
+                    <button style="background-color: #788696;" class="dropbtn1">اختر المكتبة</button>
+                    <div class="dropdown-content">
+                        <a href="#">مكتبة Google</a>
+                        <a href="#">مكتبة أجنحة</a>
+                    </div>
+                </div>
+
+            </div>
+
+
+<div  class="row" data-aos="fade-up" data-aos-delay="100">
+
+
+    <div  class="containerm">
+  <img src="{% static 'wingsApp/userHome/assets/img/portfolio/bookFly.png' %}" alt="Avatar" class="imagem">
+  <div class="overlaym">
+      <input type="checkbox" style="background-color: #008CBA"><div class="textm">سم الكتاب: كتاب
+                    اسم المؤلف: مؤلف
+                        نبذة عن الكتاب: هلتبهخل يبلسيلس يلس
+                        لتبلتيلت سلسيل ي
+                        لبتيبلهييل يبلي سيبسبسسث</div></input>
+  </div>
+
+
+</div>
+
+    <div  class="containerm">
+  <img src="{% static 'wingsApp/userHome/assets/img/portfolio/bookFly.png' %}" alt="Avatar" class="imagem">
+  <div class="overlaym">
+    <div class="textm">سم الكتاب: كتاب
+                    اسم المؤلف: مؤلف
+                        نبذة عن الكتاب: هلتبهخل يبلسيلس يلس
+                        لتبلتيلت سلسيل ي
+                        لبتيبلهييل يبلي سيبسبسسث</div>
+  </div>
+</div>
+
+    </div>
+
+
+
+            <div  class="modal-header">
+
+<h5>لم تجد كتابك؟</h5>
+                            </div>
+<div>
+    <input style="width: 50%; float: right" class="form__input" placeholder="اسم الكتاب">
+  <input style="width: 50%; float: right" class="form__input" placeholder="اسم المؤلف">
+    عدد الصفحات
+<div  style="direction: rtl;margin-right: 20px;" class="number-input">
+                        <button style="background-color: #788696;" type="button" class="btn btn-primary"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
+                        </button>
+                        <input style="font-size: 20px;" class="quantity" min="0" name="quantity" value="1" type="number">
+                        <button style="background-color: #788696" type="button" class="btn btn-primary"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                class="plus">+
+                        </button>
+
+                    </div>
+    <textarea id="story" name="story"
+                              rows="5" cols="33" placeholder="نبذة عن الكتاب"></textarea>
+<input type="file">
+</div>
+
+
+
+
+
+
+            <div class="modal-footer">
+                <button style="width: 100%;background-color:#253853 " type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">اضافة
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</section><!-- End Section -->
+{% endblock %}
