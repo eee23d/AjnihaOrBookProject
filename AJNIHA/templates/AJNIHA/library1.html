@@ -19,7 +19,7 @@
                     <div style="width: 360px" class="portfolio-item filter-app">
 
                         <div style="" class="portfolio-wrap">
-                            <img src="{% static 'wingsApp/userHome/assets/img/portfolio/bookFly.png' %}"
+                            <img src="{{ book.book.image.url }}"
                                  class="img-fluid" alt="">
                             <div class="portfolio-links">
 
@@ -38,31 +38,24 @@
             <div style="width: 40px;height: 40px;top: 90px; margin-left: 50px ">
 
                 <div class="form__group">
-                    <a href="{% url 'search' %}">     <button style="border-radius: 50%; background-color: rgba(104,142,200,0.72);">+</button>
+
 </a>
 </div>
-
-
-
-
             </div>
 
 
         </div>
 
     </div>
-
-
-
-
-
 {% endfor %}
+<!-- Add book section (seem like reem was tryin here)
+
 <div  class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div  class="modal-dialog">
         <div  class="modal-content">
             <div class="modal-header">
-                <h5 style="" class="modal-title" id="staticBackdropLabel">اضف كتاب إلى الرف</h5>
+                <h5 style="" class="modal-title" id="staticBackdropLabel"> أضف كتاب حراً إلى مكتبتك<b>أو</b></h5>
                 <div class="dropdown">
                     <button style="background-color: #788696;" class="dropbtn">الرف</button>
                     <div class="dropdown-content">
@@ -94,7 +87,7 @@
 
 
     <div  class="containerm">
-  <img src="{% static 'wingsApp/userHome/assets/img/portfolio/bookFly.png' %}" alt="Avatar" class="imagem">
+  <img src=" alt="Avatar" class="imagem">
   <div class="overlaym">
       <input type="checkbox" style="background-color: #008CBA"><div class="textm">سم الكتاب: كتاب
                     اسم المؤلف: مؤلف
@@ -107,7 +100,7 @@
 </div>
 
     <div  class="containerm">
-  <img src="{% static 'wingsApp/userHome/assets/img/portfolio/bookFly.png' %}" alt="Avatar" class="imagem">
+  <img src="" alt="Avatar" class="imagem">
   <div class="overlaym">
     <div class="textm">سم الكتاب: كتاب
                     اسم المؤلف: مؤلف
@@ -118,11 +111,7 @@
 </div>
 
     </div>
-
-
-
             <div  class="modal-header">
-
 <h5>لم تجد كتابك؟</h5>
                             </div>
 <div>
@@ -158,5 +147,9 @@
         </div>
     </div>
 </div>
+ -->
+    <a href="{% url 'search' %}" style="margin: auto" class="align-content-center">   <button style="border-radius: 50%;margin: auto; background-color: rgba(104,142,200,0.72);">إضافة رف قراءة</button></a>
+     <a href="{% url 'search' %}" style="margin: auto">   <button style="border-radius: 80%;margin: auto; background-color: rgba(104,142,200,0.72);">إضافة كتاب</button></a>
+
 </section><!-- End Section -->
 {% endblock %}

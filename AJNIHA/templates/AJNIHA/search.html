@@ -7,68 +7,83 @@
 
 
 <section id="portfolio" class="portfolio section-bg">
+
+<form method="post" id="formOne">
+    {% csrf_token %}
 <div style="direction:rtl;background-color: rgba(211,243,214,0.37);margin: auto; "
  class="container">
-    <div class="section-title">
-    <h2>البحث</h2>
+    <div class="section-title " style="width: auto">
+    <h2>البحث عن كتاب </h2>
 </div>
-
-        <div style="margin-right: 0px;padding-right: 10px;color: white; font-size: 20px; border-radius: .8rem;;
-  max-width: 50%; float: right;background: linear-gradient(to right bottom, hsl(236, 50%, 50%), hsl(195, 50%, 50%));
+</div>
+        <div style="margin: auto;padding-right: 50px;color: white; font-size: 20px; border-radius: .8rem;;
+  max-width: 80%; background: linear-gradient(to right bottom, hsl(236, 50%, 50%), hsl(195, 50%, 50%));
 
   " class="row" data-aos="fade-up" data-aos-delay="100">
             <div  class="modal-header">
             اضف كتاباً إلى الرف
-                <div class="dropdown">
-                    <button style="background-color: #788696;" class="dropbtn1">اختر الرف</button>
 
-                    <div class="dropdown-content">
-                        <a href="#">مكتبة Google</a>
-
-                        <a href="#">مكتبة أجنحة</a>
-                    </div>
-                </div>
-            </div>
             <hr>
-            <div  class="modal-header">
-                   <input placeholder=" ابحث عن كتاب" style="width: 80%" type="search" id="form1" class="form-control" />
+                  <select name="shelfSelect" id="shelfSelect" title="اختر رف">
+                    <option disabled selected value> اختر الرف</option>
+                    <option  class="dropdown"></option>
 
-                <div class="dropdown">
-                    <button style="background-color: #788696;" class="dropbtn1">اختر المكتبة</button>
-                    <div class="dropdown-content">
-                        <a href="#">مكتبة Google</a>
-                        <a href="#">مكتبة أجنحة</a>
-                    </div>
-                </div>
+                    </select>
+
 
             </div>
+            <div  class="modal-header">
+                   <input placeholder=" ابحث عن كتاب" style="width: 70%" type="search" id="search-box" name="search-box" class="form-control row" />
+                <button type="submit" id="search" name="search" class="row" >ابحث</button>
+                <select name="shelfSelect" id="shelfSelect" title="اختر طريقة البحث">
+                    <option  class="dropdown">مكتبة google books </option>
+                    <option  class="dropdown">مكتبة أجنحة</option>
+
+                    </select>
+
+            </div>
+            {% if response == 'no results' %}
+                 <h2>لا توجد نتائج للبحث، حاول مجدداً .. </h2>
+
+{% elif response == ""  %}
+
+                {% else %}
 
             النتائج:
             <hr style="color: transparent">
- <div style="width: 50%" class="col-lg-4 col-md-6 portfolio-item filter-app">
+            {% for item in response  %}
+
+ <div style="width: 50%;"  class="col-lg-4 col-md-6 portfolio-item filter-app radios ">
+            <input type="radio" name="rGroup" value="{{ forloop.counter }}" id="r{{ forloop.counter }}"  >
+            <label  for="r{{ forloop.counter }}" class="radio"> </label>
             <div class="portfolio-wrap">
-              <img  src="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-1.jpg'%}" class="img-fluid" alt="">
+            {% if item.volumeInfo.imageLinks.thumbnail %}
+             <img  class="img-fluid" src="{{ item.volumeInfo.imageLinks.thumbnail }}" alt="book image" > </a>
+            {% else %}
+            <img class="img-fluid" src="{% static 'wingsApp\userHome\assets\img\thum.jpg' %}" width="150" height="250">
+            {% endif %}
               <div class="portfolio-links">
-                <a href=""  title="اضافة"><i class="bx bx-plus"></i></a>
+                  <tr>
+                 <td> عنوان الكتاب: {{ item.volumeInfo.title }} </td>
+                {% for auth in item.volumeInfo.authors %}
+                <td> المؤلفون: {{ auth }} </td>
+
+                    {% endfor %}
+                 </tr>
+                <br>
+
                 <a href="" data-gallery="portfolioGallery" class="portfolio-lightbox" title="عرض معلومات الكتاب"><i class="bx bx-link"></i></a>
               </div>
             </div>
-          </div>
-             <div style="width: 50%" class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img  src="{% static 'wingsApp/userHome/assets/img/portfolio/portfolio-1.jpg'%}" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href=""  title="اضافة"><i class="bx bx-plus"></i></a>
-                <a href="" data-gallery="portfolioGallery" class="portfolio-lightbox" title="عرض معلومات الكتاب"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
+ </div>
+
+        {% endfor %}
 
 
             <hr>
                         <div class="modal-footer">
 
-            <button style=" border: 1px solid hsla(0, 0%, 100%, .4);
+            <button type="submit" style=" border: 1px solid hsla(0, 0%, 100%, .4);
   border-radius: 100rem;
 
   color: inherit;
@@ -76,19 +91,28 @@
   font-size: 1.4rem;
   transition: .2s;
   width: 100%;
-  cursor: pointer;" class="dropbtn1">اضف</button>
+  cursor: pointer;" class="dropbtn1">أضف</button>
 
           </div>
-        </div>
 
+            {% endif %}
+</div>
+    </div>
+</form>
+</section>
 
-
-    <div style="margin-right: 0px;padding-right: 10px;;color: white; font-size: 20px; border-radius: .8rem;;
-  max-width: 50%; float: left;background: linear-gradient(to right bottom, hsl(236, 50%, 50%), hsl(195, 50%, 50%));
+<section id="portfolio" class="portfolio section-bg">
+<div style="direction:rtl ;background-color: rgba(211,243,214,0.37);margin: auto; "
+ class="container">
+    <div class="section-title">
+    <h2>أو أضف كتاب حراً إلى مكتبتك </h2>
+</div>
+    <div style="margin: auto;padding-right: 10px;color: white; font-size: 20px; border-radius: .8rem;;
+  max-width: 80%;  background: linear-gradient(to right bottom, hsl(236, 50%, 50%), hsl(195, 50%, 50%));
 
   " class="row" data-aos="fade-up" data-aos-delay="100">
             <div  class="modal-header">
-            اضف كتاباً حراً إلى الرف
+            تعريف كتاب حر
                 <div class="dropdown">
                     <button style="background-color: #788696;" class="dropbtn1">اختر الرف</button>
                     <div class="dropdown-content">
@@ -99,7 +123,7 @@
             </div>
             <hr>
             <div  class="modal-header">
-                   <input placeholder=" عنوان الكتاب" style="width: 100%" type="search" id="form1" class="form-control" />
+                   <input placeholder=" عنوان الكتاب" style="width: 100% " type="search" id="form1" class="form-control" />
 
             </div>
         <div  class="modal-header">
@@ -148,8 +172,6 @@
           </div>
         </div>
 </div>
-
-
 </section>
 
 

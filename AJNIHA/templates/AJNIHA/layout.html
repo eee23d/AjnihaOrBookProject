@@ -46,17 +46,25 @@
   <!-- ======= Header ======= -->
   <header id="header">
     <div class="d-flex flex-column">
-
       <div class="profile">
-        <img src="{% static 'wingsApp/userHome/assets/img/profile-img.jpg'%}" alt="" class="img-fluid rounded-circle">
+
+        <img src="{{request.user.prof_pic.url}}" alt="" class=" rounded-circle">
+        <form method="post" enctype="multipart/form-data" ><a class="glyphicon glyphicon-camera text-center " type="submit">تغيير الصورة الشخصية</a> </form>
+
+
+
         <h1 class="text-light"><a href="index.html">{{ request.user.first_name }}  {{ request.user.last_name }} </a></h1>
       </div>
-
+    </div>
       <nav id="navbar" class="nav-menu navbar">
         <ul>
           <li><a href="{% url 'userHome' %}" class="nav-link scrollto active"> <span> الصفحة الرئيسية </span><span style="color:#7a4c51">d</span><i class="bx bx-home"></i></a></li>
           <li><a href="{% url 'library' %}" class="nav-link scrollto"> <span style="color:#7a4c51">dd</span> <span> مكتبتي </span><span style="color:#7a4c51">d</span><i class="bx bx-server"></i></a></li>
+            <li><a href="{% url 'search' %}" class="nav-link scrollto"><span style="color:#7a4c51; font-size: small">ddd</span> <span> أضف كتاب </span><span style="color:#7a4c51">d</span><i class="bx bx-book-add"></i> </a></li>
           <li><a href="{% url 'notes' %}" class="nav-link scrollto"><span style="color:#7a4c51; font-size: small">ddd</span> <span> مدوناتي </span><span style="color:#7a4c51">d</span><i class="bx bx-file-blank"></i> </a></li>
+            <li><a href="{% url 'notes' %}" class="nav-link scrollto"><span style="color:#7a4c51; font-size: small">ddd</span> <span> قراءتي </span><span style="color:#7a4c51">d</span><i class="bx bx-chart"></i> </a></li>
+
+
           <li><a href="#about" class="nav-link scrollto"><span style="color:#7a4c51">d</span> <span> الاعدادات </span><span style="color:#7a4c51">d</span><i class="bx bx-user"></i></a></li>
           <li><a href="{% url 'contact' %}" class="nav-link scrollto"><span style="color:#7a4c51;font-size: small">d</span> <span> تواصل معنا </span><span style="color:#7a4c51">d</span><i class="bx bx-envelope"></i> </a></li>
         </ul>

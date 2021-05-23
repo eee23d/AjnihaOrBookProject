@@ -1584,7 +1584,7 @@ input[type=number]::-webkit-outer-spin-button {
   border-radius: .8rem;
 
   color: var(--light);
-  background: var(--background);
+  background: var(background);
   box-shadow: .4rem .4rem 2.4rem .2rem hsla(236, 50%, 50%, 0.3);
   position: relative;
 
@@ -1595,4 +1595,29 @@ input[type=number]::-webkit-outer-spin-button {
   margin-bottom: 4rem;
   padding-bottom: 4rem;
   border-bottom: 1px solid hsla(0, 0%, 100%, .4);
+}
+
+.radios .radio {
+    background-color: #0b5ed7;
+
+    border-radius: 50%;
+  border-style: groove;
+  margin-bottom: 10px;
+    width: 20px;
+    height: 20px;
+     border-width: 4px;
+  border-color: lavender;
+    cursor: pointer;
+}
+
+.radios input[type=radio] {
+    display: none;
+}
+
+.radios input[type=radio]:checked + .radio {
+    border-style: inset;
+    border-color: #0e2442;
+     border-width: 4px;
+
+    background-color: #0c4128;
 }

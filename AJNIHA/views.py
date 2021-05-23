@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.forms import UserCreationForm
+import requests
 #from .models import Contact, Blog, Course
 # Create your views here.
 #from django.http import HttpResponse
@@ -23,7 +24,22 @@ def contact(request):
     return render(request,['AJNIHA/contact.html'])
 
 def search(request):
-    return render(request,['AJNIHA/search.html'])
+    if request.method == "POST":
+        search = request.POST.get('search-box')
+        str(search).split("+")
+        url = "https://www.googleapis.com/books/v1/volumes?q="+search
+        response = requests.get(url).json()
+        if search== "" or search == None:
+            response="no results"
+        elif response['totalItems']==0:
+            response = "no results"
+        else:
+            response = response['items']
+        print(response)
+        return render(request,['AJNIHA/search.html'],{'response':response})
+    else:
+        return render(request,['AJNIHA/search.html'],{'response':""})
+
 
 def library(request):
     if request.method == "POST":
@@ -31,7 +47,7 @@ def library(request):
     else:
         user = request.user
         print(user)
-        shelves = Shelves.objects.filter(Reader__username__iexact= user)
+        shelves = Shelves.objects.filter(Reader__username__exact= user)
         print(shelves)
         shelf_reader_books = shelves_Readers_Books.objects.filter(reader__username__exact=user)
         print(shelf_reader_books)
@@ -41,7 +57,8 @@ def library(request):
 
 @login_required(login_url='loginPage')
 def userHome(request):
-    return render(request,['AJNIHA/userHomePage.html'])
+    Reader = ReaderAccount.objects.filter(username__exact=request.user)
+    return render(request,['AJNIHA/userHomePage.html'],{'account':Reader})
 
 def register(request):
     if request.user.is_authenticated:

@@ -4,12 +4,12 @@ from django.dispatch import receiver
 # Create your models here.
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
-
+''''''
 @receiver(post_save, sender=User)
 def create_auto_sheleves(sender, instance, created, **kwargs):
     if created:
         ReaderAccount.objects.create(fName=instance.first_name, sName=instance.last_name,
-                                            username=instance.username, email=instance.email, Gender="",
+                                            username=instance, email=instance.email, Gender="",
                                             country="", password=instance.password, birthday=None)
         print('user account created!')
 
@@ -19,6 +19,7 @@ class Book(models.Model):
     bookTitle = models.CharField(max_length=40)
     description =models.TextField()
     rate = models.IntegerField(validators=[MaxValueValidator(5), MinValueValidator(1)])
+    image = models.ImageField(default='/book.png',blank=True,null=True,auto_created=True,upload_to='')
     def __str__(self):
         return self.bookTitle
 
@@ -30,15 +31,16 @@ GENDER_CHOICES = (
 class ReaderAccount(models.Model):
     fName= models.CharField(max_length=40)
     sName = models.CharField(max_length=40)
-    username= models.CharField(max_length=40, unique=True)
+    username= models.ForeignKey(User,on_delete=models.CASCADE)
     email= models.EmailField()
     Gender= models.CharField(choices=GENDER_CHOICES,null=True, max_length=10)
     country = models.CharField(max_length=40,blank=True, null=True)
     password = models.CharField(max_length=40)
     birthday = models.DateField(blank=True, null=True)
+    prof_pic= models.ImageField(default='/default.png',blank=True,null=True,auto_created=True,upload_to='')
     #Basically blank allows you to pass it a null value, but null tells the database to accept null values.
     def __str__(self):
-        return self.username
+        return str(self.username)
 
 
 class Shelves(models.Model):
