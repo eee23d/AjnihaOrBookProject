@@ -22,6 +22,9 @@ def notes(request):
 def contact(request):
     return render(request,['AJNIHA/contact.html'])
 
+def search(request):
+    return render(request,['AJNIHA/search.html'])
+
 def library(request):
     if request.method == "POST":
         pass
@@ -34,7 +37,7 @@ def library(request):
         print(shelf_reader_books)
         shelf_books= Book.objects.filter(id__in=shelf_reader_books)
 
-    return render(request,['AJNIHA/library.html'],{'shelves': shelves,'shelf_books':shelf_books,'bookForShelf':shelf_reader_books})
+    return render(request,['AJNIHA/library1.html'],{'shelves': shelves,'shelf_books':shelf_books,'bookForShelf':shelf_reader_books})
 
 @login_required(login_url='loginPage')
 def userHome(request):
