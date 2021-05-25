@@ -176,11 +176,12 @@ def register(request):
 
 
 
-
+#login
 def loginPage(request):
     if request.user.is_authenticated:
         return redirect('index')
     else:
+
         if request.method=='POST':
             #taking thr value of these fields
             username=request.POST.get('username')
