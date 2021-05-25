@@ -17,8 +17,8 @@ class Book(models.Model):
     author= models.CharField(max_length=40)
     pageNo = models.IntegerField()
     bookTitle = models.CharField(max_length=40)
-    description =models.TextField()
-    rate = models.IntegerField(validators=[MaxValueValidator(5), MinValueValidator(1)])
+    isbn=models.CharField(max_length=40,default=1)
+    description =models.TextField(null=True,blank=True)
     image = models.ImageField(default='/book.png',blank=True,null=True,auto_created=True,upload_to='')
     def __str__(self):
         return self.bookTitle
@@ -37,7 +37,7 @@ class ReaderAccount(models.Model):
     country = models.CharField(max_length=40,blank=True, null=True)
     password = models.CharField(max_length=40)
     birthday = models.DateField(blank=True, null=True)
-    prof_pic= models.ImageField(default='/default.png',blank=True,null=True,auto_created=True,upload_to='')
+    prof_pic= models.ImageField(default='/default.png',blank=True,null=True,upload_to='')
     #Basically blank allows you to pass it a null value, but null tells the database to accept null values.
     def __str__(self):
         return str(self.username)

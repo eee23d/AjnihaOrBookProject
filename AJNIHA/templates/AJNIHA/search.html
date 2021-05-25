@@ -1,7 +1,8 @@
 {% extends 'AJNIHA/layout.html' %}
 {% load static %}
-{% block title %}أجنحة | مدوناتي {% endblock %}
-
+{% block title %}
+    أجنحة | إضافة كتاب
+{% endblock %}
 {% block content %}
 
 
@@ -16,18 +17,30 @@
     <h2>البحث عن كتاب </h2>
 </div>
 </div>
-        <div style="margin: auto;padding-right: 50px;color: white; font-size: 20px; border-radius: .8rem;;
-  max-width: 80%; background: linear-gradient(to right bottom, hsl(236, 50%, 50%), hsl(195, 50%, 50%));
+
+        <div style="margin: auto;padding-right: 50px;padding-left:50px; color: white; font-size: 20px; border-radius: .8rem;;
+  max-width: 77%; background: linear-gradient(to right bottom, hsl(236, 50%, 50%), hsl(195, 50%, 50%));
 
   " class="row" data-aos="fade-up" data-aos-delay="100">
+
+
+{% if error == "notComplete"  %}
+        <span class="bg-warning alert-warning border-danger text-black-50 text-center ">فضلاً، اختار رف الكتاب والكتاب الذي تود إضافته</span>
+        {% elif error == "success" %}
+        <span class="bg-success alert-success border-success text-success text-black-50 text-center" >تم إضافة الكتاب إلى مكتبتك</span>
+        {% else  %}
+            <span class="bg-danger alert-danger border-danger text-black-50 text-center" >{{ error }}</span>
+             {% endif %}
+
+
             <div  class="modal-header">
             اضف كتاباً إلى الرف
-
             <hr>
                   <select name="shelfSelect" id="shelfSelect" title="اختر رف">
                     <option disabled selected value> اختر الرف</option>
-                    <option  class="dropdown"></option>
-
+                      {% for shelf in shelves %}
+                    <option  class="dropdown">{{ shelf.shelfName }}</option>
+                    {% endfor %}
                     </select>
 
 
@@ -35,10 +48,9 @@
             <div  class="modal-header">
                    <input placeholder=" ابحث عن كتاب" style="width: 70%" type="search" id="search-box" name="search-box" class="form-control row" />
                 <button type="submit" id="search" name="search" class="row" >ابحث</button>
-                <select name="shelfSelect" id="shelfSelect" title="اختر طريقة البحث">
-                    <option  class="dropdown">مكتبة google books </option>
-                    <option  class="dropdown">مكتبة أجنحة</option>
-
+                <select name="searchSelect" id="searchSelect" title="اختر طريقة البحث">
+                    <option  class="dropdown" value="1" id="op1">مكتبة google books </option>
+                    <option  class="dropdown" value="2" id="op2">مكتبة أجنحة</option>
                     </select>
 
             </div>
@@ -48,42 +60,73 @@
 {% elif response == ""  %}
 
                 {% else %}
-
+            {% if searchType == "1" %}
+                <script>
+                var shelfselected = document.getElementById("op1").setAttribute(selected,true);
+                </script>
             النتائج:
             <hr style="color: transparent">
-            {% for item in response  %}
+                {% for item in response  %}
 
  <div style="width: 50%;"  class="col-lg-4 col-md-6 portfolio-item filter-app radios ">
-            <input type="radio" name="rGroup" value="{{ forloop.counter }}" id="r{{ forloop.counter }}"  >
-            <label  for="r{{ forloop.counter }}" class="radio"> </label>
+            <input type="radio" name="rGroup" value="{{ item.selfLink }}" id="{{  item.selfLink}}"  >
+            <label  for="{{  item.selfLink }}" class="radio"> </label>
             <div class="portfolio-wrap">
             {% if item.volumeInfo.imageLinks.thumbnail %}
              <img  class="img-fluid" src="{{ item.volumeInfo.imageLinks.thumbnail }}" alt="book image" > </a>
             {% else %}
-            <img class="img-fluid" src="{% static 'wingsApp\userHome\assets\img\thum.jpg' %}" width="150" height="250">
+            <img class="img-fluid" src="{% static 'wingsApp\userHome\assets\img\thum.jpg' %}" width="200" height="300">
             {% endif %}
-              <div class="portfolio-links">
-                  <tr>
+              <div class="portfolio-links ">
+                  <tr >
                  <td> عنوان الكتاب: {{ item.volumeInfo.title }} </td>
                 {% for auth in item.volumeInfo.authors %}
-                <td> المؤلفون: {{ auth }} </td>
+                <td> ،المؤلفون: {{ auth }} </td>
+                    <a href="{{ item.volumeInfo.previewLink }}"; target="_blank" rel="noopener noreferrer" title="عرض معلومات الكتاب"><i class="bx bx-link"></i></a>
 
                     {% endfor %}
                  </tr>
                 <br>
 
-                <a href="" data-gallery="portfolioGallery" class="portfolio-lightbox" title="عرض معلومات الكتاب"><i class="bx bx-link"></i></a>
+              <!-- rel="noopener noreferrer" for security The rel attribute sets the relationship between your page and the linked URL. Setting it to noopener noreferrer is to prevent a type of phishing known as tabnabbing.-->
               </div>
             </div>
- </div>
-
+            </div>
         {% endfor %}
 
 
-            <hr>
-                        <div class="modal-footer">
+            {% elif searchType == "2" %}
+                <script>
+                var shelfselected = document.getElementById("op2").setAttribute("selected","true");
+                </script>
+                {% if response == 'no results' %}
+                 <h2>لا توجد نتائج للبحث، حاول مجدداً .. </h2>
+                    {% else %}
+                    {% endif %}
+                {% for item in response  %}
+               <div style="width: 50%;"  class="col-lg-4 col-md-6 portfolio-item filter-app radios ">
+                <input type="radio" name="rGroup" value="{{ item.bookTitle }}" id="{{ item.bookTitle }}"  >
+                <label  for="{{ item.bookTitle }}" class="radio"> </label>
+                <div class="portfolio-wrap">
+                <img class="img-fluid" src="{{ item.image.url }}" width="150" height="250">
+                  <div class="portfolio-links">
+                      <tr>
+                     <td> عنوان الكتاب: {{ item.bookTitle }} </td>
+                    <td>، المؤلفون: {{ item.author }} </td>
+                     </tr>
+                    <br>
+                  <!-- rel="noopener noreferrer" for security The rel attribute sets the relationship between your page and the linked URL. Setting it to noopener noreferrer is to prevent a type of phishing known as tabnabbing.-->
+                  </div>
+                </div>
+            </div>
+                {% endfor %}
+        {% endif %}
 
-            <button type="submit" style=" border: 1px solid hsla(0, 0%, 100%, .4);
+
+            <hr>
+                <div class="modal-footer">
+
+            <button type="submit" id="addBookSearched" name = "addBookSearched" style=" border: 1px solid hsla(0, 0%, 100%, .4);
   border-radius: 100rem;
 
   color: inherit;
@@ -95,12 +138,13 @@
 
           </div>
 
-            {% endif %}
+
+        {% endif %}
 </div>
     </div>
 </form>
 </section>
-
+<!-- free section which we decide to delete it
 <section id="portfolio" class="portfolio section-bg">
 <div style="direction:rtl ;background-color: rgba(211,243,214,0.37);margin: auto; "
  class="container">
@@ -150,16 +194,10 @@
                     </div>
 
                 </div>
-                        <div  class="modal-header">
-
-        اضافة صورة
-        <input type="file">
+                        <div  class="modal-header">اضافة صورة<input type="file">
                         </div>
-
-
                         <div class="modal-footer">
-
-            <button style=" border: 1px solid hsla(0, 0%, 100%, .4);
+                            <button style=" border: 1px solid hsla(0, 0%, 100%, .4);
   border-radius: 100rem;
 
   color: inherit;
@@ -168,11 +206,10 @@
   transition: .2s;
   width: 100%;
   cursor: pointer;" class="dropbtn1">اضف</button>
-
-          </div>
-        </div>
+                        </div>
+    </div>
 </div>
 </section>
-
+-->
 
 {% endblock %}
