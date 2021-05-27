@@ -5,22 +5,21 @@
 {% endblock %}
 {% block content %}
 
-
+<main id="main">
 
 <section id="portfolio" class="portfolio section-bg">
 
 <form method="post" id="formOne">
     {% csrf_token %}
-<div style="direction:rtl;background-color: rgba(211,243,214,0.37);margin: auto; "
+<div style="direction:rtl;margin: auto; "
  class="container">
     <div class="section-title " style="width: auto">
     <h2>البحث عن كتاب </h2>
 </div>
-</div>
 
-        <div style="margin: auto;padding-right: 50px;padding-left:50px; color: white; font-size: 20px; border-radius: .8rem;;
+
+ <div style="margin: auto;padding-right: 50px;padding-left:50px; color: white; font-size: 20px; border-radius: .8rem;;
   max-width: 77%; background: linear-gradient(to right bottom, hsl(236, 50%, 50%), hsl(195, 50%, 50%));
-
   " class="row" data-aos="fade-up" data-aos-delay="100">
 
 
@@ -31,8 +30,6 @@
         {% else  %}
             <span class="bg-danger alert-danger border-danger text-black-50 text-center" >{{ error }}</span>
              {% endif %}
-
-
             <div  class="modal-header">
             اضف كتاباً إلى الرف
             <hr>
@@ -42,9 +39,8 @@
                     <option  class="dropdown">{{ shelf.shelfName }}</option>
                     {% endfor %}
                     </select>
-
-
             </div>
+
             <div  class="modal-header">
                    <input placeholder=" ابحث عن كتاب" style="width: 70%" type="search" id="search-box" name="search-box" class="form-control row" />
                 <button type="submit" id="search" name="search" class="row" >ابحث</button>
@@ -52,13 +48,13 @@
                     <option  class="dropdown" value="1" id="op1">مكتبة google books </option>
                     <option  class="dropdown" value="2" id="op2">مكتبة أجنحة</option>
                     </select>
-
             </div>
+
+
+
             {% if response == 'no results' %}
                  <h2>لا توجد نتائج للبحث، حاول مجدداً .. </h2>
-
-{% elif response == ""  %}
-
+            {% elif response == ""  %}
                 {% else %}
             {% if searchType == "1" %}
                 <script>
@@ -87,7 +83,6 @@
                     {% endfor %}
                  </tr>
                 <br>
-
               <!-- rel="noopener noreferrer" for security The rel attribute sets the relationship between your page and the linked URL. Setting it to noopener noreferrer is to prevent a type of phishing known as tabnabbing.-->
               </div>
             </div>
@@ -128,7 +123,6 @@
 
             <button type="submit" id="addBookSearched" name = "addBookSearched" style=" border: 1px solid hsla(0, 0%, 100%, .4);
   border-radius: 100rem;
-
   color: inherit;
   background: transparent;
   font-size: 1.4rem;
@@ -141,75 +135,13 @@
 
         {% endif %}
 </div>
-    </div>
+</div>
 </form>
+
+
+
 </section>
-<!-- free section which we decide to delete it
-<section id="portfolio" class="portfolio section-bg">
-<div style="direction:rtl ;background-color: rgba(211,243,214,0.37);margin: auto; "
- class="container">
-    <div class="section-title">
-    <h2>أو أضف كتاب حراً إلى مكتبتك </h2>
-</div>
-    <div style="margin: auto;padding-right: 10px;color: white; font-size: 20px; border-radius: .8rem;;
-  max-width: 80%;  background: linear-gradient(to right bottom, hsl(236, 50%, 50%), hsl(195, 50%, 50%));
 
-  " class="row" data-aos="fade-up" data-aos-delay="100">
-            <div  class="modal-header">
-            تعريف كتاب حر
-                <div class="dropdown">
-                    <button style="background-color: #788696;" class="dropbtn1">اختر الرف</button>
-                    <div class="dropdown-content">
-                        <a href="#">مكتبة Google</a>
-                        <a href="#">مكتبة أجنحة</a>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div  class="modal-header">
-                   <input placeholder=" عنوان الكتاب" style="width: 100% " type="search" id="form1" class="form-control" />
 
-            </div>
-        <div  class="modal-header">
-                   <input placeholder=" اسم المؤلف" style="width: 100%" type="search" id="form1" class="form-control" />
-
-            </div>
-        <div  class="modal-header">
-<textarea id="story" name="story"
-                              rows="5" cols="33" placeholder="نبذة عن الكتاب"></textarea>
-            </div>
-
-                <div  class="modal-header">
-                    عدد الصفحات
-                    <div  style="direction: rtl;margin-right: 20px;" class="number-input">
-                        <button style="background-color: #788696;" type="button" class="btn btn-primary"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
-                        </button>
-                        <input style="font-size: 20px;" class="quantity" min="0" name="quantity" value="1" type="number">
-                        <button style="background-color: #788696" type="button" class="btn btn-primary"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                class="plus">+
-                        </button>
-
-                    </div>
-
-                </div>
-                        <div  class="modal-header">اضافة صورة<input type="file">
-                        </div>
-                        <div class="modal-footer">
-                            <button style=" border: 1px solid hsla(0, 0%, 100%, .4);
-  border-radius: 100rem;
-
-  color: inherit;
-  background: transparent;
-  font-size: 1.4rem;
-  transition: .2s;
-  width: 100%;
-  cursor: pointer;" class="dropbtn1">اضف</button>
-                        </div>
-    </div>
-</div>
-</section>
--->
-
+</main>
 {% endblock %}

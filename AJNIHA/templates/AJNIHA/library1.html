@@ -3,8 +3,12 @@
 {% block title %}أجنحة | مكتبتي {% endblock %}
 {% block content %}
 
+<main id="main">
 
 <section id="portfolio" class="portfolio section-bg">
+<a href="{% url 'search' %}"><button class="add" >إضافة كتاب</button></a>
+<button class="add" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="myBtn" >إضافة رف</button>
+
 {% for shelf in shelves %}
     <div style="" class="container">
         <div class="section-title">
@@ -17,7 +21,6 @@
                 {% if book.shelf == shelf %}
 
                     <div style="width: 200px" class="portfolio-item filter-app">
-
                         <div style="" class="portfolio-wrap">
                             <img src="{{ book.book.image.url }}"
                                  class="img-fluid" alt="">
@@ -35,121 +38,122 @@
                     </div>
                 {% endif %}
             {% endfor %}
-            <div style="width: 40px;height: 40px;top: 90px; margin-left: 50px ">
-
-                <div class="form__group">
-
-</a>
-</div>
-            </div>
-
-
         </div>
-
     </div>
 {% endfor %}
-<!-- Add book section (seem like reem was tryin here)
-
-<div  class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div  class="modal-dialog">
-        <div  class="modal-content">
-            <div class="modal-header">
-                <h5 style="" class="modal-title" id="staticBackdropLabel"> أضف كتاب حراً إلى مكتبتك<b>أو</b></h5>
-                <div class="dropdown">
-                    <button style="background-color: #788696;" class="dropbtn">الرف</button>
-                    <div class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">X</button>
-            </div>
+</section><!-- End Section -->
 
 
-                        <div  class="modal-header">
-
-                  <input placeholder=" ابحث عن كتاب" style="width: 80%" type="search" id="form1" class="form-control" />
-
-                <div class="dropdown">
-                    <button style="background-color: #788696;" class="dropbtn1">اختر المكتبة</button>
-                    <div class="dropdown-content">
-                        <a href="#">مكتبة Google</a>
-                        <a href="#">مكتبة أجنحة</a>
-                    </div>
-                </div>
-
-            </div>
 
 
-<div  class="row" data-aos="fade-up" data-aos-delay="100">
 
 
-    <div  class="containerm">
-  <img src=" alt="Avatar" class="imagem">
-  <div class="overlaym">
-      <input type="checkbox" style="background-color: #008CBA"><div class="textm">سم الكتاب: كتاب
-                    اسم المؤلف: مؤلف
-                        نبذة عن الكتاب: هلتبهخل يبلسيلس يلس
-                        لتبلتيلت سلسيل ي
-                        لبتيبلهييل يبلي سيبسبسسث</div></input>
-  </div>
 
+<!--Trial-->
 
-</div>
+<section id="portfolio" class="portfolio section-bg">
 
-    <div  class="containerm">
-  <img src="" alt="Avatar" class="imagem">
-  <div class="overlaym">
-    <div class="textm">سم الكتاب: كتاب
-                    اسم المؤلف: مؤلف
-                        نبذة عن الكتاب: هلتبهخل يبلسيلس يلس
-                        لتبلتيلت سلسيل ي
-                        لبتيبلهييل يبلي سيبسبسسث</div>
-  </div>
-</div>
+    <div style="" class="container">
+        <div class="section-title">
+            <h2> اسم الرف</h2>
 
-    </div>
-            <div  class="modal-header">
-<h5>لم تجد كتابك؟</h5>
+        </div>
+
+        <div style="" class="row" data-aos="fade-up" data-aos-delay="100">
+                    <div style="width: 200px" class="col-lg-4 col-md-6 portfolio-item filter-app">
+                        <div style="" class="portfolio-wrap">
+                            <img src="https://raw.githubusercontent.com/eee23d/Aj/main/Untitled%20design(10).png"class="img-fluid" alt="">
+                            <div class="portfolio-links">
+                                <a > اسم الكتاب
+                                    <br>
+                                    الكاتب
+                                </a>
                             </div>
-<div>
-    <input style="width: 50%; float: right" class="form__input" placeholder="اسم الكتاب">
-  <input style="width: 50%; float: right" class="form__input" placeholder="اسم المؤلف">
-    عدد الصفحات
-<div  style="direction: rtl;margin-right: 20px;" class="number-input">
-                        <button style="background-color: #788696;" type="button" class="btn btn-primary"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
-                        </button>
-                        <input style="font-size: 20px;" class="quantity" min="0" name="quantity" value="1" type="number">
-                        <button style="background-color: #788696" type="button" class="btn btn-primary"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                class="plus">+
-                        </button>
+                        </div>
+                    </div>
+                          <div style="width: 200px" class="col-lg-4 col-md-6 portfolio-item filter-app">
+                        <div style="" class="portfolio-wrap">
+                            <img src="https://raw.githubusercontent.com/eee23d/Aj/main/Untitled%20design(10).png"class="img-fluid" alt="">
+                            <div class="portfolio-links">
+                                <a > اسم الكتاب
+                                    <br>
+                                    الكاتب
+                                </a>
+                            </div>
+                        </div>
+                          </div>
+                                <div style="width: 200px" class="col-lg-4 col-md-6 portfolio-item filter-app">
+
+                              <div style="" class="portfolio-wrap">
+                            <img src="https://raw.githubusercontent.com/eee23d/Aj/main/Untitled%20design(10).png"class="img-fluid" alt="">
+                            <div class="portfolio-links">
+                                <a > اسم الكتاب
+                                    <br>
+                                    الكاتب
+                                </a>
+                            </div>
+                        </div>
 
                     </div>
-    <textarea id="story" name="story"
-                              rows="5" cols="33" placeholder="نبذة عن الكتاب"></textarea>
-<input type="file">
-</div>
-
-
-
-
-
-
-            <div class="modal-footer">
-                <button style="width: 100%;background-color:#253853 " type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">اضافة
-                </button>
-            </div>
         </div>
     </div>
-</div>
- -->
-    <a href="{% url 'search' %}" style="margin: auto" class="align-content-center">   <button style="border-radius: 50%;margin: auto; background-color: rgba(104,142,200,0.72);">إضافة رف قراءة</button></a>
-     <a href="{% url 'search' %}" style="margin: auto">   <button style="border-radius: 80%;margin: auto; background-color: rgba(104,142,200,0.72);">إضافة كتاب</button></a>
-
 </section><!-- End Section -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</main>
+
+
+<!-- The Modal -->
+<div style="direction: rtl" id="myModal" class="modal" >
+
+  <!-- Modal content -->
+  <div style="padding: 0" class="modal-content" id="changi">
+
+    <div class="modal-body">
+      <div style="border: transparent  3px" id="myModel1" class="modal1">
+    <div class="modal__container">
+      <div id="pici" style="transform:rotateY(180deg);" class="modal__featured">
+<button type="button" class="button--transparent button--close">
+    <svg class="nc-icon glyph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32">
+
+
+    <g><path fill="#ffffff" d="M1.293,15.293L11,5.586L12.414,7l-8,8H31v2H4.414l8,8L11,26.414l-9.707-9.707 C0.902,16.316,0.902,15.684,1.293,15.293z"></path> </g></svg>
+          <span class="close">&times;</span>
+
+          <span class="visuallyhidden">Return to Product Page</span>
+        </button>
+
+        <div class="modal__circle" > </div>
+        <img src="https://raw.githubusercontent.com/eee23d/Aj/main/Copy%20of%20Untitled.png" class="modal__product1"  />
+      </div>
+
+      <div style="" class="modal__content">
+          <li style="" class="form-list__row form-list__row--inline">
+        <h2>اسم الرف</h2>
+              <input  type="text" name="shelfName" required="" />
+            </li>
+          <hr>
+          <li style="color: white" class="form-list__row" >
+             <button style="width: 100%;"; type="submit" class="button">اضافة</button>
+            </li>
+    </div> <!-- END: .modal__container -->
+  </div> <!-- END: .modal -->
+    </div>
+  </div>
+</div>
+</div>
+
+
 {% endblock %}

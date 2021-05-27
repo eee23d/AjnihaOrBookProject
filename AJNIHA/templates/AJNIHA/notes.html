@@ -1,118 +1,202 @@
 {% extends 'AJNIHA/layout.html' %}
 {% load static %}
-{% block title %}أجنحة | مدوناتي {% endblock %}
-
+{% block title %}أجنحة | {{ request.user }} {% endblock %}
 {% block content %}
 
-<!-- ======= Portfolio Section ======= -->
-<section id="portfolio" class="portfolio section-bg">
-<div style="direction:rtl;background-color: rgba(211,243,214,0.37);margin: auto; "
+<main id="main">
+
+
+
+    <section style="background-color: transparent" id="portfolio" class="portfolio section-bg" >
+<div style="direction:rtl;
+  align-items: center;
+  padding: 30px;
+"
  class="container">
-<div class="section-title">
-    <h2>مدوناتي</h2>
-</div>
 
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-<!-- Button trigger modal -->
+
+    <!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+
+
 <div class="form__group">
     <input data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="myBtn" type="text"
-           class="form__input" placeholder="اضف تدوينة" required=""/>
+           class="form__input" placeholder="اضف تدوينة" required="" style="border-radius: .9em"
+        >
 </div>
 
 
-<!-- Modal -->
-<div align="right"  class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 style="margin-left: 180px" class="modal-title" id="staticBackdropLabel">اضف تدوينة</h5>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">X</button>
-            </div>
-            <div class="modal-body">
+
+
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal" >
+
+  <!-- Modal content -->
+  <div style="padding: 0" class="modal-content" id="changi">
+
+    <div  class="modal-body">
+      <div style="border: transparent  3px" id="myModel1" class="modal1">
+    <div class="modal__container">
+      <div id="pici" style="transform:rotateY(180deg);" class="modal__featured">
+<button type="button" class="button--transparent button--close">
+    <svg class="nc-icon glyph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32">
+
+
+              <g><path fill="#ffffff" d="M1.293,15.293L11,5.586L12.414,7l-8,8H31v2H4.414l8,8L11,26.414l-9.707-9.707 C0.902,16.316,0.902,15.684,1.293,15.293z"></path> </g></svg>
+          <span class="close">&times;</span>
+
+          <span class="visuallyhidden">Return to Product Page</span>
+        </button>
+
+        <div class="modal__circle" > </div>
+        <img src="https://raw.githubusercontent.com/eee23d/w1/main/qe.png" class="modal__product"  />
+      </div>
+
+      <div  class="modal__content">
+          <li style="" class="form-list__row form-list__row--inline">
+        <h2>إضافة تدوينة</h2>
+
                 <div class="dropdown">
-                    <button style="background-color: #788696;" class="dropbtn">الرف</button>
+                    <button  class="dropbtn">الرف</button>
+
                     <div class="dropdown-content">
                         <a href="#">Link 1</a>
                         <a href="#">Link 2</a>
                         <a href="#">Link 3</a>
                     </div>
-                </div>
-                <div class="dropdown">
-                    <button style="background-color: #788696;" class="dropbtn">الكتاب</button>
-                    <div class="dropdown-content">
+              </div>
+
+                 <div class="dropdown1">
+                    <button  class="dropbtn1">الكتاب</button>
+                    <div class="dropdown-content1">
                         <a href="#">Link 1</a>
                         <a href="#">Link 2</a>
                         <a href="#">Link 3</a>
                     </div>
-                </div>
-                <form>
+              </div>
 
-                    <label class="field field_v1">
-                        <input class="form__input" placeholder="العنوان">
+            </li>
 
-                    </label>
-                    <br>
-                    <textarea id="story" name="story"
-                              rows="5" cols="33" placeholder="التدوينة"></textarea>
-                    <hr style="color: transparent">
-                    <h5  class="modal-title" id="staticBackdropLabel">اضافة ورد</h5>
-                    <hr style="color: transparent">
+        <form>
+          <ul class="form-list">
+            <li class="form-list__row">
+              <input placeholder="عنوان التدوينة" type="text" name="" required="" />
+            </li>
+            <li class="form-list__row">
+              <textarea placeholder=" التدوينة"></textarea>
+            </li>
 
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-                من
-                    <div  style="direction: rtl;margin-right: 20px;" class="number-input">
-                        <button style="background-color: #788696;" type="button" class="btn btn-primary"
+
+                  <h2>اضافة ورد</h2>
+
+              <li class="form-list__row form-list__row--inline" style="margin: auto">
+              من
+                    <div style="direction: rtl;" class="number-input">
+                        <button style="background-color: #5eb0f6" type="button" class="btn btn-primary"
                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
                         </button>
                         <input style="font-size: 20px;" class="quantity" min="0" name="quantity" value="1" type="number">
-                        <button style="background-color: #788696" type="button" class="btn btn-primary"
+                        <button style="background-color: #5eb0f6; direction: rtl;" type="button" class="btn btn-primary"
                                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                 class="plus">+
                         </button>
 
                     </div>
 إلى
-                    <div style="direction: rtl;margin-right: 20px;" class="number-input">
-                        <button style="background-color: #788696" type="button" class="btn btn-primary"
+                    <div style="direction: rtl;" class="number-input">
+                        <button style="background-color: #5eb0f6" type="button" class="btn btn-primary"
                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
                         </button>
                         <input style="font-size: 20px;" class="quantity" min="0" name="quantity" value="1" type="number">
-                        <button style="background-color: #788696" type="button" class="btn btn-primary"
+                        <button style="background-color: #5eb0f6" type="button" class="btn btn-primary"
                                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                 class="plus">+
                         </button>
                     </div>
-                    <hr>
-تدوينة خاصة                    <input type="checkbox">
 
-                </form>
+            </li>
+              <li class="form-list__row">
 
-            </div>
-            <div class="modal-footer">
-                <button style="width: 100%;background-color:#253853 " type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">اضافة
-                </button>
-            </div>
-        </div>
+              </li>
+              <li class="form-list__row form-list__row--inline" style="margin: auto">
+              تدوينة خاصة
+                                      <input type="checkbox">
+            </li>
+              <hr>
+
+                <li class="form-list__row" >
+              <button style="width: 100%;"; type="submit" class="button">نشر</button>
+
+            </li>
+          </ul>
+        </form>
+
+      </div> <!-- END: .modal__content -->
+    </div> <!-- END: .modal__container -->
+  </div> <!-- END: .modal -->
     </div>
+
+  </div>
 </div>
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal1");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <div style="" class="row" data-aos="fade-up">
-    <div style="" class="col-lg-12 d-flex justify-content-center">
+    <div style="margin-top: 20px" class="col-lg-12 d-flex justify-content-center">
         <ul id="portfolio-flters">
             <li data-filter="*" class="filter-active">الكل</li>
             <li data-filter=".filter-app">رف1</li>
@@ -124,8 +208,7 @@
 
 <div style="" class="row" data-aos="fade-up" data-aos-delay="100">
 
-    <div style="  border-color: hsla(0, 0%, 100%, .6);
-" class="col-lg-4 col-md-6 portfolio-item filter-app">
+    <div style="border-color: hsla(0, 0%, 100%, .6);" class="col-lg-4 col-md-6 portfolio-item filter-app">
 
 
         <div style="background-color: white;
@@ -208,10 +291,10 @@ padding: 10px;
             </div>
         </div>
     </div>
-
-
 </div>
 </div>
-</section><!-- End Portfolio Section -->
+    </section>
+</main>
 
 {% endblock %}
+
