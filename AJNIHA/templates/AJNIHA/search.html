@@ -4,10 +4,31 @@
     أجنحة | إضافة كتاب
 {% endblock %}
 {% block content %}
-	<head>
+
+   <!DOCTYPE html>
+<html>
+<header>
+</header>
+
+<main id="main">
+
+
+
+    <section style="background-color: transparent" id="portfolio" class="portfolio section-bg" >
+<div style="direction:rtl;background-color: rgba(5,32,40,0.37);
+  align-items: center;
+  padding: 30px;
+"
+ class="container">
+
+
+
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="Animated Books with CSS 3D Transforms" />
 		<meta name="keywords" content="book, 3d, interactive, animated, 3d transform, css, web design" />
 		<meta name="author" content="Marco Barría for Codrops" />
@@ -74,6 +95,7 @@
                     <div style="width: 33%;"  class="col-lg-4 col-md-6 portfolio-item filter-app radios ">
             <input type="radio" name="rGroup" value="{{ item.selfLink }}" id="{{  item.selfLink}}"  >
             <label  for="{{  item.selfLink }}" class="radio"> </label>
+
                 <div class="component">
 				<ul class="align">
 					<li>
@@ -127,6 +149,7 @@
                                 </div>
                     </div>
 
+
         {% endfor %}
 
                     </div>
@@ -161,18 +184,33 @@
                 <div class="">
 
 
+            <hr>
+                <div class="modal-footer">
+
+            <button type="submit" id="addBookSearched" name = "addBookSearched" style=" border: 1px solid hsla(0, 0%, 100%, .4);
+  border-radius: 100rem;
+
+  color: lightblue;
+  font-size: 1.4rem;
+  transition: .2s;
+  width: 100%;
+  cursor: pointer;" class="dropbtn1">أضف</button>
+
    <button class="button" style="width: 100%;text-align: center;" name = "addBookSearched" type="submit" id="addBookSearched" >اضف</button>
+
 
           </div>
         {% endif %}
 </div>
+
+
+
 </div>
 </form>
 
 
 
 </section>
-
 
 </main>
     <script>
@@ -255,4 +293,5 @@ function closeAllSelect(elmnt) {
 then close all select boxes:*/
 document.addEventListener("click", closeAllSelect);
     </script>
+
 {% endblock %}
