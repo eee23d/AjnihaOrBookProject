@@ -112,13 +112,3 @@ class liked_post(models.Model):
     def __str__(self):
         return str(self.liked_by)
 
-
-class follow (models.Model):
-    follower_account= models.ForeignKey(ReaderAccount,on_delete=models.CASCADE,null=True, related_name='follower')
-    followed_account = models.ForeignKey(ReaderAccount,on_delete=models.CASCADE,null=True, related_name='followed')
-    class Meta:
-        unique_together = ('follower_account', 'followed_account')
-    def __str__(self):
-        return str(self.follower_account)
-
-

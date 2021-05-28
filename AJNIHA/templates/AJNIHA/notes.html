@@ -82,7 +82,7 @@
         <h2>إضافة تدوينة</h2>
                 <div class="dropdown">
 
-                    <select name="shelfSelect" id="shelfSelect" title="اختر كتاب" required>
+                    <select name="shelfSelect" id="shelfSelect"style="width: 100px;margin: 7px;" title="اختر كتاب"  required>
                     <option disabled selected value> اختر كتاب</option>
                       {% for book in bookForShelf %}
                     <option  value="{{book.book.bookTitle }}" class="dropdown">{{ book.book.bookTitle }}</option>
@@ -126,10 +126,11 @@
               <li class="form-list__row">
 
               </li>
-              <li class="form-list__row form-list__row--inline" style="margin: auto">
+              <li class="" style="margin: auto">
+                     <label class="form-check-label"  for="private" >تدوينة خاصة</label>
+                  <input type="checkbox" style="width: 30px;margin-right: 20px"  name="private" >
 
-                  <input type="checkbox" name="private" >
-                  <label class="form-check-label" for="private" >تدوينة خاصة</label>
+
             </li>
               <hr>
                 <li class="form-list__row" >
@@ -180,7 +181,7 @@
           <li style="" class="form-list__row form-list__row--inline">
         <h2>تعديل تدوينة</h2>
                 <div class="dropdown">
-                    <select name="shelfSelectEdit" id="shelfSelectEdit" title="اختر كتاب">
+                    <select name="shelfSelectEdit" id="shelfSelectEdit" style="width: 180px;margin: 7px;" title="اختر كتاب">
                     <option disabled selected value> اختر كتاب</option>
                       {% for book in bookForShelf %}
                     <option  value="{{book.book.bookTitle }}" class="dropdown">{{ book.book.bookTitle }}</option>
@@ -235,8 +236,9 @@
               </li>
               <li class="form-list__row form-list__row--inline" style="margin: auto">
 
-                                      <input type="checkbox" name="privateEdit" id="privateEdit">
+
                   <label class="form-check-label" for="private" >تدوينة خاصة</label>
+                  <input type="checkbox" name="privateEdit" style="width: 30px;margin-right: 20px" id="privateEdit">
             </li>
               <hr>
 
@@ -339,7 +341,7 @@ padding: 10px;
                 {% if nav == "liked" %}
                     <b style="font-size: 24px;float: right">{{ note.note_id.note_title }}</b>
                     <br>
-                 <p>  {{ note.note_id.book_shelf_user.reader.username }} في  {{ note.note_id.date }}</p>
+                 <p>  {{ note.note_id.book_shelf_user.reader.username }} في  {{ note.note_id.date.date }}</p>
                     <br>
                     <b>من كتاب: {{ note.note_id.book_shelf_user.book.bookTitle }}</b>
                     <br><br>
@@ -354,7 +356,7 @@ padding: 10px;
                     {% else %}
                     <b style="font-size: 24px;float: right">{{ note.note_title }}</b>
                     <br>
-                 <p>  {{ note.book_shelf_user.reader.username }} في  {{ note.date }}</p>
+               <p>  {{ note.book_shelf_user.reader.username }} في  {{ note.date.date}}</p>
                     <br>
                     <b>من كتاب:  {{ note.book_shelf_user.book.bookTitle }}</b>
                     <br>
