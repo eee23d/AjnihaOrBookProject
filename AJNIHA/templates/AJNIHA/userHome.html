@@ -47,8 +47,14 @@
     <div class="d-flex flex-column">
 
       <div class="profile">
-        <img src="{{ account.prof_pic.url }}" alt="" class="img-fluid rounded-circle">
+        <img src="{{ user.username.prof_pic.url }}" alt="" class="img-fluid rounded-circle">
         <h1 class="text-light"><a href="index.html">{{ request.user.first_name }}  {{ request.user.last_name }} </a></h1>
+          <form method="post" enctype="multipart/form-data" >
+            {% csrf_token %}
+            <input type="file" name="myfile" style="border: none;">
+            <button type="submit"> <i class="bx bx-camera"></i> تغيير الصورة الشخصية</button>
+
+        </form>
       </div>
 
       <nav id="navbar" class="nav-menu navbar">
@@ -138,38 +144,126 @@
 
     </section><!-- End Testimonials Section -->
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>iPortfolio</span></strong>
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-  </footer><!-- End  Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="{% static 'wingsApp/userHome/assets/vendor/aos/aos.js'%}"></script>
-  <script src="{% static 'wingsApp/userHome/assets/vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
-  <script src="{% static 'wingsApp/userHome/assets/vendor/glightbox/js/glightbox.min.js'%}"></script>
-  <script src="{% static 'wingsApp/userHome/assets/vendor/isotope-layout/isotope.pkgd.min.js'%}"></script>
-  <script src="{% static 'wingsApp/userHome/assets/vendor/php-email-form/validate.js'%}"></script>
-  <script src="{% static 'wingsApp/userHome/assets/vendor/purecounter/purecounter.js'%}"></script>
-  <script src="{% static 'wingsApp/userHome/assets/vendor/swiper/swiper-bundle.min.js'%}"></script>
-  <script src="{% static 'wingsApp/userHome/assets/vendor/typed.js/typed.min.js'%}"></script>
-  <script src="{% static 'wingsApp/userHome/assets/vendor/waypoints/noframework.waypoints.js'%}"></script>
-
-  <!-- Template Main JS File -->
-  <script src="{% static 'wingsApp/userHome/assets/js/main.js'%}"></script>
 </main>
 </body>
 
 </html>
+<!-- library backup -->
+{% extends 'AJNIHA/layout.html' %}
+{% load static %}
+{% block title %}أجنحة | مكتبتي {% endblock %}
+{% block content %}
+
+
+<main id="main">
+
+
+
+    <section style="background-color: transparent" id="portfolio" class="portfolio section-bg" >
+<div style="direction:rtl;background-color: rgba(5,32,40,0.37);
+  align-items: center;
+  padding: 30px;
+"
+ class="container">
+
+
+
+    <!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<section id="portfolio" class="portfolio section-bg">
+{% for shelf in shelves %}
+    <div style="" class="container">
+        <div class="section-title">
+            <h2> {{ shelf.shelfName }}</h2>
+
+        </div>
+
+        <div style="" class="row" data-aos="fade-up" data-aos-delay="100">
+            {% for book in bookForShelf %}
+                {% if book.shelf == shelf %}
+
+                    <div style="width: 200px" class="portfolio-item filter-app">
+                          <a title="حذف الكتاب" name="delete" id="{{ book.id }}"><i class="bx bx-x" id="{{ book.id }}"></i></a>
+                        <div style="" class="portfolio-wrap">
+                            <img src="{{ book.book.image.url }}"
+                                 class="img-fluid" alt="">
+                            <div class="portfolio-links">
+
+                        <span style="background: #194680; color: white; size: 10px"> {{ book.book.bookTitle }}
+                                    <br>
+                                    {{ book.book.author }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div style="width: 40px;height: 40px;top: 90px; margin-left: 50px ">
+
+            </div>
+
+
+        </div>
+
+    </div>
+{% endfor %}
+
+<form method="post">
+    {% csrf_token %}
+    <input id="bookDelete" name="bookDelete" type="text" style="visibility: hidden">
+    <button id="bookToDelete" name="bookToDelete" type="submit" style="visibility: hidden"></button>
+</form>
+<script>
+    //for  delete
+    var elements = document.getElementsByName("delete")
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].addEventListener("click",delet)
+    }
+     function delet(e){
+        var idd= e.target.id;
+         console.log(idd);
+            document.getElementById("bookDelete").value= idd;
+           document.getElementById("bookToDelete").click();
+
+    }
+</script>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">إضافة رف قراءة</button>
+     <a href="{% url 'search' %}" style="margin: auto">   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">إضافة كتاب</button></a>
+
+<!-- Modal -->
+<form method="post">
+     {% csrf_token %}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">إضافة رف </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input name="addShelf" placeholder="أدخل اسم الرف " required>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
+        <button type="submit" class="btn btn-primary">إضافة الرف</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+</script>
+</section><!-- End Section -->
+</html>
+</div>
+    </section>
+</main>
+{% endblock %}

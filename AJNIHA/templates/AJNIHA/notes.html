@@ -8,7 +8,9 @@
 
 
     <section style="background-color: transparent" id="portfolio" class="portfolio section-bg" >
-<div style="direction:rtl;
+
+<div style="direction:rtl;background-color: rgba(5,32,40,0.37);
+
   align-items: center;
   padding: 30px;
 "
@@ -26,7 +28,23 @@
 
 
 <div class="form__group">
-    <input data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="myBtn" type="text"
+
+
+  {% if message == "succD" %}
+      <h3 style="width: 90%; margin: auto; border-radius: 2em;  color: white" class=" border-success alert-success bg-success  text-center" >تم حذف المدونة بنجاح</h3>
+      {% elif message == "succA" %}
+          <h3 style="width: auto" class=" border-success alert-success bg-success  text-center" >تم إضافة المدونة  </h3>
+      {% elif message == "succE" %}
+          <h3 style="width: auto" class=" border-success alert-success bg-success  text-center" >تم التعديل على المدونة </h3>
+      {% elif message == "succL" %}
+          <h3 style="width: auto" class=" border-success alert-success bg-success  text-center" >تم تعديل المفضلة</h3>
+      {% elif message == "succD" %}
+          <h3 style="width: auto" class=" border-success alert-success bg-success  text-center" >تم حذف المدونة </h3>
+      {% elif message == "error" %}
+          <h3 style="width: auto" class=" border-warning alert-warning bg-warning  text-center" >حدث خطأ :<</h3>
+      {% endif %}
+    <input id="myBtn" type="text"
+
            class="form__input" placeholder="اضف تدوينة" required="" style="border-radius: .9em"
         >
 </div>
@@ -42,12 +60,16 @@
   <!-- Modal content -->
   <div style="padding: 0" class="modal-content" id="changi">
 
-    <div  class="modal-body">
+
+    <div class="modal-body">
+
       <div style="border: transparent  3px" id="myModel1" class="modal1">
     <div class="modal__container">
       <div id="pici" style="transform:rotateY(180deg);" class="modal__featured">
 <button type="button" class="button--transparent button--close">
-    <svg class="nc-icon glyph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32">
+
+    <svg class="nc-icon glyph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="60%" height="70%" viewBox="0 0 32 32">
+
 
 
               <g><path fill="#ffffff" d="M1.293,15.293L11,5.586L12.414,7l-8,8H31v2H4.414l8,8L11,26.414l-9.707-9.707 C0.902,16.316,0.902,15.684,1.293,15.293z"></path> </g></svg>
@@ -60,51 +82,147 @@
         <img src="https://raw.githubusercontent.com/eee23d/w1/main/qe.png" class="modal__product"  />
       </div>
 
-      <div  class="modal__content">
+
+  <form method="post">
+
+{% csrf_token %}
+      <div style="" class="modal__content">
           <li style="" class="form-list__row form-list__row--inline">
         <h2>إضافة تدوينة</h2>
-
                 <div class="dropdown">
-                    <button  class="dropbtn">الرف</button>
 
-                    <div class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
+                    <select name="shelfSelect" id="shelfSelect" title="اختر كتاب" required>
+                    <option disabled selected value> اختر كتاب</option>
+                      {% for book in bookForShelf %}
+                    <option  value="{{book.book.bookTitle }}" class="dropdown">{{ book.book.bookTitle }}</option>
+                    {% endfor %}
+                    </select>
               </div>
-
-                 <div class="dropdown1">
-                    <button  class="dropbtn1">الكتاب</button>
-                    <div class="dropdown-content1">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
-              </div>
-
             </li>
-
-        <form>
           <ul class="form-list">
             <li class="form-list__row">
-              <input placeholder="عنوان التدوينة" type="text" name="" required="" />
+              <input placeholder="عنوان التدوينة" type="text" name="title" required />
             </li>
             <li class="form-list__row">
-              <textarea placeholder=" التدوينة"></textarea>
+              <textarea placeholder=" التدوينة" name="note" required></textarea>
+            </li>
+                  <h2>اضافة ورد</h2>
+              <li class="form-list__row form-list__row--inline" style="margin: auto">
+              من
+                    <div style="direction: rtl;" class="number-input">
+                        <button style="background-color: #ffbe8a" type="button" id = "minusB1" class="btn btn-primary"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
+                        </button>
+                        <input style="font-size: 20px;" class="quantity" min=1 name="fromP" id ="fromP" value=1 type="number" required>
+                        <button style="background-color: #ffbe8a; direction: rtl;" type="button" id ="plusB1" class="btn btn-primary"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                class="plus">+
+                        </button>
+                    </div>
+إلى
+                    <div style="direction: rtl;" class="number-input">
+                        <button style="background-color: #ffbe8a" type="button" id="minusB2" class="btn btn-primary"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
+                        </button>
+                        <input style="font-size: 20px;" class="quantity" name="toP" id="toP" value=2 type="number" required >
+                        <!--check num-->
+                        <button style="background-color: #ffbe8a" type="button" class="btn btn-primary" id ="plusB2"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                class="plus">+
+                        </button>
+                    </div>
+            </li>
+              <li class="form-list__row">
+
+              </li>
+              <li class="form-list__row form-list__row--inline" style="margin: auto">
+
+                  <input type="checkbox" name="private" >
+                  <label class="form-check-label" for="private" >تدوينة خاصة</label>
+            </li>
+              <hr>
+                <li class="form-list__row" >
+              <button style="width: 100%;
+    "; type="submit" name="AddNote" id="AddNote" class="button">نشر</button>
+
+            </li>
+          </ul>
+      </div>
+        </form>
+</div>
+
+      </div> <!-- END: .modal__content -->
+    </div> <!-- END: .modal__container -->
+  </div> <!-- END: .modal -->
+    </div>
+
+<!--modal for edit notes!! -->
+<div id="editModal" class="modal" >
+
+  <!-- Modal content -->
+  <div style="padding: 0" class="modal-content" id="changi1">
+
+    <div class="modal-body">
+      <div style="border: transparent  3px" id="myModel1" class="modal1">
+    <div class="modal__container">
+      <div id="pici" style="transform:rotateY(180deg);" class="modal__featured">
+<button type="button" class="button--transparent button--close">
+    <svg class="nc-icon glyph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="60%" height="70%" viewBox="0 0 32 32">
+
+
+              <g><path fill="#ffffff" d="M1.293,15.293L11,5.586L12.414,7l-8,8H31v2H4.414l8,8L11,26.414l-9.707-9.707 C0.902,16.316,0.902,15.684,1.293,15.293z"></path> </g></svg>
+          <span class="close" id = "closeEdit">&times;</span>
+
+          <span class="visuallyhidden">Return to Product Page</span>
+        </button>
+
+        <div class="modal__circle" > </div>
+        <img src="https://raw.githubusercontent.com/eee23d/w1/main/qe.png" class="modal__product"  />
+      </div>
+
+
+  <form method="post">
+{% csrf_token %}
+      <div style="" class="modal__content">
+      <input style="visibility: hidden" id="noteSelected" name ="noteSelected" >
+      <span style="width: auto" class="error-message alert-danger text-danger text-center" >{{ error }}</span>
+          <li style="" class="form-list__row form-list__row--inline">
+        <h2>تعديل تدوينة</h2>
+                <div class="dropdown">
+                    <select name="shelfSelectEdit" id="shelfSelectEdit" title="اختر كتاب">
+                    <option disabled selected value> اختر كتاب</option>
+                      {% for book in bookForShelf %}
+                    <option  value="{{book.book.bookTitle }}" class="dropdown">{{ book.book.bookTitle }}</option>
+                    {% endfor %}
+                    </select>
+
+              </div>
+
             </li>
 
+
+
+
+          <ul class="form-list">
+            <li >
+              <input placeholder="عنوان التدوينة" type="text" name="titleEdit"  id="titleEdit"  required />
+            </li>
+            <li class="form-list__row">
+              <textarea placeholder=" التدوينة" name="noteEdit" id="noteEdit" required></textarea>
+            </li>
 
                   <h2>اضافة ورد</h2>
 
               <li class="form-list__row form-list__row--inline" style="margin: auto">
               من
                     <div style="direction: rtl;" class="number-input">
-                        <button style="background-color: #5eb0f6" type="button" class="btn btn-primary"
+
+                        <button style="background-color: #ffbe8a" type="button" id = "minusB1Edit" class="btn btn-primary"
                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
                         </button>
-                        <input style="font-size: 20px;" class="quantity" min="0" name="quantity" value="1" type="number">
-                        <button style="background-color: #5eb0f6; direction: rtl;" type="button" class="btn btn-primary"
+                        <input style="font-size: 20px;" class="quantity" min=1 name="fromPEdit" id ="fromPEdit" value=1 type="number" required>
+                        <button style="background-color: #ffbe8a; direction: rtl;" type="button" id ="plusB1Edit" class="btn btn-primary"
+
                                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                 class="plus">+
                         </button>
@@ -112,14 +230,18 @@
                     </div>
 إلى
                     <div style="direction: rtl;" class="number-input">
-                        <button style="background-color: #5eb0f6" type="button" class="btn btn-primary"
+
+                        <button style="background-color: #ffbe8a" type="button" id="minusB2Edit" class="btn btn-primary"
                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
                         </button>
-                        <input style="font-size: 20px;" class="quantity" min="0" name="quantity" value="1" type="number">
-                        <button style="background-color: #5eb0f6" type="button" class="btn btn-primary"
+                        <input style="font-size: 20px;" class="quantity" name="toPEdit" id="toPEdit" value=2 type="number" required>
+                        <!--check num-->
+                        <button style="background-color: #ffbe8a" type="button" class="btn btn-primary" id ="plusB2Edit"
+
                                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                 class="plus">+
                         </button>
+
                     </div>
 
             </li>
@@ -127,44 +249,51 @@
 
               </li>
               <li class="form-list__row form-list__row--inline" style="margin: auto">
-              تدوينة خاصة
-                                      <input type="checkbox">
+
+
+                                      <input type="checkbox" name="privateEdit" id="privateEdit">
+                  <label class="form-check-label" for="private" >تدوينة خاصة</label>
             </li>
               <hr>
 
                 <li class="form-list__row" >
-              <button style="width: 100%;"; type="submit" class="button">نشر</button>
+              <button style="width: 100%;
+    "; type="submit" name="AddNoteEdit" id="AddNoteEdit" class="button">نشر</button>
 
             </li>
           </ul>
+      </div>
         </form>
+</div>
 
       </div> <!-- END: .modal__content -->
     </div> <!-- END: .modal__container -->
-  </div> <!-- END: .modal -->
-    </div>
-
   </div>
-</div>
+    </div><!-- END: .modal -->
+
 
 <script>
 // Get the modal
 var modal = document.getElementById("myModal1");
-
+var modal2 = document.getElementById("editModal");
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
+var span = document.getElementsByClassName("close");
+var span2= document.getElementById("closeEdit")
 // When the user clicks the button, open the modal
 btn.onclick = function() {
   modal.style.display = "block";
+
 }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
+}
+span2.onclick = function (){
+    modal2.style.display="none"
 }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -177,124 +306,259 @@ window.onclick = function(event) {
 
 </body>
 </html>
+<form method="post">
+    {% csrf_token %}
+    <div  class="modal-header" style="margin: auto; background-color: inherit; position: absolute;">
+ <input placeholder=" ابحث في المدونات" style="width: 90% ;height: 50px; margin: auto; margin-top: 20px; margin-right: 10px" type="search" id="search-box" name="search-boc" class="form-control row" required/>
+    <button type="submit" id="search" name="search" class="row button" style="margin: 20px; " >  ابحث</button>
+    </div>
+    <input name="t" type="text" style="visibility: hidden; height: 1px;width: 1px" value="{{ nav }}">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div style="" class="row" data-aos="fade-up">
+</form>
+<div style="" class="row" >
     <div style="margin-top: 20px" class="col-lg-12 d-flex justify-content-center">
+        <form method="post" id = "navBar">
+            {% csrf_token %}
+            <input type="text " style="visibility: hidden" name="typeTrack" value="" id="typeTrack">
+
         <ul id="portfolio-flters">
-            <li data-filter="*" class="filter-active">الكل</li>
-            <li data-filter=".filter-app">رف1</li>
-            <li data-filter=".filter-card">رف2</li>
-            <li data-filter=".filter-web">رف3</li>
+            <li  id="myNotes" name="myNotes" > <a onclick="fun(this)">مدوناتي <i class="bx bx-note"> </i></a></li>
+            <li id="glob" name="glob"><a onclick= "fun(this)" > جميع القرَّاء <i class="bx bx-globe"></i> </a></li>
+            <li id="liked"  name="liked"><a onclick= "fun(this)" > المفضلة<i class="bx bx-like"></i></a></li>
         </ul>
+        </form>
     </div>
 </div>
+<script>
+    function fun(sender){
+
+        document.getElementById("typeTrack").setAttribute("value",sender.parentElement.getAttribute("name"))
+        document.forms['navBar'].submit();
+        //sender.style.backgroundColor = '#000000';
+    }
+</script>
+{% if error == "no results" %}
+              <h3 style="width: auto" class=" border-warning alert-warning bg-warning  text-center" >لا توجد نتائج.. </h3>
+
+{% endif %}
 
 <div style="" class="row" data-aos="fade-up" data-aos-delay="100">
-
-    <div style="border-color: hsla(0, 0%, 100%, .6);" class="col-lg-4 col-md-6 portfolio-item filter-app">
-
-
-        <div style="background-color: white;
-border-style: solid;border-color: black;border-radius: .8em;border-width: 1px;
-padding: 10px;
-" class="portfolio-wrap1  ">
-            <p style="text-align: right">
-                <b style="font-size: 24px;float: right">انهضوا كل صباح</b>
-                |
-                الثلاثاء، 14\2\2021
-                <br><br>
-                <i class="bx bxs-quote-alt-left quote-icon-left" style="float: right"></i>
-                            مهما كان شعوركم، فانهضوا كل صباح، واستعدوا لتدعوا نوركم ينشر شعاعه.
-
-                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-
-            </p>
-            <div class="portfolio-links">
-                <a href="" data-gallery="portfolioGallery" class="portfolio-lightbox" title="عرض التفاصيل">
-                    <img width="20px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQ2MS4zMTIgNDYxLjMxMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNMjMwLjY1NiwxNTYuNDE2Yy00MC45NiwwLTc0LjI0LDMzLjI4LTc0LjI0LDc0LjI0czMzLjI4LDc0LjI0LDc0LjI0LDc0LjI0czc0LjI0LTMzLjI4LDc0LjI0LTc0LjI0ICAgIFMyNzEuNjE2LDE1Ni40MTYsMjMwLjY1NiwxNTYuNDE2eiBNMjI1LjAyNCwyMDguNjRjLTkuMjE2LDAtMTYuODk2LDcuNjgtMTYuODk2LDE2Ljg5NmgtMjQuNTc2ICAgIGMwLjUxMi0yMy4wNCwxOC45NDQtNDEuNDcyLDQxLjQ3Mi00MS40NzJWMjA4LjY0eiIgZmlsbD0iIzFmODhlMiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNNDU1LjkzNiwyMTUuMjk2Yy0yNS4wODgtMzEuMjMyLTExNC42ODgtMTMzLjEyLTIyNS4yOC0xMzMuMTJTMzAuNDY0LDE4NC4wNjQsNS4zNzYsMjE1LjI5NiAgICBjLTcuMTY4LDguNzA0LTcuMTY4LDIxLjUwNCwwLDMwLjcyYzI1LjA4OCwzMS4yMzIsMTE0LjY4OCwxMzMuMTIsMjI1LjI4LDEzMy4xMnMyMDAuMTkyLTEwMS44ODgsMjI1LjI4LTEzMy4xMiAgICBDNDYzLjEwNCwyMzcuMzEyLDQ2My4xMDQsMjI0LjUxMiw0NTUuOTM2LDIxNS4yOTZ6IE0yMzAuNjU2LDMzOC4xNzZjLTU5LjM5MiwwLTEwNy41Mi00OC4xMjgtMTA3LjUyLTEwNy41MiAgICBzNDguMTI4LTEwNy41MiwxMDcuNTItMTA3LjUyczEwNy41Miw0OC4xMjgsMTA3LjUyLDEwNy41MlMyOTAuMDQ4LDMzOC4xNzYsMjMwLjY1NiwzMzguMTc2eiIgZmlsbD0iIzFmODhlMiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjwvZz48L3N2Zz4=" />
-                </a>
-                <a href="" title="اضافة الى المفضلة"><img width="20px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMi4wMDEgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIiBjbGFzcz0iIj48Zz48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im0yNTYgNDU1LjUxNTYyNWMtNy4yODkwNjIgMC0xNC4zMTY0MDYtMi42NDA2MjUtMTkuNzkyOTY5LTcuNDM3NS0yMC42ODM1OTMtMTguMDg1OTM3LTQwLjYyNS0zNS4wODIwMzEtNTguMjE4NzUtNTAuMDc0MjE5bC0uMDg5ODQzLS4wNzgxMjVjLTUxLjU4MjAzMi00My45NTcwMzEtOTYuMTI1LTgxLjkxNzk2OS0xMjcuMTE3MTg4LTExOS4zMTI1LTM0LjY0NDUzMS00MS44MDQ2ODctNTAuNzgxMjUtODEuNDQxNDA2LTUwLjc4MTI1LTEyNC43NDIxODcgMC00Mi4wNzAzMTMgMTQuNDI1NzgxLTgwLjg4MjgxMyA0MC42MTcxODgtMTA5LjI5Mjk2OSAyNi41MDM5MDYtMjguNzQ2MDk0IDYyLjg3MTA5My00NC41NzgxMjUgMTAyLjQxNDA2Mi00NC41NzgxMjUgMjkuNTU0Njg4IDAgNTYuNjIxMDk0IDkuMzQzNzUgODAuNDQ1MzEyIDI3Ljc2OTUzMSAxMi4wMjM0MzggOS4zMDA3ODEgMjIuOTIxODc2IDIwLjY4MzU5NCAzMi41MjM0MzggMzMuOTYwOTM4IDkuNjA1NDY5LTEzLjI3NzM0NCAyMC41LTI0LjY2MDE1NyAzMi41MjczNDQtMzMuOTYwOTM4IDIzLjgyNDIxOC0xOC40MjU3ODEgNTAuODkwNjI1LTI3Ljc2OTUzMSA4MC40NDUzMTItMjcuNzY5NTMxIDM5LjUzOTA2MyAwIDc1LjkxMDE1NiAxNS44MzIwMzEgMTAyLjQxNDA2MyA0NC41NzgxMjUgMjYuMTkxNDA2IDI4LjQxMDE1NiA0MC42MTMyODEgNjcuMjIyNjU2IDQwLjYxMzI4MSAxMDkuMjkyOTY5IDAgNDMuMzAwNzgxLTE2LjEzMjgxMiA4Mi45Mzc1LTUwLjc3NzM0NCAxMjQuNzM4MjgxLTMwLjk5MjE4NyAzNy4zOTg0MzctNzUuNTMxMjUgNzUuMzU1NDY5LTEyNy4xMDU0NjggMTE5LjMwODU5NC0xNy42MjUgMTUuMDE1NjI1LTM3LjU5NzY1NyAzMi4wMzkwNjItNTguMzI4MTI2IDUwLjE2Nzk2OS01LjQ3MjY1NiA0Ljc4OTA2Mi0xMi41MDM5MDYgNy40Mjk2ODctMTkuNzg5MDYyIDcuNDI5Njg3em0tMTEyLjk2ODc1LTQyNS41MjM0MzdjLTMxLjA2NjQwNiAwLTU5LjYwNTQ2OSAxMi4zOTg0MzctODAuMzY3MTg4IDM0LjkxNDA2Mi0yMS4wNzAzMTIgMjIuODU1NDY5LTMyLjY3NTc4MSA1NC40NDkyMTktMzIuNjc1NzgxIDg4Ljk2NDg0NCAwIDM2LjQxNzk2OCAxMy41MzUxNTcgNjguOTg4MjgxIDQzLjg4MjgxMyAxMDUuNjA1NDY4IDI5LjMzMjAzMSAzNS4zOTQ1MzIgNzIuOTYwOTM3IDcyLjU3NDIxOSAxMjMuNDc2NTYyIDExNS42MjVsLjA5Mzc1LjA3ODEyNmMxNy42NjAxNTYgMTUuMDUwNzgxIDM3LjY3OTY4OCAzMi4xMTMyODEgNTguNTE1NjI1IDUwLjMzMjAzMSAyMC45NjA5MzgtMTguMjUzOTA3IDQxLjAxMTcxOS0zNS4zNDM3NSA1OC43MDcwMzEtNTAuNDE3OTY5IDUwLjUxMTcxOS00My4wNTA3ODEgOTQuMTM2NzE5LTgwLjIyMjY1NiAxMjMuNDY4NzUtMTE1LjYxNzE4OCAzMC4zNDM3NS0zNi42MTcxODcgNDMuODc4OTA3LTY5LjE4NzUgNDMuODc4OTA3LTEwNS42MDU0NjggMC0zNC41MTU2MjUtMTEuNjA1NDY5LTY2LjEwOTM3NS0zMi42NzU3ODEtODguOTY0ODQ0LTIwLjc1NzgxMy0yMi41MTU2MjUtNDkuMzAwNzgyLTM0LjkxNDA2Mi04MC4zNjMyODItMzQuOTE0MDYyLTIyLjc1NzgxMiAwLTQzLjY1MjM0NCA3LjIzNDM3NC02Mi4xMDE1NjIgMjEuNS0xNi40NDE0MDYgMTIuNzE4NzUtMjcuODk0NTMyIDI4Ljc5Njg3NC0zNC42MDkzNzUgNDAuMDQ2ODc0LTMuNDUzMTI1IDUuNzg1MTU3LTkuNTMxMjUgOS4yMzgyODItMTYuMjYxNzE5IDkuMjM4Mjgycy0xMi44MDg1OTQtMy40NTMxMjUtMTYuMjYxNzE5LTkuMjM4MjgyYy02LjcxMDkzNy0xMS4yNS0xOC4xNjQwNjItMjcuMzI4MTI0LTM0LjYwOTM3NS00MC4wNDY4NzQtMTguNDQ5MjE4LTE0LjI2NTYyNi0zOS4zNDM3NS0yMS41LTYyLjA5NzY1Ni0yMS41em0wIDAiIGZpbGw9IiNlMDBjMGMiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48L2c+PC9zdmc+" /></a>
-            </div>
-        </div>
-    </div>
-
-
+{% for note in notes %}
     <div style="  border-color: hsla(0, 0%, 100%, .6);
 " class="col-lg-4 col-md-6 portfolio-item filter-app">
 
 
-        <div style="background-color: white;
-border-style: solid;border-color: black;border-radius: .8em;border-width: 1px;
-padding: 10px;
-" class="portfolio-wrap1  ">
-            <p style="text-align: right">
-                <b style="font-size: 24px;float: right">انهضوا كل صباح</b>
-                |
-                الثلاثاء، 14\2\2021
-                <br><br>
-                <i class="bx bxs-quote-alt-left quote-icon-left" style="float: right"></i>
-                            مهما كان شعوركم، فانهضوا كل صباح، واستعدوا لتدعوا نوركم ينشر شعاعه.
-
-                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-
-            </p>
-            <div class="portfolio-links">
-                <a href="" data-gallery="portfolioGallery" class="portfolio-lightbox" title="عرض التفاصيل">
-                    <img width="20px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQ2MS4zMTIgNDYxLjMxMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNMjMwLjY1NiwxNTYuNDE2Yy00MC45NiwwLTc0LjI0LDMzLjI4LTc0LjI0LDc0LjI0czMzLjI4LDc0LjI0LDc0LjI0LDc0LjI0czc0LjI0LTMzLjI4LDc0LjI0LTc0LjI0ICAgIFMyNzEuNjE2LDE1Ni40MTYsMjMwLjY1NiwxNTYuNDE2eiBNMjI1LjAyNCwyMDguNjRjLTkuMjE2LDAtMTYuODk2LDcuNjgtMTYuODk2LDE2Ljg5NmgtMjQuNTc2ICAgIGMwLjUxMi0yMy4wNCwxOC45NDQtNDEuNDcyLDQxLjQ3Mi00MS40NzJWMjA4LjY0eiIgZmlsbD0iIzFmODhlMiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNNDU1LjkzNiwyMTUuMjk2Yy0yNS4wODgtMzEuMjMyLTExNC42ODgtMTMzLjEyLTIyNS4yOC0xMzMuMTJTMzAuNDY0LDE4NC4wNjQsNS4zNzYsMjE1LjI5NiAgICBjLTcuMTY4LDguNzA0LTcuMTY4LDIxLjUwNCwwLDMwLjcyYzI1LjA4OCwzMS4yMzIsMTE0LjY4OCwxMzMuMTIsMjI1LjI4LDEzMy4xMnMyMDAuMTkyLTEwMS44ODgsMjI1LjI4LTEzMy4xMiAgICBDNDYzLjEwNCwyMzcuMzEyLDQ2My4xMDQsMjI0LjUxMiw0NTUuOTM2LDIxNS4yOTZ6IE0yMzAuNjU2LDMzOC4xNzZjLTU5LjM5MiwwLTEwNy41Mi00OC4xMjgtMTA3LjUyLTEwNy41MiAgICBzNDguMTI4LTEwNy41MiwxMDcuNTItMTA3LjUyczEwNy41Miw0OC4xMjgsMTA3LjUyLDEwNy41MlMyOTAuMDQ4LDMzOC4xNzYsMjMwLjY1NiwzMzguMTc2eiIgZmlsbD0iIzFmODhlMiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjwvZz48L3N2Zz4=" />
-                </a>
-                <a href="" title="اضافة الى المفضلة"><img width="20px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMi4wMDEgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIiBjbGFzcz0iIj48Zz48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im0yNTYgNDU1LjUxNTYyNWMtNy4yODkwNjIgMC0xNC4zMTY0MDYtMi42NDA2MjUtMTkuNzkyOTY5LTcuNDM3NS0yMC42ODM1OTMtMTguMDg1OTM3LTQwLjYyNS0zNS4wODIwMzEtNTguMjE4NzUtNTAuMDc0MjE5bC0uMDg5ODQzLS4wNzgxMjVjLTUxLjU4MjAzMi00My45NTcwMzEtOTYuMTI1LTgxLjkxNzk2OS0xMjcuMTE3MTg4LTExOS4zMTI1LTM0LjY0NDUzMS00MS44MDQ2ODctNTAuNzgxMjUtODEuNDQxNDA2LTUwLjc4MTI1LTEyNC43NDIxODcgMC00Mi4wNzAzMTMgMTQuNDI1NzgxLTgwLjg4MjgxMyA0MC42MTcxODgtMTA5LjI5Mjk2OSAyNi41MDM5MDYtMjguNzQ2MDk0IDYyLjg3MTA5My00NC41NzgxMjUgMTAyLjQxNDA2Mi00NC41NzgxMjUgMjkuNTU0Njg4IDAgNTYuNjIxMDk0IDkuMzQzNzUgODAuNDQ1MzEyIDI3Ljc2OTUzMSAxMi4wMjM0MzggOS4zMDA3ODEgMjIuOTIxODc2IDIwLjY4MzU5NCAzMi41MjM0MzggMzMuOTYwOTM4IDkuNjA1NDY5LTEzLjI3NzM0NCAyMC41LTI0LjY2MDE1NyAzMi41MjczNDQtMzMuOTYwOTM4IDIzLjgyNDIxOC0xOC40MjU3ODEgNTAuODkwNjI1LTI3Ljc2OTUzMSA4MC40NDUzMTItMjcuNzY5NTMxIDM5LjUzOTA2MyAwIDc1LjkxMDE1NiAxNS44MzIwMzEgMTAyLjQxNDA2MyA0NC41NzgxMjUgMjYuMTkxNDA2IDI4LjQxMDE1NiA0MC42MTMyODEgNjcuMjIyNjU2IDQwLjYxMzI4MSAxMDkuMjkyOTY5IDAgNDMuMzAwNzgxLTE2LjEzMjgxMiA4Mi45Mzc1LTUwLjc3NzM0NCAxMjQuNzM4MjgxLTMwLjk5MjE4NyAzNy4zOTg0MzctNzUuNTMxMjUgNzUuMzU1NDY5LTEyNy4xMDU0NjggMTE5LjMwODU5NC0xNy42MjUgMTUuMDE1NjI1LTM3LjU5NzY1NyAzMi4wMzkwNjItNTguMzI4MTI2IDUwLjE2Nzk2OS01LjQ3MjY1NiA0Ljc4OTA2Mi0xMi41MDM5MDYgNy40Mjk2ODctMTkuNzg5MDYyIDcuNDI5Njg3em0tMTEyLjk2ODc1LTQyNS41MjM0MzdjLTMxLjA2NjQwNiAwLTU5LjYwNTQ2OSAxMi4zOTg0MzctODAuMzY3MTg4IDM0LjkxNDA2Mi0yMS4wNzAzMTIgMjIuODU1NDY5LTMyLjY3NTc4MSA1NC40NDkyMTktMzIuNjc1NzgxIDg4Ljk2NDg0NCAwIDM2LjQxNzk2OCAxMy41MzUxNTcgNjguOTg4MjgxIDQzLjg4MjgxMyAxMDUuNjA1NDY4IDI5LjMzMjAzMSAzNS4zOTQ1MzIgNzIuOTYwOTM3IDcyLjU3NDIxOSAxMjMuNDc2NTYyIDExNS42MjVsLjA5Mzc1LjA3ODEyNmMxNy42NjAxNTYgMTUuMDUwNzgxIDM3LjY3OTY4OCAzMi4xMTMyODEgNTguNTE1NjI1IDUwLjMzMjAzMSAyMC45NjA5MzgtMTguMjUzOTA3IDQxLjAxMTcxOS0zNS4zNDM3NSA1OC43MDcwMzEtNTAuNDE3OTY5IDUwLjUxMTcxOS00My4wNTA3ODEgOTQuMTM2NzE5LTgwLjIyMjY1NiAxMjMuNDY4NzUtMTE1LjYxNzE4OCAzMC4zNDM3NS0zNi42MTcxODcgNDMuODc4OTA3LTY5LjE4NzUgNDMuODc4OTA3LTEwNS42MDU0NjggMC0zNC41MTU2MjUtMTEuNjA1NDY5LTY2LjEwOTM3NS0zMi42NzU3ODEtODguOTY0ODQ0LTIwLjc1NzgxMy0yMi41MTU2MjUtNDkuMzAwNzgyLTM0LjkxNDA2Mi04MC4zNjMyODItMzQuOTE0MDYyLTIyLjc1NzgxMiAwLTQzLjY1MjM0NCA3LjIzNDM3NC02Mi4xMDE1NjIgMjEuNS0xNi40NDE0MDYgMTIuNzE4NzUtMjcuODk0NTMyIDI4Ljc5Njg3NC0zNC42MDkzNzUgNDAuMDQ2ODc0LTMuNDUzMTI1IDUuNzg1MTU3LTkuNTMxMjUgOS4yMzgyODItMTYuMjYxNzE5IDkuMjM4Mjgycy0xMi44MDg1OTQtMy40NTMxMjUtMTYuMjYxNzE5LTkuMjM4MjgyYy02LjcxMDkzNy0xMS4yNS0xOC4xNjQwNjItMjcuMzI4MTI0LTM0LjYwOTM3NS00MC4wNDY4NzQtMTguNDQ5MjE4LTE0LjI2NTYyNi0zOS4zNDM3NS0yMS41LTYyLjA5NzY1Ni0yMS41em0wIDAiIGZpbGw9IiNlMDBjMGMiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48L2c+PC9zdmc+" /></a>
-            </div>
-        </div>
-    </div>
-
-        <div style="  border-color: hsla(0, 0%, 100%, .6);
-" class="col-lg-4 col-md-6 portfolio-item filter-app">
-
 
         <div style="background-color: white;
 border-style: solid;border-color: black;border-radius: .8em;border-width: 1px;
 padding: 10px;
 " class="portfolio-wrap1  ">
             <p style="text-align: right">
-                <b style="font-size: 24px;float: right">انهضوا كل صباح</b>
-                |
-                الثلاثاء، 14\2\2021
-                <br><br>
+                {% if nav == "liked" %}
+                    <b style="font-size: 24px;float: right">{{ note.note_id.note_title }}</b>
+                    <br>
+                 <p>  {{ note.note_id.book_shelf_user.reader.username }} في  {{ note.note_id.date }}</p>
+                    <br>
+                    <b>من كتاب: {{ note.note_id.book_shelf_user.book.bookTitle }}</b>
+                    <br><br>
                 <i class="bx bxs-quote-alt-left quote-icon-left" style="float: right"></i>
-                            مهما كان شعوركم، فانهضوا كل صباح، واستعدوا لتدعوا نوركم ينشر شعاعه.
+                {{ note.note_id.summary}}
+                     <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                    <div class="portfolio-links" >
+                <a href=""  class="portfolio-lightbox" title="عرض " style="padding-left: 5px" >
+                    <img width="20px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQ2MS4zMTIgNDYxLjMxMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNMjMwLjY1NiwxNTYuNDE2Yy00MC45NiwwLTc0LjI0LDMzLjI4LTc0LjI0LDc0LjI0czMzLjI4LDc0LjI0LDc0LjI0LDc0LjI0czc0LjI0LTMzLjI4LDc0LjI0LTc0LjI0ICAgIFMyNzEuNjE2LDE1Ni40MTYsMjMwLjY1NiwxNTYuNDE2eiBNMjI1LjAyNCwyMDguNjRjLTkuMjE2LDAtMTYuODk2LDcuNjgtMTYuODk2LDE2Ljg5NmgtMjQuNTc2ICAgIGMwLjUxMi0yMy4wNCwxOC45NDQtNDEuNDcyLDQxLjQ3Mi00MS40NzJWMjA4LjY0eiIgZmlsbD0iIzFmODhlMiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNNDU1LjkzNiwyMTUuMjk2Yy0yNS4wODgtMzEuMjMyLTExNC42ODgtMTMzLjEyLTIyNS4yOC0xMzMuMTJTMzAuNDY0LDE4NC4wNjQsNS4zNzYsMjE1LjI5NiAgICBjLTcuMTY4LDguNzA0LTcuMTY4LDIxLjUwNCwwLDMwLjcyYzI1LjA4OCwzMS4yMzIsMTE0LjY4OCwxMzMuMTIsMjI1LjI4LDEzMy4xMnMyMDAuMTkyLTEwMS44ODgsMjI1LjI4LTEzMy4xMiAgICBDNDYzLjEwNCwyMzcuMzEyLDQ2My4xMDQsMjI0LjUxMiw0NTUuOTM2LDIxNS4yOTZ6IE0yMzAuNjU2LDMzOC4xNzZjLTU5LjM5MiwwLTEwNy41Mi00OC4xMjgtMTA3LjUyLTEwNy41MiAgICBzNDguMTI4LTEwNy41MiwxMDcuNTItMTA3LjUyczEwNy41Miw0OC4xMjgsMTA3LjUyLDEwNy41MlMyOTAuMDQ4LDMzOC4xNzYsMjMwLjY1NiwzMzguMTc2eiIgZmlsbD0iIzFmODhlMiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjwvZz48L3N2Zz4=" />
+                </a>
+                        <a title="إضافة إلى المفضلة" class="" id="{{ note.note_id.id }}" name="FavNav" ><i class="bx bxs-heart" style="padding-left: 5px"id="{{ note.note_id.id }}"></i> </a></div>
+                    {% else %}
+                    <b style="font-size: 24px;float: right">{{ note.note_title }}</b>
+                    <br>
+                 <p>  {{ note.book_shelf_user.reader.username }} في  {{ note.date }}</p>
+                    <br>
+                    <b>من كتاب:  {{ note.book_shelf_user.book.bookTitle }}</b>
+                    <br>
+                <i class="bx bxs-quote-alt-left quote-icon-left" style="float: right"></i>
+                {{ note.summary }}
 
                 <i class="bx bxs-quote-alt-right quote-icon-right"></i>
 
             </p>
-            <div class="portfolio-links">
-                <a href="" data-gallery="portfolioGallery" class="portfolio-lightbox" title="عرض التفاصيل">
+            <div class="portfolio-links" >
+                <a href=""  class="portfolio-lightbox" title="عرض " style="padding-left: 5px" >
                     <img width="20px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQ2MS4zMTIgNDYxLjMxMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNMjMwLjY1NiwxNTYuNDE2Yy00MC45NiwwLTc0LjI0LDMzLjI4LTc0LjI0LDc0LjI0czMzLjI4LDc0LjI0LDc0LjI0LDc0LjI0czc0LjI0LTMzLjI4LDc0LjI0LTc0LjI0ICAgIFMyNzEuNjE2LDE1Ni40MTYsMjMwLjY1NiwxNTYuNDE2eiBNMjI1LjAyNCwyMDguNjRjLTkuMjE2LDAtMTYuODk2LDcuNjgtMTYuODk2LDE2Ljg5NmgtMjQuNTc2ICAgIGMwLjUxMi0yMy4wNCwxOC45NDQtNDEuNDcyLDQxLjQ3Mi00MS40NzJWMjA4LjY0eiIgZmlsbD0iIzFmODhlMiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNNDU1LjkzNiwyMTUuMjk2Yy0yNS4wODgtMzEuMjMyLTExNC42ODgtMTMzLjEyLTIyNS4yOC0xMzMuMTJTMzAuNDY0LDE4NC4wNjQsNS4zNzYsMjE1LjI5NiAgICBjLTcuMTY4LDguNzA0LTcuMTY4LDIxLjUwNCwwLDMwLjcyYzI1LjA4OCwzMS4yMzIsMTE0LjY4OCwxMzMuMTIsMjI1LjI4LDEzMy4xMnMyMDAuMTkyLTEwMS44ODgsMjI1LjI4LTEzMy4xMiAgICBDNDYzLjEwNCwyMzcuMzEyLDQ2My4xMDQsMjI0LjUxMiw0NTUuOTM2LDIxNS4yOTZ6IE0yMzAuNjU2LDMzOC4xNzZjLTU5LjM5MiwwLTEwNy41Mi00OC4xMjgtMTA3LjUyLTEwNy41MiAgICBzNDguMTI4LTEwNy41MiwxMDcuNTItMTA3LjUyczEwNy41Miw0OC4xMjgsMTA3LjUyLDEwNy41MlMyOTAuMDQ4LDMzOC4xNzYsMjMwLjY1NiwzMzguMTc2eiIgZmlsbD0iIzFmODhlMiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjwvZz48L3N2Zz4=" />
                 </a>
-                <a href="" title="اضافة الى المفضلة"><img width="20px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMi4wMDEgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIiBjbGFzcz0iIj48Zz48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im0yNTYgNDU1LjUxNTYyNWMtNy4yODkwNjIgMC0xNC4zMTY0MDYtMi42NDA2MjUtMTkuNzkyOTY5LTcuNDM3NS0yMC42ODM1OTMtMTguMDg1OTM3LTQwLjYyNS0zNS4wODIwMzEtNTguMjE4NzUtNTAuMDc0MjE5bC0uMDg5ODQzLS4wNzgxMjVjLTUxLjU4MjAzMi00My45NTcwMzEtOTYuMTI1LTgxLjkxNzk2OS0xMjcuMTE3MTg4LTExOS4zMTI1LTM0LjY0NDUzMS00MS44MDQ2ODctNTAuNzgxMjUtODEuNDQxNDA2LTUwLjc4MTI1LTEyNC43NDIxODcgMC00Mi4wNzAzMTMgMTQuNDI1NzgxLTgwLjg4MjgxMyA0MC42MTcxODgtMTA5LjI5Mjk2OSAyNi41MDM5MDYtMjguNzQ2MDk0IDYyLjg3MTA5My00NC41NzgxMjUgMTAyLjQxNDA2Mi00NC41NzgxMjUgMjkuNTU0Njg4IDAgNTYuNjIxMDk0IDkuMzQzNzUgODAuNDQ1MzEyIDI3Ljc2OTUzMSAxMi4wMjM0MzggOS4zMDA3ODEgMjIuOTIxODc2IDIwLjY4MzU5NCAzMi41MjM0MzggMzMuOTYwOTM4IDkuNjA1NDY5LTEzLjI3NzM0NCAyMC41LTI0LjY2MDE1NyAzMi41MjczNDQtMzMuOTYwOTM4IDIzLjgyNDIxOC0xOC40MjU3ODEgNTAuODkwNjI1LTI3Ljc2OTUzMSA4MC40NDUzMTItMjcuNzY5NTMxIDM5LjUzOTA2MyAwIDc1LjkxMDE1NiAxNS44MzIwMzEgMTAyLjQxNDA2MyA0NC41NzgxMjUgMjYuMTkxNDA2IDI4LjQxMDE1NiA0MC42MTMyODEgNjcuMjIyNjU2IDQwLjYxMzI4MSAxMDkuMjkyOTY5IDAgNDMuMzAwNzgxLTE2LjEzMjgxMiA4Mi45Mzc1LTUwLjc3NzM0NCAxMjQuNzM4MjgxLTMwLjk5MjE4NyAzNy4zOTg0MzctNzUuNTMxMjUgNzUuMzU1NDY5LTEyNy4xMDU0NjggMTE5LjMwODU5NC0xNy42MjUgMTUuMDE1NjI1LTM3LjU5NzY1NyAzMi4wMzkwNjItNTguMzI4MTI2IDUwLjE2Nzk2OS01LjQ3MjY1NiA0Ljc4OTA2Mi0xMi41MDM5MDYgNy40Mjk2ODctMTkuNzg5MDYyIDcuNDI5Njg3em0tMTEyLjk2ODc1LTQyNS41MjM0MzdjLTMxLjA2NjQwNiAwLTU5LjYwNTQ2OSAxMi4zOTg0MzctODAuMzY3MTg4IDM0LjkxNDA2Mi0yMS4wNzAzMTIgMjIuODU1NDY5LTMyLjY3NTc4MSA1NC40NDkyMTktMzIuNjc1NzgxIDg4Ljk2NDg0NCAwIDM2LjQxNzk2OCAxMy41MzUxNTcgNjguOTg4MjgxIDQzLjg4MjgxMyAxMDUuNjA1NDY4IDI5LjMzMjAzMSAzNS4zOTQ1MzIgNzIuOTYwOTM3IDcyLjU3NDIxOSAxMjMuNDc2NTYyIDExNS42MjVsLjA5Mzc1LjA3ODEyNmMxNy42NjAxNTYgMTUuMDUwNzgxIDM3LjY3OTY4OCAzMi4xMTMyODEgNTguNTE1NjI1IDUwLjMzMjAzMSAyMC45NjA5MzgtMTguMjUzOTA3IDQxLjAxMTcxOS0zNS4zNDM3NSA1OC43MDcwMzEtNTAuNDE3OTY5IDUwLjUxMTcxOS00My4wNTA3ODEgOTQuMTM2NzE5LTgwLjIyMjY1NiAxMjMuNDY4NzUtMTE1LjYxNzE4OCAzMC4zNDM3NS0zNi42MTcxODcgNDMuODc4OTA3LTY5LjE4NzUgNDMuODc4OTA3LTEwNS42MDU0NjggMC0zNC41MTU2MjUtMTEuNjA1NDY5LTY2LjEwOTM3NS0zMi42NzU3ODEtODguOTY0ODQ0LTIwLjc1NzgxMy0yMi41MTU2MjUtNDkuMzAwNzgyLTM0LjkxNDA2Mi04MC4zNjMyODItMzQuOTE0MDYyLTIyLjc1NzgxMiAwLTQzLjY1MjM0NCA3LjIzNDM3NC02Mi4xMDE1NjIgMjEuNS0xNi40NDE0MDYgMTIuNzE4NzUtMjcuODk0NTMyIDI4Ljc5Njg3NC0zNC42MDkzNzUgNDAuMDQ2ODc0LTMuNDUzMTI1IDUuNzg1MTU3LTkuNTMxMjUgOS4yMzgyODItMTYuMjYxNzE5IDkuMjM4Mjgycy0xMi44MDg1OTQtMy40NTMxMjUtMTYuMjYxNzE5LTkuMjM4MjgyYy02LjcxMDkzNy0xMS4yNS0xOC4xNjQwNjItMjcuMzI4MTI0LTM0LjYwOTM3NS00MC4wNDY4NzQtMTguNDQ5MjE4LTE0LjI2NTYyNi0zOS4zNDM3NS0yMS41LTYyLjA5NzY1Ni0yMS41em0wIDAiIGZpbGw9IiNlMDBjMGMiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48L2c+PC9zdmc+" /></a>
-            </div>
+                <a title="إضافة إلى المفضلة" class="" id="{{ note.id }}" name="addFav" ><i class="bx bx-heart" style="padding-left: 5px"id="{{ note.id }}"></i> </a>
+                {% if nav == "myNotes" %}
+                    <a  title="تعديل التدوينة" class=""  name="edit" id="{{ note.id }}" ><i class="bx bxs-edit-alt" style="padding-left: 5px"  id="{{ note.id }}"></i></a>
+                   <a  title="حذف التدوينة" class="" name="delete"  id="{{note.id}}"> <i class="bx bxs-x-square" style="padding-left: 5px"  id="{{ note.id }}"></i></a>
+
+                {% endif %}
+
+             {% endif %}
         </div>
+
+
     </div>
+
+
 </div>
+{% endfor %}
+ <form method="post">
+                     {% csrf_token %}
+                <input type="text" style="visibility: hidden" name="txt" id="txt"  >
+                <input type="text" style="visibility: hidden" name="t" value="{{ nav }}">
+     <input type="submit" name = "FavA" id="FavA" style="visibility: hidden">
+
+                <input type="text" style="visibility: hidden" id="noteDelete" name="noteDelete">
+                <input type="submit" style="visibility: hidden" name="noteToDelete" id="noteToDelete">
+            </form>
+
+</div>
+
+
 </div>
     </section>
 </main>
 
-{% endblock %}
 
+
+<script>
+    document.getElementById("{{nav}}").className = 'filter-active'
+</script>
+<!--as you see Ladies and Gentlemen I handeled bad input here for bad page input (if from larger than to and other many cases, no body will say thanks? even ms I dont think she can notice it,
+anyway noProblem  all matters to know it I made with love:} -->
+  <script>
+    document.getElementById("minusB1").addEventListener("click",constrain1)
+    document.getElementById("plusB1").addEventListener("click",constrain1)
+    document.getElementById("minusB2").addEventListener("click",constrain2)
+    document.getElementById("plusB2").addEventListener("click",constrain2)
+    document.getElementById("fromP").addEventListener("input",update)
+    document.getElementById("toP").addEventListener("input",update)
+    function constrain1(){
+         var fromP = document.getElementById("fromP");
+     var toP = document.getElementById("toP");
+     toP.setAttribute("min",fromP.value);
+     fromP.setAttribute("max",toP.value);
+
+
+    }
+
+    function constrain2(){
+        var fromP = document.getElementById("fromP");
+        var toP = document.getElementById("toP");
+     fromP.setAttribute("max",toP.value);
+     toP.setAttribute("min",fromP.value);
+
+
+    }
+    function update(e){
+         var fromP = document.getElementById("fromP");
+        var toP = document.getElementById("toP");
+         if (fromP.value>toP.value){
+         e.target.value=fromP.getAttribute("max")
+     }if (toP.value<fromP.value){
+             e.target.value=toP.getAttribute("min")
+        }
+         if (e.target.value==""){
+             e.target.value=1
+         }
+     }
+     //for edit and delete
+    var elements = document.getElementsByName("edit")
+    var myModal = document.getElementById("editModal");
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].addEventListener("click",edit)
+
+    }
+    //for  delete
+    var posts = document.getElementsByName("delete")
+    for (var i = 0; i < elements.length; i++) {
+        posts[i].addEventListener("click",delet)
+
+    }
+    //for fav, add and cancel
+    var favEl = document.getElementsByName("addFav")
+    var favNav = document.getElementsByName("FavNav")
+
+    for (var i = 0; i < favEl.length; i++) {
+        favEl[i].addEventListener("click",favAdd)
+         {% for note in notes %}
+        if (favEl[i].id == "{{ note.id }}") {
+             {% for n in fav %}
+                {% if note.id == n.note_id.id %}
+                    favEl[i].setAttribute("title","إزالة من المفضلة");
+                   favEl[i].getElementsByTagName('i')[0].className= "bx bxs-heart";
+                {% endif %}
+             {% endfor %}
+            }{% endfor %}
+    }
+
+    for (var i = 0; i < favNav.length; i++) {
+        favNav[i].addEventListener("click",favAddFnav)
+         {% for note in notes %}
+        if (favNav[i].id == "{{ note.id }}") {
+             {% for n in fav %}
+                {% if note.note_id.id == n.note_id.id %}
+                    favNav[i].setAttribute("title","إزالة من المفضلة");
+                   favNav[i].getElementsByTagName('i')[0].className= "bx bxs-heart";
+
+                {% endif %}
+             {% endfor %}
+            }
+
+        {% endfor %}
+    }
+
+
+    function edit(e){
+        var id= e.target.id;
+        myModal.style.display = "block";
+        {% for note in notes %}
+        if (id == "{{ note.id }}") {
+            document.getElementById("noteSelected").value="{{ note.id }}"
+            document.getElementById("titleEdit").value= "{{ note.note_title }}" ;
+            document.getElementById("noteEdit").value= "{{ note.note }}" ;
+            document.getElementById("fromPEdit").value = "{{ note.fromPage }}";
+            document.getElementById("toPEdit").value = "{{ note.toPage }}";
+            if ("{{ note.private }}" =="True"){
+                document.getElementById("privateEdit").checked = true;
+            }
+            document.getElementById("shelfSelectEdit").value = "{{ note.book_shelf_user.book.bookTitle }}";
+        }
+            {% endfor %}
+    }
+    function delet(e){
+        var Id= e.target.id;
+        {% for note in notes %}
+        if (Id == "{{ note.id }}") {
+            document.getElementById("noteDelete").value="{{ note.id }}"
+           document.getElementById("noteToDelete").click()
+        }
+            {% endfor %}
+    }
+    function favAdd(r){
+        var Id= r.target.id;
+        {% for note in notes %}
+        if (Id == "{{ note.id }}") {
+            document.getElementById("txt").value="{{  note.id  }}"
+           document.getElementById("FavA").click()
+        }
+        {% endfor %}
+    }
+     function favAddFnav(r){
+        var Id= r.target.id;
+        {% for note in notes %}
+        if (Id == "{{ note.note_id.id }}") {
+            document.getElementById("txt").value="{{  note.note_id.id  }}"
+           document.getElementById("FavA").click()
+        }
+        {% endfor %}
+    }
+
+
+
+
+ </script>
+{% endblock %}
+</body>
+
+</html>

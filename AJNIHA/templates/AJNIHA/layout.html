@@ -1,5 +1,5 @@
-{% load static %}
 
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,10 +46,7 @@
     <div class="d-flex flex-column">
       <div class="profile">
 
-        <img src="{{request.user.prof_pic.url}}" alt="" class=" rounded-circle">
-        <form method="post" enctype="multipart/form-data" ><a class="glyphicon glyphicon-camera text-center " type="submit">تغيير الصورة الشخصية</a> </form>
-
-
+            <img src=" {% block profile %} {{ reader.prof_pic.url }} {% endblock %} " alt="" class="rounded-circle" style="border-radius: 6em;height: 115px;">
 
         <h1 class="text-light"><a href="index.html">{{ request.user.first_name }}  {{ request.user.last_name }} </a></h1>
       </div>
@@ -57,11 +54,13 @@
       <nav id="navbar" class="nav-menu navbar">
           <ul>
          <li><a href="{% url 'userHome' %}" class="nav-link active" > <span> الصفحة الرئيسية </span><span style="color:#1f435f">d</span><i class="bx bx-home"></i></a></li>
-          <li><a href="{% url 'library' %}" class="nav-link scrollto"> <span style="color:#1f435f">dd</span> <span> مكتبتي </span><span style="color:#1f435f">d</span><i class="bx bx-server"></i></a></li>
+
+          <li><a href="{% url 'library' %}" class="nav-link scrollto"> <span style="color:#1f435f">dd</span> <span> مكتبتي </span><span style="color:#1f435f">d</span><i class="bx bx-library"></i></a></li>
            <li><a href="{% url 'search' %}" class="nav-link scrollto"><span style="color:#1f435f; font-size: small">ddd</span> <span> أضف كتاب </span><span style="color:#1f435f">d</span><i class="bx bx-book-add"></i> </a></li>
           <li><a href="{% url 'notes' %}" class="nav-link scrollto "><span style="color:#1f435f; font-size: small">ddd</span> <span> مدوناتي </span><span style="color:#1f435f">d</span><i class="bx bx-file-blank"></i> </a></li>
          <li><a href="{% url 'stat' %}" class="nav-link scrollto"><span style="color:#1f435f; font-size: small">ddd</span> <span> قراءتي </span><span style="color:#1f435f">d</span><i class="bx bx-chart"></i> </a></li>
-          <li><a href="{% url 'contact' %}" class="nav-link scrollto"><span style="color:#1f435f;font-size: small">d</span> <span> تواصل معنا </span><span style="color:#1f435f">d</span><i class="bx bx-envelope"></i> </a></li>
+          <li><a href="{% url 'setting' %}" class="nav-link scrollto"><span style="color:#1f435f;font-size: small">d</span> <span> اعدادات </span><span style="color:#1f435f">d</span><i class="bx bx-user"></i> </a></li>
+           <li><a href="{% url 'contact' %}" class="nav-link scrollto"><span style="color:#1f435f;font-size: small">d</span> <span> تواصل معنا </span><span style="color:#1f435f">d</span><i class="bx bx-envelope"></i> </a></li>
           <li><a href="{% url 'logoutUser' %}" class="nav-link scrollto"><span style="color:#1f435f;font-size: small">d</span> <span> تسجيل الخروج </span><span style="color:#1f435f">d</span><i class="bx bx-exit"></i> </a></li>
         </ul>
       </nav><!-- .nav-menu -->
@@ -100,3 +99,6 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'wingsApp/userHome/assets/js/main.js'%}"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+

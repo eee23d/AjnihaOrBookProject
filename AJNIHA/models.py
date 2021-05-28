@@ -15,9 +15,9 @@ def create_auto_sheleves(sender, instance, created, **kwargs):
 
 class Book(models.Model):
     author= models.CharField(max_length=40)
-    pageNo = models.IntegerField()
+    pageNo = models.IntegerField(null=True,blank=True)
     bookTitle = models.CharField(max_length=40)
-    isbn=models.CharField(max_length=40,default=1)
+    isbn=models.CharField(max_length=40,default=1,null=True,blank=True)
     description =models.TextField(null=True,blank=True)
     image = models.ImageField(default='/book.png',blank=True,null=True,auto_created=True,upload_to='')
     def __str__(self):
@@ -29,6 +29,7 @@ GENDER_CHOICES = (
 )
 
 class ReaderAccount(models.Model):
+
     fName= models.CharField(max_length=40)
     sName = models.CharField(max_length=40)
     username= models.ForeignKey(User,on_delete=models.CASCADE)
@@ -85,6 +86,8 @@ class ReadingRecords(models.Model):
 
     def __str__(self):
         return str(self.note_title)+ " ,"+ str(self.book_shelf_user)
+    def summary(self):
+        return self.note[:80]+"..."
 
 
 class booksuggest(models.Model):
@@ -104,6 +107,8 @@ class contacts(models.Model):
 class liked_post(models.Model):
     note_id= models.ForeignKey(ReadingRecords,on_delete=models.CASCADE)
     liked_by = models.ForeignKey(ReaderAccount,on_delete=models.CASCADE)
+    class Meta:
+        unique_together = ('note_id', 'liked_by')
     def __str__(self):
         return str(self.liked_by)
 
