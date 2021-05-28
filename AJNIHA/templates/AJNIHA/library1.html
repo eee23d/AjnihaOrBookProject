@@ -3,6 +3,7 @@
 {% block title %}أجنحة | مكتبتي {% endblock %}
 {% block content %}
 
+
   <!-- ======= Header ======= -->
   <header >
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -31,6 +32,9 @@
 </head>
 
 <section id="portfolio" class="portfolio section-bg">
+<a href="{% url 'search' %}"><button class="add" >إضافة كتاب</button></a>
+<button class="add" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="myBtn" >إضافة رف</button>
+
 {% for shelf in shelves %}
     <div style="" class="container">
         <div class="section-title">
@@ -58,15 +62,17 @@
                     </div>
                 {% endif %}
             {% endfor %}
+
             <div style="width: 40px;height: 40px;top: 90px; margin-left: 50px ">
 
             </div>
 
 
-        </div>
 
+        </div>
     </div>
 {% endfor %}
+
 
 <form method="post">
     {% csrf_token %}

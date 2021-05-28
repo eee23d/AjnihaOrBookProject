@@ -16,6 +16,5 @@ urlpatterns = [
     path('search',views.search,name='search'),
     path('stat',views.stat,name='stat'),
 
-    #I add a comment here to try use commit why
 
 ]
