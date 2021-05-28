@@ -20,6 +20,8 @@ from io import BytesIO
 #@login_required(login_url='loginPage')
 def index(request):
     return render(request,['AJNIHA/indexa.html'])
+def stat(request):
+    return render(request,['AJNIHA/stat.html'])
 
 @login_required(login_url='loginPage')
 def notes(request):

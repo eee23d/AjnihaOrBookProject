@@ -3,34 +3,12 @@
 {% block title %}أجنحة | مكتبتي {% endblock %}
 {% block content %}
 
-  <!-- ======= Header ======= -->
-  <header >
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </header>
 <main id="main">
 
-
-
-    <section style="background-color: transparent" id="portfolio" class="portfolio section-bg" >
-<div style="direction:rtl;background-color: rgba(5,32,40,0.37);
-  align-items: center;
-  padding: 30px;
-"
- class="container">
-
-
-
-    <!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-</head>
-
 <section id="portfolio" class="portfolio section-bg">
+<a href="{% url 'search' %}"><button class="add" >إضافة كتاب</button></a>
+<button class="add" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="myBtn" >إضافة رف</button>
+
 {% for shelf in shelves %}
     <div style="" class="container">
         <div class="section-title">
@@ -43,82 +21,81 @@
                 {% if book.shelf == shelf %}
 
                     <div style="width: 200px" class="portfolio-item filter-app">
-                          <a title="حذف الكتاب" name="delete" id="{{ book.id }}"><i class="bx bx-x" id="{{ book.id }}"></i></a>
                         <div style="" class="portfolio-wrap">
                             <img src="{{ book.book.image.url }}"
                                  class="img-fluid" alt="">
                             <div class="portfolio-links">
 
-                        <span style="background: #194680; color: white; size: 10px"> {{ book.book.bookTitle }}
+                                <a href="{% url 'userHome' %}"> {{ book.book.bookTitle }}
                                     <br>
                                     {{ book.book.author }}
-                                </span>
+                                </a>
+
                             </div>
+
                         </div>
+
                     </div>
                 {% endif %}
             {% endfor %}
-            <div style="width: 40px;height: 40px;top: 90px; margin-left: 50px ">
-
-            </div>
-
-
         </div>
-
     </div>
 {% endfor %}
+</section><!-- End Section -->
 
-<form method="post">
-    {% csrf_token %}
-    <input id="bookDelete" name="bookDelete" type="text" style="visibility: hidden">
-    <button id="bookToDelete" name="bookToDelete" type="submit" style="visibility: hidden"></button>
-</form>
-<script>
-    //for  delete
-    var elements = document.getElementsByName("delete")
-    for (var i = 0; i < elements.length; i++) {
-        elements[i].addEventListener("click",delet)
-    }
-     function delet(e){
-        var idd= e.target.id;
-         console.log(idd);
-            document.getElementById("bookDelete").value= idd;
-           document.getElementById("bookToDelete").click();
 
-    }
-</script>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">إضافة رف قراءة</button>
-     <a href="{% url 'search' %}" style="margin: auto">   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">إضافة كتاب</button></a>
 
-<!-- Modal -->
-<form method="post">
-     {% csrf_token %}
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">إضافة رف </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+
+
+
+
+</main>
+
+
+<!-- The Modal -->
+<div style="direction: rtl" id="myModal" class="modal" >
+
+  <!-- Modal content -->
+  <div style="padding: 0" class="modal-content" id="changi">
+
+    <div class="modal-body">
+      <div style="border: transparent  3px" id="myModel1" class="modal1">
+    <div class="modal__container">
+      <div id="pici" style="transform:rotateY(180deg);" class="modal__featured">
+<button type="button" class="button--transparent button--close">
+    <svg class="nc-icon glyph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32">
+
+
+    <g><path fill="#ffffff" d="M1.293,15.293L11,5.586L12.414,7l-8,8H31v2H4.414l8,8L11,26.414l-9.707-9.707 C0.902,16.316,0.902,15.684,1.293,15.293z"></path> </g></svg>
+          <span class="close">&times;</span>
+
+          <span class="visuallyhidden">Return to Product Page</span>
         </button>
+
+        <div class="modal__circle" > </div>
+        <img src="https://raw.githubusercontent.com/eee23d/Aj/main/Copy%20of%20Untitled.png" class="modal__product1"  />
       </div>
-      <div class="modal-body">
-        <input name="addShelf" placeholder="أدخل اسم الرف " required>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
-        <button type="submit" class="btn btn-primary">إضافة الرف</button>
-      </div>
+
+      <div style="" class="modal__content">
+          <li style="" class="form-list__row form-list__row--inline">
+        <h2>اسم الرف</h2>
+              <!--
+              ملحوظة لملك
+              هنا سيتم ادخال اسم الرف
+              -->
+              <input  type="text" name="shelfName" required="" />
+            </li>
+          <hr>
+          <li style="color: white" class="form-list__row" >
+             <button style="width: 100%;"; type="submit" class="button">اضافة</button>
+            </li>
+    </div> <!-- END: .modal__container -->
+  </div> <!-- END: .modal -->
     </div>
   </div>
 </div>
-</form>
-</script>
-</section><!-- End Section -->
-</html>
 </div>
-    </section>
-</main>
+
 
 {% endblock %}

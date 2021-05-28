@@ -254,11 +254,6 @@
   });
 
 })()
-
-
-
-
-
 //add a note form
 // Get the modal
 var modal = document.getElementById("myModal");
@@ -293,20 +288,6 @@ window.onclick = function(event) {
 
 
 var div = document.getElementsByClassName('dropdown-content');
-
-  for(var  i =0;i<div.length;i++){
-
-  for(var  j =0;j<div[i].children.length;j++){
-
-   div[i].children[j].addEventListener('click',function(){
-
-     this.parentNode.previousElementSibling.innerHTML = this.innerHTML;
-   })
-  }
-  }
-
-
-  var div = document.getElementsByClassName('dropdown-content1');
 
   for(var  i =0;i<div.length;i++){
 

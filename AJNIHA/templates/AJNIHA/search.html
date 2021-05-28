@@ -4,45 +4,47 @@
     أجنحة | إضافة كتاب
 {% endblock %}
 {% block content %}
-   <!DOCTYPE html>
-<html>
-<header>
-</header>
-
-<main id="main">
-
-
-
-    <section style="background-color: transparent" id="portfolio" class="portfolio section-bg" >
-<div style="direction:rtl;background-color: rgba(5,32,40,0.37);
-  align-items: center;
-  padding: 30px;
-"
- class="container">
-
-
-
-
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-</head>
-
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Animated Books with CSS 3D Transforms" />
+		<meta name="keywords" content="book, 3d, interactive, animated, 3d transform, css, web design" />
+		<meta name="author" content="Marco Barría for Codrops" />
+		<link rel="shortcut icon" href="{% static 'wingsApp/AnimatedBooks/favicon.ico'%}">
+		<link rel="stylesheet" type="text/css" href="{% static 'wingsApp/AnimatedBooks/css/normalize.css'%}" />
+		<link rel="stylesheet" type="text/css" href="{% static 'wingsApp/AnimatedBooks/css/book.css'%}" />
+		<script src="{% static 'wingsApp/AnimatedBooks/js/modernizr.custom.js'%}"></script>
+	</head>
+<main  id="main">
 
 <section id="portfolio" class="portfolio section-bg">
 
 <form method="post" id="formOne">
     {% csrf_token %}
-<div style="direction:rtl;background-color: rgba(211,243,214,0.37);margin: auto; "
- class="container">
+<div style="direction:rtl;margin: auto; "class="container">
     <div class="section-title " style="width: auto">
     <h2>البحث عن كتاب </h2>
 </div>
-</div>
 
-        <div style="margin: auto;padding-right: 50px;padding-left:50px; color: white; font-size: 20px; border-radius: .8rem;;
-  max-width: 77%; background: linear-gradient(to right bottom, hsl(236, 50%, 50%), hsl(195, 50%, 50%));
 
+            <div  class="modal-header" style="background-color: transparent">
+                   <input placeholder=" ابحث عن كتاب" style="width: 70%" type="search" id="search-box" name="search-box" class="form-control row" />
+
+                <div class="custom-select" style="width:180px;" >
+                <select  name="searchSelect" id="searchSelect">
+                    <option value="0" id="op0">اختر طريقة البحث</option>
+                    <option  class="dropdown" value="1" id="op1">مكتبة google books </option>
+                    <option  class="dropdown" value="2" id="op2">مكتبة أجنحة</option>
+                    </select>
+                </div>
+                  <button style="" type="submit" id="search" name="search" class="button row">ابحث</button>
+
+            </div>
+
+
+ <div style=" color: white; font-size: 20px; border-radius: .8rem;;
+  max-width: 100%; background: transparent;
   " class="row" data-aos="fade-up" data-aos-delay="100">
 
 
@@ -55,67 +57,79 @@
              {% endif %}
 
 
-            <div  class="modal-header">
-            اضف كتاباً إلى الرف
-            <hr>
-                  <select name="shelfSelect" id="shelfSelect" title="اختر رف">
-                    <option disabled selected value> اختر الرف</option>
-                      {% for shelf in shelves %}
-                    <option  class="dropdown">{{ shelf.shelfName }}</option>
-                    {% endfor %}
-                    </select>
 
-
-            </div>
-            <div  class="modal-header">
-                   <input placeholder=" ابحث عن كتاب" style="width: 70%" type="search" id="search-box" name="search-box" class="form-control row" />
-                <button type="submit" id="search" name="search" class="row" >ابحث</button>
-                <select name="searchSelect" id="searchSelect" title="اختر طريقة البحث">
-                    <option  class="dropdown" value="1" id="op1">مكتبة google books </option>
-                    <option  class="dropdown" value="2" id="op2">مكتبة أجنحة</option>
-                    </select>
-
-            </div>
             {% if response == 'no results' %}
                  <h2>لا توجد نتائج للبحث، حاول مجدداً .. </h2>
-
-{% elif response == ""  %}
-
+            {% elif response == ""  %}
                 {% else %}
             {% if searchType == "1" %}
                 <script>
                 var shelfselected = document.getElementById("op1").setAttribute(selected,true);
                 </script>
-            النتائج:
+                <div class="section-title " style="width: auto">
+    <h2>النتائج </h2>
+</div>
             <hr style="color: transparent">
                 {% for item in response  %}
-
- <div style="width: 50%;"  class="col-lg-4 col-md-6 portfolio-item filter-app radios ">
+                    <div style="width: 33%;"  class="col-lg-4 col-md-6 portfolio-item filter-app radios ">
             <input type="radio" name="rGroup" value="{{ item.selfLink }}" id="{{  item.selfLink}}"  >
             <label  for="{{  item.selfLink }}" class="radio"> </label>
-            <div class="portfolio-wrap">
-            {% if item.volumeInfo.imageLinks.thumbnail %}
-             <img  class="img-fluid" src="{{ item.volumeInfo.imageLinks.thumbnail }}" alt="book image" > </a>
-            {% else %}
-            <img class="img-fluid" src="{% static 'wingsApp\userHome\assets\img\thum.jpg' %}" width="200" height="300">
-            {% endif %}
-              <div class="portfolio-links ">
-                  <tr >
-                 <td> عنوان الكتاب: {{ item.volumeInfo.title }} </td>
-                {% for auth in item.volumeInfo.authors %}
-                <td> ،المؤلفون: {{ auth }} </td>
-                     {% endfor %}
-                    <a href="{{ item.volumeInfo.previewLink }}"; target="_blank" rel="noopener noreferrer" title="عرض معلومات الكتاب"><i class="bx bx-link"></i></a>
+                <div class="component">
+				<ul class="align">
+					<li>
+						<figure class='book'>
+
+						<!-- Front -->
+							<ul class='hardcover_front'>
+
+								<li>
+                                    {% if item.volumeInfo.imageLinks.thumbnail %}
+									<img src="{{ item.volumeInfo.imageLinks.thumbnail }}" alt="" width="100%" height="100%">
+								    {% else %}
+                                    <img class="img-fluid" src="{% static 'wingsApp\userHome\assets\img\thum.jpg' %}" width="200" height="300">
+                                    {% endif %}
+                                </li>
+
+								<li></li>
+							</ul>
+						<!-- Pages -->
+
+							<ul class='page'>
+								<li></li>
+								<li>
+                                <p style="color: #3f6bae"> عنوان الكتاب:  </p>
+                                <p style="color: black">{{ item.volumeInfo.title }}</p>
+                                <p style="color:#3f6bae">المؤلفون:</p>
+                                {% for auth in item.volumeInfo.authors %}
+                <p style="color: black">{{auth}},</p>
+                    {% endfor %}
+                        <a href="{{ item.volumeInfo.previewLink }}"; target="_blank" rel="noopener noreferrer" title="عرض معلومات الكتاب"><i class="bx bx-link"></i></a>
 
 
-                 </tr>
-                <br>
+								</li>
+								<li></li>
+								<li></li>
+								<li></li>
+							</ul>
+						<!-- Back -->
+							<ul class='hardcover_back'>
+								<li></li>
+								<li></li>
+							</ul>
+							<ul class='book_spine'>
+								<li></li>
+								<li></li>
+							</ul>
 
-              <!-- rel="noopener noreferrer" for security The rel attribute sets the relationship between your page and the linked URL. Setting it to noopener noreferrer is to prevent a type of phishing known as tabnabbing.-->
-              </div>
-            </div>
-            </div>
+						</figure>
+					</li>
+</ul>
+                                </div>
+                    </div>
+
         {% endfor %}
+
+                    </div>
 
 
             {% elif searchType == "2" %}
@@ -127,9 +141,9 @@
                     {% else %}
                     {% endif %}
                 {% for item in response  %}
-               <div style="width: 50%;"  class="col-lg-4 col-md-6 portfolio-item filter-app radios ">
+               <div style="width: 33%;"  class="col-lg-4 col-md-6 portfolio-item filter-app radios ">
                 <input type="radio" name="rGroup" value="{{ item.bookTitle }}" id="{{ item.bookTitle }}"  >
-                <label  for="{{ item.bookTitle }}" class="radio"> </label>
+                   <label  for="{{ item.bookTitle }}" class="radio"> </label>
                 <div class="portfolio-wrap">
                 <img class="img-fluid" src="{{ item.image.url }}" width="150" height="250">
                   <div class="portfolio-links">
@@ -144,103 +158,101 @@
             </div>
                 {% endfor %}
         {% endif %}
+                <div class="">
 
 
-            <hr>
-                <div class="modal-footer">
-
-            <button type="submit" id="addBookSearched" name = "addBookSearched" style=" border: 1px solid hsla(0, 0%, 100%, .4);
-  border-radius: 100rem;
-
-  color: lightblue;
-  font-size: 1.4rem;
-  transition: .2s;
-  width: 100%;
-  cursor: pointer;" class="dropbtn1">أضف</button>
+   <button class="button" style="width: 100%;text-align: center;" name = "addBookSearched" type="submit" id="addBookSearched" >اضف</button>
 
           </div>
-
-
         {% endif %}
 </div>
-
-
+</div>
 </form>
+
+
+
 </section>
 
 
-
-<!-- free section which we decide to delete it
-<section id="portfolio" class="portfolio section-bg">
-<div style="direction:rtl ;background-color: rgba(211,243,214,0.37);margin: auto; "
- class="container">
-    <div class="section-title">
-    <h2>أو أضف كتاب حراً إلى مكتبتك </h2>
-</div>
-    <div style="margin: auto;padding-right: 10px;color: white; font-size: 20px; border-radius: .8rem;;
-  max-width: 80%;  background: linear-gradient(to right bottom, hsl(236, 50%, 50%), hsl(195, 50%, 50%));
-
-  " class="row" data-aos="fade-up" data-aos-delay="100">
-            <div  class="modal-header">
-            تعريف كتاب حر
-                <div class="dropdown">
-                    <button style="background-color: #788696;" class="dropbtn1">اختر الرف</button>
-                    <div class="dropdown-content">
-                        <a href="#">مكتبة Google</a>
-                        <a href="#">مكتبة أجنحة</a>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div  class="modal-header">
-                   <input placeholder=" عنوان الكتاب" style="width: 100% " type="search" id="form1" class="form-control" />
-
-            </div>
-        <div  class="modal-header">
-                   <input placeholder=" اسم المؤلف" style="width: 100%" type="search" id="form1" class="form-control" />
-
-            </div>
-        <div  class="modal-header">
-<textarea id="story" name="story"
-                              rows="5" cols="33" placeholder="نبذة عن الكتاب"></textarea>
-            </div>
-
-                <div  class="modal-header">
-                    عدد الصفحات
-                    <div  style="direction: rtl;margin-right: 20px;" class="number-input">
-                        <button style="background-color: #788696;" type="button" class="btn btn-primary"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
-                        </button>
-                        <input style="font-size: 20px;" class="quantity" min="0" name="quantity" value="1" type="number">
-                        <button style="background-color: #788696" type="button" class="btn btn-primary"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                class="plus">+
-                        </button>
-
-                    </div>
-
-                </div>
-                        <div  class="modal-header">اضافة صورة<input type="file">
-                        </div>
-                        <div class="modal-footer">
-                            <button style=" border: 1px solid hsla(0, 0%, 100%, .4);
-  border-radius: 100rem;
-
-  color: inherit;
-  background: transparent;
-  font-size: 1.4rem;
-  transition: .2s;
-  width: 100%;
-  cursor: pointer;" class="dropbtn1">اضف</button>
-                        </div>
-    </div>
-</div>
-</section>
--->
-
-
-
-</div>
-</section>
 </main>
+    <script>
+    var x, i, j, l, ll, selElmnt, a, b, c;
+/*look for any elements with the class "custom-select":*/
+x = document.getElementsByClassName("custom-select");
+l = x.length;
+for (i = 0; i < l; i++) {
+  selElmnt = x[i].getElementsByTagName("select")[0];
+  ll = selElmnt.length;
+  /*for each element, create a new DIV that will act as the selected item:*/
+  a = document.createElement("DIV");
+  a.setAttribute("class", "select-selected");
+  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+  x[i].appendChild(a);
+  /*for each element, create a new DIV that will contain the option list:*/
+  b = document.createElement("DIV");
+  b.setAttribute("class", "select-items select-hide");
+  for (j = 1; j < ll; j++) {
+    /*for each option in the original select element,
+    create a new DIV that will act as an option item:*/
+    c = document.createElement("DIV");
+    c.innerHTML = selElmnt.options[j].innerHTML;
+    c.addEventListener("click", function(e) {
+        /*when an item is clicked, update the original select box,
+        and the selected item:*/
+        var y, i, k, s, h, sl, yl;
+        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+        sl = s.length;
+        h = this.parentNode.previousSibling;
+        for (i = 0; i < sl; i++) {
+          if (s.options[i].innerHTML == this.innerHTML) {
+            s.selectedIndex = i;
+            h.innerHTML = this.innerHTML;
+            y = this.parentNode.getElementsByClassName("same-as-selected");
+            yl = y.length;
+            for (k = 0; k < yl; k++) {
+              y[k].removeAttribute("class");
+            }
+            this.setAttribute("class", "same-as-selected");
+            break;
+          }
+        }
+        h.click();
+    });
+    b.appendChild(c);
+  }
+  x[i].appendChild(b);
+  a.addEventListener("click", function(e) {
+      /*when the select box is clicked, close any other select boxes,
+      and open/close the current select box:*/
+      e.stopPropagation();
+      closeAllSelect(this);
+      this.nextSibling.classList.toggle("select-hide");
+      this.classList.toggle("select-arrow-active");
+    });
+}
+function closeAllSelect(elmnt) {
+  /*a function that will close all select boxes in the document,
+  except the current select box:*/
+  var x, y, i, xl, yl, arrNo = [];
+  x = document.getElementsByClassName("select-items");
+  y = document.getElementsByClassName("select-selected");
+  xl = x.length;
+  yl = y.length;
+  for (i = 0; i < yl; i++) {
+    if (elmnt == y[i]) {
+      arrNo.push(i)
+    } else {
+      y[i].classList.remove("select-arrow-active");
+    }
+  }
+  for (i = 0; i < xl; i++) {
+    if (arrNo.indexOf(i)) {
+      x[i].classList.add("select-hide");
+    }
+  }
+}
+/*if the user clicks anywhere outside the select box,
+then close all select boxes:*/
+document.addEventListener("click", closeAllSelect);
+    </script>
 {% endblock %}
