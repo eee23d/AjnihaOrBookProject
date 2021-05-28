@@ -4,7 +4,29 @@
     أجنحة | إضافة كتاب
 {% endblock %}
 {% block content %}
+   <!DOCTYPE html>
+<html>
+<header>
+</header>
 
+<main id="main">
+
+
+
+    <section style="background-color: transparent" id="portfolio" class="portfolio section-bg" >
+<div style="direction:rtl;background-color: rgba(5,32,40,0.37);
+  align-items: center;
+  padding: 30px;
+"
+ class="container">
+
+
+
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
 
 
 <section id="portfolio" class="portfolio section-bg">
@@ -82,9 +104,10 @@
                  <td> عنوان الكتاب: {{ item.volumeInfo.title }} </td>
                 {% for auth in item.volumeInfo.authors %}
                 <td> ،المؤلفون: {{ auth }} </td>
+                     {% endfor %}
                     <a href="{{ item.volumeInfo.previewLink }}"; target="_blank" rel="noopener noreferrer" title="عرض معلومات الكتاب"><i class="bx bx-link"></i></a>
 
-                    {% endfor %}
+
                  </tr>
                 <br>
 
@@ -129,8 +152,7 @@
             <button type="submit" id="addBookSearched" name = "addBookSearched" style=" border: 1px solid hsla(0, 0%, 100%, .4);
   border-radius: 100rem;
 
-  color: inherit;
-  background: transparent;
+  color: lightblue;
   font-size: 1.4rem;
   transition: .2s;
   width: 100%;
@@ -141,9 +163,13 @@
 
         {% endif %}
 </div>
-    </div>
+
+
 </form>
 </section>
+
+
+
 <!-- free section which we decide to delete it
 <section id="portfolio" class="portfolio section-bg">
 <div style="direction:rtl ;background-color: rgba(211,243,214,0.37);margin: auto; "
@@ -212,4 +238,9 @@
 </section>
 -->
 
+
+
+</div>
+</section>
+</main>
 {% endblock %}

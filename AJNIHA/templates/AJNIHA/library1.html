@@ -3,6 +3,32 @@
 {% block title %}أجنحة | مكتبتي {% endblock %}
 {% block content %}
 
+  <!-- ======= Header ======= -->
+  <header >
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </header>
+<main id="main">
+
+
+
+    <section style="background-color: transparent" id="portfolio" class="portfolio section-bg" >
+<div style="direction:rtl;background-color: rgba(5,32,40,0.37);
+  align-items: center;
+  padding: 30px;
+"
+ class="container">
+
+
+
+    <!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
 
 <section id="portfolio" class="portfolio section-bg">
 {% for shelf in shelves %}
@@ -17,30 +43,23 @@
                 {% if book.shelf == shelf %}
 
                     <div style="width: 200px" class="portfolio-item filter-app">
-
+                          <a title="حذف الكتاب" name="delete" id="{{ book.id }}"><i class="bx bx-x" id="{{ book.id }}"></i></a>
                         <div style="" class="portfolio-wrap">
                             <img src="{{ book.book.image.url }}"
                                  class="img-fluid" alt="">
                             <div class="portfolio-links">
 
-                                <a href="{% url 'userHome' %}"> {{ book.book.bookTitle }}
+                        <span style="background: #194680; color: white; size: 10px"> {{ book.book.bookTitle }}
                                     <br>
                                     {{ book.book.author }}
-                                </a>
-
+                                </span>
                             </div>
-
                         </div>
-
                     </div>
                 {% endif %}
             {% endfor %}
             <div style="width: 40px;height: 40px;top: 90px; margin-left: 50px ">
 
-                <div class="form__group">
-
-</a>
-</div>
             </div>
 
 
@@ -48,108 +67,58 @@
 
     </div>
 {% endfor %}
-<!-- Add book section (seem like reem was tryin here)
 
-<div  class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div  class="modal-dialog">
-        <div  class="modal-content">
-            <div class="modal-header">
-                <h5 style="" class="modal-title" id="staticBackdropLabel"> أضف كتاب حراً إلى مكتبتك<b>أو</b></h5>
-                <div class="dropdown">
-                    <button style="background-color: #788696;" class="dropbtn">الرف</button>
-                    <div class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">X</button>
-            </div>
+<form method="post">
+    {% csrf_token %}
+    <input id="bookDelete" name="bookDelete" type="text" style="visibility: hidden">
+    <button id="bookToDelete" name="bookToDelete" type="submit" style="visibility: hidden"></button>
+</form>
+<script>
+    //for  delete
+    var elements = document.getElementsByName("delete")
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].addEventListener("click",delet)
+    }
+     function delet(e){
+        var idd= e.target.id;
+         console.log(idd);
+            document.getElementById("bookDelete").value= idd;
+           document.getElementById("bookToDelete").click();
 
+    }
+</script>
 
-                        <div  class="modal-header">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">إضافة رف قراءة</button>
+     <a href="{% url 'search' %}" style="margin: auto">   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">إضافة كتاب</button></a>
 
-                  <input placeholder=" ابحث عن كتاب" style="width: 80%" type="search" id="form1" class="form-control" />
-
-                <div class="dropdown">
-                    <button style="background-color: #788696;" class="dropbtn1">اختر المكتبة</button>
-                    <div class="dropdown-content">
-                        <a href="#">مكتبة Google</a>
-                        <a href="#">مكتبة أجنحة</a>
-                    </div>
-                </div>
-
-            </div>
-
-
-<div  class="row" data-aos="fade-up" data-aos-delay="100">
-
-
-    <div  class="containerm">
-  <img src=" alt="Avatar" class="imagem">
-  <div class="overlaym">
-      <input type="checkbox" style="background-color: #008CBA"><div class="textm">سم الكتاب: كتاب
-                    اسم المؤلف: مؤلف
-                        نبذة عن الكتاب: هلتبهخل يبلسيلس يلس
-                        لتبلتيلت سلسيل ي
-                        لبتيبلهييل يبلي سيبسبسسث</div></input>
-  </div>
-
-
-</div>
-
-    <div  class="containerm">
-  <img src="" alt="Avatar" class="imagem">
-  <div class="overlaym">
-    <div class="textm">سم الكتاب: كتاب
-                    اسم المؤلف: مؤلف
-                        نبذة عن الكتاب: هلتبهخل يبلسيلس يلس
-                        لتبلتيلت سلسيل ي
-                        لبتيبلهييل يبلي سيبسبسسث</div>
+<!-- Modal -->
+<form method="post">
+     {% csrf_token %}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">إضافة رف </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input name="addShelf" placeholder="أدخل اسم الرف " required>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
+        <button type="submit" class="btn btn-primary">إضافة الرف</button>
+      </div>
+    </div>
   </div>
 </div>
-
-    </div>
-            <div  class="modal-header">
-<h5>لم تجد كتابك؟</h5>
-                            </div>
-<div>
-    <input style="width: 50%; float: right" class="form__input" placeholder="اسم الكتاب">
-  <input style="width: 50%; float: right" class="form__input" placeholder="اسم المؤلف">
-    عدد الصفحات
-<div  style="direction: rtl;margin-right: 20px;" class="number-input">
-                        <button style="background-color: #788696;" type="button" class="btn btn-primary"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
-                        </button>
-                        <input style="font-size: 20px;" class="quantity" min="0" name="quantity" value="1" type="number">
-                        <button style="background-color: #788696" type="button" class="btn btn-primary"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                class="plus">+
-                        </button>
-
-                    </div>
-    <textarea id="story" name="story"
-                              rows="5" cols="33" placeholder="نبذة عن الكتاب"></textarea>
-<input type="file">
-</div>
-
-
-
-
-
-
-            <div class="modal-footer">
-                <button style="width: 100%;background-color:#253853 " type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">اضافة
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
- -->
-    <a href="{% url 'search' %}" style="margin: auto" class="align-content-center">   <button style="border-radius: 50%;margin: auto; background-color: rgba(104,142,200,0.72);">إضافة رف قراءة</button></a>
-     <a href="{% url 'search' %}" style="margin: auto">   <button style="border-radius: 80%;margin: auto; background-color: rgba(104,142,200,0.72);">إضافة كتاب</button></a>
-
+</form>
+</script>
 </section><!-- End Section -->
+</html>
+</div>
+    </section>
+</main>
+
 {% endblock %}
