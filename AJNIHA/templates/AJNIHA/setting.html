@@ -1,0 +1,19 @@
+{% extends 'AJNIHA/layout.html' %}
+{% load static %}
+{% block title %}أجنحة | {{ request.user }} {% endblock %}
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+<img src="{{ reader.prof_pic.url }}" alt="الصورة الحالية" class="rounded-circle" style="border-radius: 6em;height: 115px;">
+
+            <input type="file" name="myfile" id="input" >
+
+            <button type="submit" name="change" > <i class="bx bx-camera"></i> حفظ الصورة الشخصية</button>
+
+</form>
+
+
+{% endblock %}
+</body>
+
+</html>
