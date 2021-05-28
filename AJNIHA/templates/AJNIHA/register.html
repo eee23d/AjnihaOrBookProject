@@ -1,12 +1,11 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>أجنحة | تسجيل مستخدم جديد</title>
+    <title>أجنحة | تسجيل الدخول</title>
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="{% static 'wingsApp/colorlib-regform-7/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
@@ -14,15 +13,17 @@
     <!-- Main css -->
     <link rel="stylesheet" href="{% static 'wingsApp/colorlib-regform-7/css/style.css'%}">
 </head>
-<body>
 
-    <div class="main">
 
-        <!-- Sign up form -->
-        <section class="signup">
-            <div class="container">
-                <div class="signup-content">
-                    <div class="signup-form">
+<body style="margin-top: 0px;margin-right: 0px;margin-bottom: 0px;margin-left: 0;direction: rtl">
+<div style="background: #2f6894;" class="main">
+<!-- Sing in  Form -->
+        <section class="sign-in">
+            <div  class="container">
+                <div class="signin-content" style="padding-top: 0px;padding-bottom: 0px;">
+                    <div style="margin-top: 50px;" class="signin-form">
+
+
                         <h2 class="form-title">تسجيل مستخدم جديد</h2>
                         <form method="POST" action="{% url 'register'  %}" class="register-form" id="register-form">
                             {% csrf_token %}
@@ -53,19 +54,26 @@
                             {{ form.errors }}
 
 
-                            <div class="form-group form-button">
+                            <div style="margin-bottom: 20px" class="form-group form-button">
                                 <input type="submit" name="signup" id="signup" class="form-submit" value="سجل"/>
+                               <a style="background-color: #2ecc71;margin-right: 20px" href="{% url 'loginPage' %}" class="form-submit"> لدي حساب مسبق </a>
+
                             </div>
                         </form>
+
                     </div>
-                    <div class="signup-image">
-                        <figure><img src="{% static 'wingsApp/colorlib-regform-7/images/signup-image.jpg'%}" alt="sing up image"></figure>
-                        <a href="{% url 'loginPage' %}" class="signup-image-link">لدي حساب مسبق</a>
+                     <div class="signup-image">
+                        <figure><img src="https://raw.githubusercontent.com/eee23d/Aj/main/2.png" alt="sing up image"></figure>
+
                     </div>
                 </div>
             </div>
         </section>
+
     </div>
+<!-- JS -->
+    <script src="{% static 'wingsApp/colorlib-regform-7/vendor/jquery/jquery.min.js'%}"></script>
+    <script src="{% static 'wingsApp/colorlib-regform-7/js/main.js'%}"></script>
 <!-- JS -->
     <script src="{% static 'wingsApp/colorlib-regform-7/vendor/jquery/jquery.min.js'%}"></script>
     <script src="{% static 'wingsApp/colorlib-regform-7/js/main.js'%}"></script>
@@ -85,5 +93,7 @@
 			form_fields[field].className += ' form-control'
 		}
     </script>
+
+
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

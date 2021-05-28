@@ -13,36 +13,40 @@
     <!-- Main css -->
     <link rel="stylesheet" href="{% static 'wingsApp/colorlib-regform-7/css/style.css'%}">
 </head>
-<body>
-<div class="main">
+<body style="margin-top: 0px;margin-right: 0px;margin-bottom: 0px;margin-left: 0;direction: rtl">
+<div style="background: #2f6894;" class="main">
 <!-- Sing in  Form -->
         <section class="sign-in">
-            <div class="container">
-                <div class="signin-content">
-                    <div class="signin-image">
-                        <figure><img src="{% static 'wingsApp/colorlib-regform-7/images/signin-image.jpg'%}" alt="sing up image"></figure>
-                        <a href="{% url 'register' %}" class="signup-image-link">انشئ حساباً جديداً</a>
+            <div  class="container">
+                <div class="signin-content" style="padding-top: 0px;padding-bottom: 0px;">
+                    <div style="margin-left: 0" class="signin-image">
+                        <figure style="margin-bottom: 0;transform:rotateY(180deg);" ><img style="border-radius: 0.8em" src="https://raw.githubusercontent.com/eee23d/Aj/main/1.png" alt="sing up image"></figure>
                     </div>
 
-                    <div class="signin-form">
+                    <div style="margin-top: 50px;" class="signin-form">
                         {% for message in messages %}
                             <p id="messages">{{ message }}</p>
                         {% endfor %}
+
                         <h2 class="form-title">تسجيل الدخول</h2>
                         <form method="POST" class="register-form" id="login-form">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="username" id="username" placeholder="اسم المستخدم"/>
+                                <input required type="text" name="username" id="username" placeholder="اسم المستخدم"/>
                             </div>
                             <div class="form-group">
                                 <label for="password"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="password" id="password" placeholder="كلمة السر"/>
+                                <input required type="password" name="password" id="password" placeholder="كلمة السر"/>
                             </div>
 
                             <div class="form-group form-button">
                                 <input type="submit" name="signin" id="signin" class="form-submit" value="سجل الدخول"/>
+                                <a style="background-color: #2ecc71;margin-right: 20px" href="{% url 'register' %}" class="form-submit">انشئ حساباً جديداً</a>
+
                             </div>
+
+
                         </form>
 
                     </div>

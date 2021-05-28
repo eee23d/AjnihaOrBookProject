@@ -1760,6 +1760,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 
+
 .modal-body {}
 
 .modal-footer {
@@ -1984,65 +1985,38 @@ width: 100%;
   }
 
 
-
-
-
-
-
-
-
-
-.custom-select {
-  position: relative;
-  font-family: Arial;
+select {
+  color: white;
+  width: 20%;
+  height: 42px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: #2c3e50;
 }
-
-.custom-select select {
-  display: none; /*hide original SELECT element:*/
-}
-
-.select-selected {
-  background-color: DodgerBlue;
-}
-
-/*style the arrow inside the select element:*/
-.select-selected:after {
-  position: relative;
-  content: "";
-  top: 14px;
-  right: 10px;
-  width: 0;
-  height: 0;
-  border: 6px solid transparent;
-  border-color: #fff transparent transparent transparent;
-}
-
-
-/*style the items (options), including the selected item:*/
-.select-items div,.select-selected {
-  color: #ffffff;
-  padding: 8px 16px;
-  border: 1px solid transparent;
-  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-  cursor: pointer;
-  user-select: none;
-}
-
-/*style items (options):*/
-.select-items {
-  position: absolute;
-  background-color: DodgerBlue;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 99;
-}
-
-/*hide the items when the select box is closed:*/
-.select-hide {
+/* Remove IE arrow */
+select::-ms-expand {
   display: none;
 }
+select {
+  color: #ffffff;
+  background-color: #5eb0f6;
+  font-size: 16px;
+  text-transform: uppercase;
+  border: 0;
+  border-radius: 2px;
+  outline: 0;
+  box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.2);
+  transition: all .2s; }
+  .button:hover, .button:active, .button:focus {
+    -ms-transform: scale(1.1);
+        transform: scale(1.1); }
 
-.select-items div:hover, .same-as-selected {
-  background-color: rgba(0, 0, 0, 0.1);
-}
+select--transparent {
+  background: transparent;
+  border: 0;
+  outline: 0; }
