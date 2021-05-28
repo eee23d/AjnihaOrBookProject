@@ -30,10 +30,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
-
 <section id="portfolio" class="portfolio section-bg">
-<a href="{% url 'search' %}"><button class="add" >إضافة كتاب</button></a>
-<button class="add" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="myBtn" >إضافة رف</button>
 
 {% for shelf in shelves %}
     <div style="" class="container">
@@ -94,8 +91,8 @@
     }
 </script>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">إضافة رف قراءة</button>
-     <a href="{% url 'search' %}" style="margin: auto">   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">إضافة كتاب</button></a>
+<a href="{% url 'search' %}"><button class="add" >إضافة كتاب</button></a>
+<button class="add "  type="button " data-bs-toggle="modal" data-bs-target="#exampleModal"  >إضافة رف</button>
 
 <!-- Modal -->
 <form method="post">
@@ -120,11 +117,9 @@
   </div>
 </div>
 </form>
-</script>
 </section><!-- End Section -->
 </html>
 </div>
     </section>
 </main>
-
 {% endblock %}
