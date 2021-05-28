@@ -132,7 +132,6 @@
                     </div>
 
 
-
             {% elif searchType == "2" %}
                 <script>
                 var shelfselected = document.getElementById("op2").setAttribute("selected","true");
@@ -157,73 +156,6 @@
                   </div>
                 </div>
             </div>
-
-                    <div style="width: 33%;"  class="col-lg-4 col-md-6 portfolio-item filter-app radios ">
-            <input type="radio" name="rGroup" value="{{ item.selfLink }}" id="{{  item.selfLink}}"  >
-            <label  for="{{  item.selfLink }}" class="radio"> </label>
-                <div class="component">
-				<ul class="align">
-					<li>
-						<figure class='book'>
-
-						<!-- Front -->
-							<ul class='hardcover_front'>
-
-								<li>
-                                    {% if item.volumeInfo.imageLinks.thumbnail %}
-									<img src="{{ item.volumeInfo.imageLinks.thumbnail }}" alt="" width="100%" height="100%">
-								    {% else %}
-                                    <img class="img-fluid" src="{% static 'wingsApp\userHome\assets\img\thum.jpg' %}" width="200" height="300">
-                                    {% endif %}
-                                </li>
-
-								<li></li>
-							</ul>
-						<!-- Pages -->
-
-							<ul class='page'>
-								<li></li>
-								<li>
-                                <p style="color: #3f6bae"> عنوان الكتاب:  </p>
-                                <p style="color: black">{{ item.volumeInfo.title }}</p>
-                                <p style="color:#3f6bae">المؤلفون:</p>
-                                {% for auth in item.volumeInfo.authors %}
-                <p style="color: black">{{auth}},</p>
-                    {% endfor %}
-                        <a href="{{ item.volumeInfo.previewLink }}"; target="_blank" rel="noopener noreferrer" title="عرض معلومات الكتاب"><i class="bx bx-link"></i></a>
-
-
-								</li>
-								<li></li>
-								<li></li>
-								<li></li>
-							</ul>
-						<!-- Back -->
-							<ul class='hardcover_back'>
-								<li></li>
-								<li></li>
-							</ul>
-							<ul class='book_spine'>
-								<li></li>
-								<li></li>
-							</ul>
-
-						</figure>
-					</li>
-</ul>
-                                </div>
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
                 {% endfor %}
         {% endif %}
                 <div class="">
