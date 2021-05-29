@@ -2,7 +2,15 @@
 {% load static %}
 {% block title %}أجنحة | {{ request.user }} {% endblock %}
 {% block content %}
-
+<head>
+<script>
+    document.getElementById("readMainNav").classList.add("active")
+    document.getElementById("libMainNav").className ="nav-link scrollto"
+    document.getElementById("addMainNav").className ="nav-link scrollto"
+    document.getElementById("noteMainNav").className ="nav-link scrollto"
+    document.getElementById("contactlibMainNav").className ="nav-link scrollto"
+</script>
+</head>
 <main id="main">
 
 <!-- ======= Facts Section ======= -->
