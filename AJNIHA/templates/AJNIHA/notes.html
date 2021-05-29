@@ -56,23 +56,21 @@
 
 
 <!-- The Modal -->
-<div id="myModal" class="modal" >
+	<div style="padding-top: 1%" id="myModal" class="modal" >
 
-  <!-- Modal content -->
-  <div style="padding: 0" class="modal-content" id="changi">
+	  <!-- Modal content -->
+	  <div style="padding: 0;width:60%;top:1%" class="modal-content" id="changi">
 
-    <div class="modal-body">
-      <div style="border: transparent  3px" id="myModel1" class="modal1">
-    <div class="modal__container">
-      <div id="pici" style="transform:rotateY(180deg);" class="modal__featured">
-<button type="button" class="button--transparent button--close">
-    <svg class="nc-icon glyph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="60%" height="70%" viewBox="0 0 32 32">
+	    <div class="modal-body">
+	      <div style="border: transparent  3px" id="myModel1" class="modal1">
+	    <div  class="modal__container">
+	      <div id="pici" style="transform:rotateY(180deg);" class="modal__featured">
+	<button disabled type="button" class="button--transparent button--close">
 
 
-              <g><path fill="#ffffff" d="M1.293,15.293L11,5.586L12.414,7l-8,8H31v2H4.414l8,8L11,26.414l-9.707-9.707 C0.902,16.316,0.902,15.684,1.293,15.293z"></path> </g></svg>
-          <span class="close">&times;</span>
 
-          <span class="visuallyhidden">Return to Product Page</span>
+
+	          <span class="close">&times;</span>
         </button>
 
         <div class="modal__circle" > </div>
@@ -107,23 +105,23 @@
               <li class="form-list__row form-list__row--inline" style="margin: auto">
               من
                     <div style="direction: rtl;" class="number-input">
-                        <button style="background-color: #ffbe8a" type="button" id = "minusB1" class="btn btn-primary"
+                        <button style="background-color: #5eb0f6" type="button" id = "minusB1" class="btn btn-primary"
                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
                         </button>
                         <input style="font-size: 20px;" class="quantity" min=1 name="fromP" id ="fromP" value=1 type="number" required>
-                        <button style="background-color: #ffbe8a; direction: rtl;" type="button" id ="plusB1" class="btn btn-primary"
+                        <button style="background-color: #5eb0f6; direction: rtl;" type="button" id ="plusB1" class="btn btn-primary"
                                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                 class="plus">+
                         </button>
                     </div>
 إلى
                     <div style="direction: rtl;" class="number-input">
-                        <button style="background-color: #ffbe8a" type="button" id="minusB2" class="btn btn-primary"
+                        <button style="background-color: #5eb0f6" type="button" id="minusB2" class="btn btn-primary"
                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
                         </button>
                         <input style="font-size: 20px;" class="quantity" name="toP" id="toP" value=2 type="number" required >
                         <!--check num-->
-                        <button style="background-color: #ffbe8a" type="button" class="btn btn-primary" id ="plusB2"
+                        <button style="background-color: #5eb0f6" type="button" class="btn btn-primary" id ="plusB2"
                                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                 class="plus">+
                         </button>
@@ -155,23 +153,18 @@
     </div>
 
 <!--modal for edit notes!! -->
-<div id="editModal" class="modal" >
+<div style="padding-top:0;" id="editModal" class="modal" >
 
   <!-- Modal content -->
-  <div style="padding: 0" class="modal-content" id="changi1">
+	<div style="padding: 0;width:60%;top:1%" class="modal-content" id="changi1">
 
     <div class="modal-body">
       <div style="border: transparent  3px" id="myModel1" class="modal1">
     <div class="modal__container">
       <div id="pici" style="transform:rotateY(180deg);" class="modal__featured">
-<button type="button" class="button--transparent button--close">
-    <svg class="nc-icon glyph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="60%" height="70%" viewBox="0 0 32 32">
+    	<button disabled type="button" class="button--transparent button--close">
 
-
-              <g><path fill="#ffffff" d="M1.293,15.293L11,5.586L12.414,7l-8,8H31v2H4.414l8,8L11,26.414l-9.707-9.707 C0.902,16.316,0.902,15.684,1.293,15.293z"></path> </g></svg>
           <span class="close" id = "closeEdit">&times;</span>
-
-          <span class="visuallyhidden">Return to Product Page</span>
         </button>
 
         <div class="modal__circle" > </div>
@@ -212,11 +205,11 @@
               <li class="form-list__row form-list__row--inline" style="margin: auto">
               من
                     <div style="direction: rtl;" class="number-input">
-                        <button style="background-color: #ffbe8a" type="button" id = "minusB1Edit" class="btn btn-primary"
+                        <button style="background-color: #5eb0f6" type="button" id = "minusB1Edit" class="btn btn-primary"
                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
                         </button>
                         <input style="font-size: 20px;" class="quantity" min=1 name="fromPEdit" id ="fromPEdit" value=1 type="number" required>
-                        <button style="background-color: #ffbe8a; direction: rtl;" type="button" id ="plusB1Edit" class="btn btn-primary"
+                        <button style="background-color: #5eb0f6; direction: rtl;" type="button" id ="plusB1Edit" class="btn btn-primary"
                                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                 class="plus">+
                         </button>
@@ -224,12 +217,12 @@
                     </div>
 إلى
                     <div style="direction: rtl;" class="number-input">
-                        <button style="background-color: #ffbe8a" type="button" id="minusB2Edit" class="btn btn-primary"
+                        <button style="background-color: #5eb0f6" type="button" id="minusB2Edit" class="btn btn-primary"
                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
                         </button>
                         <input style="font-size: 20px;" class="quantity" name="toPEdit" id="toPEdit" value=2 type="number" required>
                         <!--check num-->
-                        <button style="background-color: #ffbe8a" type="button" class="btn btn-primary" id ="plusB2Edit"
+                        <button style="background-color: #5eb0f6" type="button" class="btn btn-primary" id ="plusB2Edit"
                                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                 class="plus">+
                         </button>
@@ -355,7 +348,19 @@ padding: 10px;
                 {{ note.note_id.summary}}
                      <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                     <div class="portfolio-links" >
-                <a href=""  class="portfolio-lightbox" title="عرض " style="padding-left: 5px" >
+                 <a href=""  class="portfolio-lightbox" title="
+	                 <b style='color:green;'> عنوان التدوينة: {{ note.note_id.note_title }} </b>
+	 <hr>
+	 {{ note.note_id.note }}
+	 <br>
+	 <hr>
+	  <h4 style='color:blue;'>
+	{{ note.note_id.book_shelf_user.reader.username }} :نشرت بواسطة
+	<br>
+	{{ note.note_id.date.date }} :بتاريخ
+	</h4>
+	"style="padding-left: 5px" >
+
                     <img width="20px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQ2MS4zMTIgNDYxLjMxMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNMjMwLjY1NiwxNTYuNDE2Yy00MC45NiwwLTc0LjI0LDMzLjI4LTc0LjI0LDc0LjI0czMzLjI4LDc0LjI0LDc0LjI0LDc0LjI0czc0LjI0LTMzLjI4LDc0LjI0LTc0LjI0ICAgIFMyNzEuNjE2LDE1Ni40MTYsMjMwLjY1NiwxNTYuNDE2eiBNMjI1LjAyNCwyMDguNjRjLTkuMjE2LDAtMTYuODk2LDcuNjgtMTYuODk2LDE2Ljg5NmgtMjQuNTc2ICAgIGMwLjUxMi0yMy4wNCwxOC45NDQtNDEuNDcyLDQxLjQ3Mi00MS40NzJWMjA4LjY0eiIgZmlsbD0iIzFmODhlMiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNNDU1LjkzNiwyMTUuMjk2Yy0yNS4wODgtMzEuMjMyLTExNC42ODgtMTMzLjEyLTIyNS4yOC0xMzMuMTJTMzAuNDY0LDE4NC4wNjQsNS4zNzYsMjE1LjI5NiAgICBjLTcuMTY4LDguNzA0LTcuMTY4LDIxLjUwNCwwLDMwLjcyYzI1LjA4OCwzMS4yMzIsMTE0LjY4OCwxMzMuMTIsMjI1LjI4LDEzMy4xMnMyMDAuMTkyLTEwMS44ODgsMjI1LjI4LTEzMy4xMiAgICBDNDYzLjEwNCwyMzcuMzEyLDQ2My4xMDQsMjI0LjUxMiw0NTUuOTM2LDIxNS4yOTZ6IE0yMzAuNjU2LDMzOC4xNzZjLTU5LjM5MiwwLTEwNy41Mi00OC4xMjgtMTA3LjUyLTEwNy41MiAgICBzNDguMTI4LTEwNy41MiwxMDcuNTItMTA3LjUyczEwNy41Miw0OC4xMjgsMTA3LjUyLDEwNy41MlMyOTAuMDQ4LDMzOC4xNzYsMjMwLjY1NiwzMzguMTc2eiIgZmlsbD0iIzFmODhlMiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjwvZz48L3N2Zz4=" />
                 </a>
                         <a title="إضافة إلى المفضلة" class="" id="{{ note.note_id.id }}" name="FavNav" ><i class="bx bxs-heart" style="padding-left: 5px; color: darkred;" id="{{ note.note_id.id }}"></i> </a>
@@ -371,7 +376,18 @@ padding: 10px;
 
             </p>
             <div class="portfolio-links" >
-                <a href=""  class="portfolio-lightbox" title="عرض " style="padding-left: 5px" >
+                 <a href=""  class="portfolio-lightbox" title="
+	                 <b style='color:green;'> عنوان التدوينة: {{ note.note_title }} </b>
+	                  <hr>
+	 {{ note.note }}
+	 <br>
+	 <hr>
+	  <h4 style='color:blue;'>
+	{{ note.book_shelf_user.reader.username }} :نشرت بواسطة
+	<br>
+	{{ note.date.date}} :بتاريخ
+	</h4>
+	" style="padding-left: 5px">
                     <img width="20px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQ2MS4zMTIgNDYxLjMxMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNMjMwLjY1NiwxNTYuNDE2Yy00MC45NiwwLTc0LjI0LDMzLjI4LTc0LjI0LDc0LjI0czMzLjI4LDc0LjI0LDc0LjI0LDc0LjI0czc0LjI0LTMzLjI4LDc0LjI0LTc0LjI0ICAgIFMyNzEuNjE2LDE1Ni40MTYsMjMwLjY1NiwxNTYuNDE2eiBNMjI1LjAyNCwyMDguNjRjLTkuMjE2LDAtMTYuODk2LDcuNjgtMTYuODk2LDE2Ljg5NmgtMjQuNTc2ICAgIGMwLjUxMi0yMy4wNCwxOC45NDQtNDEuNDcyLDQxLjQ3Mi00MS40NzJWMjA4LjY0eiIgZmlsbD0iIzFmODhlMiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNNDU1LjkzNiwyMTUuMjk2Yy0yNS4wODgtMzEuMjMyLTExNC42ODgtMTMzLjEyLTIyNS4yOC0xMzMuMTJTMzAuNDY0LDE4NC4wNjQsNS4zNzYsMjE1LjI5NiAgICBjLTcuMTY4LDguNzA0LTcuMTY4LDIxLjUwNCwwLDMwLjcyYzI1LjA4OCwzMS4yMzIsMTE0LjY4OCwxMzMuMTIsMjI1LjI4LDEzMy4xMnMyMDAuMTkyLTEwMS44ODgsMjI1LjI4LTEzMy4xMiAgICBDNDYzLjEwNCwyMzcuMzEyLDQ2My4xMDQsMjI0LjUxMiw0NTUuOTM2LDIxNS4yOTZ6IE0yMzAuNjU2LDMzOC4xNzZjLTU5LjM5MiwwLTEwNy41Mi00OC4xMjgtMTA3LjUyLTEwNy41MiAgICBzNDguMTI4LTEwNy41MiwxMDcuNTItMTA3LjUyczEwNy41Miw0OC4xMjgsMTA3LjUyLDEwNy41MlMyOTAuMDQ4LDMzOC4xNzYsMjMwLjY1NiwzMzguMTc2eiIgZmlsbD0iIzFmODhlMiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjwvZz48L3N2Zz4=" />
                 </a>
                 <a title="إضافة إلى المفضلة" id="{{ note.id }}" name="addFav" ><i class="bx bx-heart" style="padding-left: 5px; color: darkred "id="{{ note.id }}"></i> </a>
