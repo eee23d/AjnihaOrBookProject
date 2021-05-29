@@ -12,3 +12,4 @@ admin.site.register(shelves_Readers_Books)
 admin.site.register(booksuggest)
 admin.site.register(follow)
 admin.site.register(liked_post)
+

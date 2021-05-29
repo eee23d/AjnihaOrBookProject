@@ -1,7 +1,67 @@
 {% extends 'AJNIHA/layout.html' %}
 {% load static %}
 {% block content %}
+<style>
+/* General CSS Setup */
 
+/* CSS talk bubble */
+.talk-bubble {
+    width: 90%;
+	margin: 40px;
+  display: inline-block;
+  position: relative;
+	height: auto;
+	background-color: #639eca;
+    color: white;
+}
+
+.round{
+  border-radius: 30px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+
+}
+
+.tri-right.btm-left-in:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: 38px;
+  right: auto;
+  top: auto;
+	bottom: -20px;
+	border: 12px solid;
+	border-color: #639eca transparent transparent #639eca;
+}
+
+.tri-right.btm-right-in:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  left: auto;
+	right: 38px;
+	bottom: -20px;
+	border: 12px solid;
+	border-color: #ffffff #ffffff transparent transparent;
+}
+
+
+
+/* talk bubble contents */
+.talktext{
+  padding: 1em;
+	text-align: left;
+  line-height: 1.5em;
+}
+.talktext p{
+    font-weight: bold;
+    font-size: 20px;
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+}
+</style>
 <main id="main">
 
 
@@ -9,75 +69,23 @@
     <section id="contact" class="contact">
       <div class="container">
 
-        <div class="section-title">
-          <h2>اقترح كتاباً</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-        </div>
-
-        <div style="margin: auto;
-  width: 50%;
-  " class="row">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="row">
-                <div class="form-group mt-3">
-                  <label for="name">عنوان الكتاب</label>
-                  <input type="text" name="name" class="form-control" id="name" required>
-                </div>
-                <div class="form-group mt-3">
-                  <label for="name">اسم المؤلف</label>
-                  <input type="text" class="form-control" name="email" id="email" required>
-                </div>
-              </div>
-
-              <div class="my-3">
-                <div class="loading">يرجى الانتظار</div>
-                <div class="error-message"></div>
-                <div class="sent-message">شكراً لاقتراحك، ستتم مراجعة طلبك.</div>
-              </div>
-              <div class="text-center"><button type="submit">ارسال</button></div>
-            </form>
-          </div>
-
 <br><br>
           <div class="section-title">
           <h2>تواصل معنا</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
         </div>
 
-        <div style="margin: auto;
-  width: 50%;
-  " class="row">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="name">الاسم</label>
-                  <input type="text" name="name" class="form-control" id="name" required>
-                </div>
-                <div class="form-group col-md-6 mt-3 mt-md-0">
-                  <label for="name">البريد الالكتروني</label>
-                  <input type="email" class="form-control" name="email" id="email" required>
-                </div>
-              </div>
-              <div class="form-group mt-3">
-                <label for="name">العنوان</label>
-                <input type="text" class="form-control" name="subject" id="subject" required>
-              </div>
-              <div class="form-group mt-3">
-                <label for="name">الموضوع</label>
-                <textarea class="form-control" name="message" rows="10" required></textarea>
-              </div>
-              <div class="my-3">
-                <div class="loading">يرجى الانتظار</div>
-                <div class="error-message"></div>
-                <div class="sent-message">تم الارسال، سيتم الرد عليك خلال بريدك الالكتروني.</div>
-              </div>
-              <div class="text-center"><button type="submit">ارسل</button></div>
-            </form>
-          </div>
-
-
-
-
+<a href="{% url 'contactUs' %}">
+    <div style="width: 90%;" class="talk-bubble tri-right round btm-left-in">
+  <div class="talktext">
+    <p>ارسل لنا رسالة</p>
+  </div>
+</div></a>
+          <a  href="{% url 'suggestBook' %}">
+    <div style="background-color: white;color:#639eca" class="talk-bubble tri-right round btm-right-in">
+  <div style="text-align: right" class="talktext">
+    <p >قم باقتراح كتاب</p>
+  </div>
+</div></a>
           </div>
     </section><!-- End Contact Section -->
 </main>

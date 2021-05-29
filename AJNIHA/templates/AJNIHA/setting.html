@@ -2,15 +2,22 @@
 {% load static %}
 {% block title %}أجنحة | {{ request.user }} {% endblock %}
 {% block content %}
+
+
+<div class="border" style="background-color: rgba(255,255,255,0.55);width: 80%;height: 100%;position: fixed;text-align: center;padding-top: 5%;padding-right: 5%">
+<div class="section-title " style="width: auto">
+    <h2>تغيير الصورة الشخصية </h2>
+</div>
 <form method="post" enctype="multipart/form-data">
 {% csrf_token %}
-<img src="{{ reader.prof_pic.url }}" alt="الصورة الحالية" class="rounded-circle" style="border-radius: 6em;height: 115px;">
-
-            <input type="file" name="myfile" id="input" >
-
-            <button type="submit" name="change" > <i class="bx bx-camera"></i> حفظ الصورة الشخصية</button>
+<img src="{{ reader.prof_pic.url }}" alt="الصورة الحالية" style="height: 200px;">
+<hr style="opacity: 0">
+            <input style="border: transparent;width: 20%;" type="file" name="myfile" id="input" >
+<hr>
+            <button class="button" type="submit" name="change" > <i class="bx bx-camera"></i> حفظ الصورة الشخصية</button>
 
 </form>
+</div>
 
 
 {% endblock %}

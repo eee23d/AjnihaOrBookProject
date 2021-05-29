@@ -11,7 +11,7 @@
 body {
   font-family: "Open Sans", sans-serif;
   color: #272829;
-  background: url("../img/Webp.net-resizeimage(5).jpg") top left no-repeat;
+  background: url("../img/Webp.net-resizeimage(5).jpg") top left;
 
 }
 
@@ -83,6 +83,10 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   width: 120px;
   border: 8px solid #ffffff;}
+#header .profile img:hover {
+
+  }
+
 
 #header .profile h1 {
   font-size: 24px;
@@ -202,8 +206,8 @@ color: #61fded;
 
 /* Mobile Navigation */
 .mobile-nav-toggle {
-  position: fixed;
-  right: 15px;
+  position: relative;
+  left: 15px;
   top: 15px;
   z-index: 9998;
   border: 0;
@@ -1165,39 +1169,6 @@ section {
   }
 }
 
-/*--------------------------------------------------------------
-# Footer
---------------------------------------------------------------*/
-#footer {
-  padding: 15px;
-  color: #f4f6fd;
-  font-size: 14px;
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  width: 300px;
-  z-index: 9999;
-  background: #1f435f;
-}
-
-#footer .copyright {
-  text-align: center;
-}
-
-#footer .credits {
-  padding-top: 5px;
-  text-align: center;
-  font-size: 13px;
-  color: #eaebf0;
-}
-
-@media (max-width: 1199px) {
-  #footer {
-    position: static;
-    width: auto;
-    padding-right: 20px 15px;
-  }
-}
 
 /*--------------------------------------------------------------
 # add a note
@@ -1741,9 +1712,11 @@ input[type=number]::-webkit-outer-spin-button {
 /* The Close Button */
 .close {
   color: #000000;
-  float: right;
   font-size: 28px;
   font-weight: bold;
+  position: absolute;
+  top: 20px;
+  left: 10px;
 }
 
 .close:hover,
@@ -1763,13 +1736,6 @@ input[type=number]::-webkit-outer-spin-button {
 
 .modal-body {}
 
-.modal-footer {
-  padding: 2px 16px;
-  background-color: #fcfffc;
-  color: white;
-
-
-}
 
 
 .visuallyhidden {
@@ -2020,3 +1986,34 @@ select--transparent {
   background: transparent;
   border: 0;
   outline: 0; }
+
+.centered{
+  color: transparent;
+}
+.centered:hover{
+  top: 23%;
+  color: black;
+}
+.modal-header {color: #0a58ca}
+.modal{direction: rtl}
+.btn-default{background-color: #4e535a;
+color: white}
+.btn-default:hover{color:white;
+background-color: #1a1e21}
+
+
+.modal-footer{
+background-color: transparent;
+left: 12%;
+position: relative;
+}
+
+.text-success {
+    color: #fff !important;
+}
+
+#footer .container{
+  background-color:#1f435f ;
+  color: white;
+  text-align: center;
+}

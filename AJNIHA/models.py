@@ -101,8 +101,11 @@ class contacts(models.Model):
     title = models.CharField(max_length=40)
     name= models.CharField(max_length=40)
     message = models.TextField()
+    email =models.EmailField(max_length=40,null=True)
     def __str__(self):
         return self.name
+
+
 
 class liked_post(models.Model):
     note_id= models.ForeignKey(ReadingRecords,on_delete=models.CASCADE)

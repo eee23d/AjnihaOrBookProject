@@ -2,37 +2,38 @@
 {% load static %}
 {% block title %}أجنحة | مكتبتي {% endblock %}
 {% block content %}
-
-
   <!-- ======= Header ======= -->
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Animated Books with CSS 3D Transforms"/>
+        <meta name="keywords" content="book, 3d, interactive, animated, 3d transform, css, web design"/>
+        <meta name="author" content="Marco Barría for Codrops"/>
+        <link rel="shortcut icon" href="{% static 'wingsApp/AnimatedBooks/favicon.ico' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'wingsApp/AnimatedBooks/css/normalize.css' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'wingsApp/AnimatedBooks/css/book.css' %}"/>
+        <script src="{% static 'wingsApp/AnimatedBooks/js/modernizr.custom.js' %}"></script>
+    <style>
+        p{font-size: 10px;}
+    </style>
+
+    </head>
   <header >
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
           <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </header>
-<main id="main">
+    <main id="main">
+
+        <section id="portfolio" class="portfolio section-bg">
 
 
-
-    <section style="background-color: transparent" id="portfolio" class="portfolio section-bg" >
-<div style="direction:rtl;background-color: rgba(5,32,40,0.37);
-  align-items: center;
-  padding: 30px;
-"
- class="container">
-
-
-
-    <!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-</head>
-<section id="portfolio" class="portfolio section-bg">
-
+<a href="{% url 'search' %}"><button class="add" >إضافة كتاب</button></a>
+<button type="button" class="add" data-toggle="modal" data-target="#myModal">إضافة رف</button>
 {% for shelf in shelves %}
+
     <div style="" class="container">
         <div class="section-title">
             <h2> {{ shelf.shelfName }}</h2>
@@ -42,21 +43,56 @@
         <div style="" class="row" data-aos="fade-up" data-aos-delay="100">
             {% for book in bookForShelf %}
                 {% if book.shelf == shelf %}
+        <div style="width: 33%;"class="col-lg-4 col-md-6 portfolio-item filter-app radios ">
 
                     <div style="width: 200px" class="portfolio-item filter-app">
                           <a title="حذف الكتاب" name="delete" id="{{ book.id }}"><i class="bx bx-x" id="{{ book.id }}"></i></a>
-                        <div style="" class="portfolio-wrap">
-                            <img src="{{ book.book.image.url }}"
-                                 class="img-fluid" alt="">
-                            <div class="portfolio-links">
+                        <div class="component">
+            <ul class="align">
+                <li>
+                    <figure class='book'>
+                        <!-- Front -->
+                        <ul class='hardcover_front'>
+                            <li>
+                                    <img class="img-fluid" src="{{ book.book.image.url }}"style="width: 100%;height: 100%">
+                            </li>
 
-                        <span style="background: #194680; color: white; size: 10px"> {{ book.book.bookTitle }}
-                                    <br>
-                                    {{ book.book.author }}
-                                </span>
-                            </div>
-                        </div>
+                            <li></li>
+                        </ul>
+                        <!-- Pages -->
+
+                        <ul class='page'>
+                            <li></li>
+                            <li>
+                                <p style="color: #3f6bae"> عنوان الكتاب: </p>
+                                <p style="color: black">{{ book.book.bookTitle }}</p>
+                                <p style="color:#3f6bae">المؤلفون:</p>
+                                    <p style="color: black">{{ book.book.author }}</p>
+
+
+
+                            </li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                        <!-- Back -->
+                        <ul class='hardcover_back'>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                        <ul class='book_spine'>
+                            <li></li>
+                            <li></li>
+                        </ul>
+
+                    </figure>
+                </li>
+            </ul>
+        </div>
+    </div>
                     </div>
+
                 {% endif %}
             {% endfor %}
 
@@ -91,35 +127,34 @@
     }
 </script>
 
-<a href="{% url 'search' %}"><button class="add" >إضافة كتاب</button></a>
-<button class="add "  type="button " data-bs-toggle="modal" data-bs-target="#exampleModal"  >إضافة رف</button>
 
-<!-- Modal -->
-<form method="post">
-     {% csrf_token %}
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">إضافة رف </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+        <form method="post">
+                 {% csrf_token %}
+      <div class="modal-content">
+        <div class="modal-header">
+                      <h4 class="modal-title">إضافة رف</h4>
+
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
         <input name="addShelf" placeholder="أدخل اسم الرف " required>
+        </div>
+        <div class="modal-footer">
+           <button type="submit" class="btn btn-primary">إضافة الرف</button>
+           <button type="button" class="btn btn-default" data-dismiss="modal">إغلاق</button>
+
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
-        <button type="submit" class="btn btn-primary">إضافة الرف</button>
-      </div>
+        </form>
     </div>
   </div>
-</div>
-</form>
+
+
 </section><!-- End Section -->
-</html>
-</div>
-    </section>
 </main>
 {% endblock %}

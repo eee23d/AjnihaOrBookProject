@@ -3,6 +3,7 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.forms import UserCreationForm
 import requests
+from .models import contacts,booksuggest
 #from .models import Contact, Blog, Course
 # Create your views here.
 #from django.http import HttpResponse
@@ -22,6 +23,12 @@ def index(request):
     return render(request,['AJNIHA/indexa.html'])
 def stat(request):
     return render(request,['AJNIHA/stat.html'])
+def contactUs(request):
+    return render(request,['AJNIHA/contactUs.html'])
+def suggestBook(request):
+    return render(request,['AJNIHA/suggest.html'])
+def thanks(request):
+    return render(request,['AJNIHA/thanks.html'])
 
 @login_required(login_url='loginPage')
 def notes(request):
@@ -177,9 +184,28 @@ def filterNotes(request,nav1,filterKey):
 
 
 
+def bookSuggest(request):
+    if request.method=="POST":
+        booktitle=request.POST.get('bookTitle')
+        bookDescription=request.POST.get('description')
+        var_suggestion = booksuggest(accountUser=ReaderAccount.objects.filter(username__exact=request.user).first(),book_Title=booktitle,book_description=bookDescription )
+        var_suggestion.save()
+        return render(request,['AJNIHA/thanks.html'])
+    else:
+        return render(request,['AJNIHA/suggest.html'])
+
 def contact(request):
-    reader = ReaderAccount.objects.filter(username__username__exact=request.user).first()
-    return render(request,['AJNIHA/contact.html'],{'reader': reader})
+    if request.method=="POST":
+        userName=request.POST.get('name')
+        userEmail=request.POST.get('email')
+        userSub=request.POST.get('subject')
+        userMessage=request.POST.get('message')
+        var_contact=contacts(name=userName,email=userEmail,title=userSub,message=userMessage)
+        var_contact.save()
+        return render(request,['AJNIHA/thanks.html'])
+    else:
+        reader = ReaderAccount.objects.filter(username__username__exact=request.user).first()
+        return render(request,['AJNIHA/contact.html'],{'reader': reader})
 
 
 @login_required(login_url='loginPage')
