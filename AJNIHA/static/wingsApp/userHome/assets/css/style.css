@@ -11,7 +11,7 @@
 body {
   font-family: "Open Sans", sans-serif;
   color: #272829;
-  background: url("../img/Webp.net-resizeimage(5).jpg") top left;
+  background: url("../img/Webp.net-resizeimage(5).jpg") top left no-repeat fixed;
 
 }
 
@@ -1690,7 +1690,6 @@ input[type=number]::-webkit-outer-spin-button {
   margin: auto;
   padding: 0;
   border: 1px solid #888;
-  width: 50%;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 0.4s;
@@ -1771,6 +1770,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .button--close {
   position: absolute;
+  cursor: auto;
   top: 10px;
   left: 10px;
   display: -ms-flexbox;
@@ -1790,10 +1790,7 @@ input[type=number]::-webkit-outer-spin-button {
     height: 20px; }
     .button--close svg * {
       fill: currentColor; }
-  .button--close:hover, .button--close:active, .button--close:focus {
-    color: #5eb0f6;
-    background-color: #ffffff;
-    box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.1); }
+
 
 .button--info {
   position: absolute;
@@ -1892,6 +1889,7 @@ border: #5eb0f6 solid 2px;
     border-radius: 5px;
     box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.1); }
   .modal__featured {
+    bottom:2%;
     position: relative;
     -ms-flex: 1;
     flex: 1;
@@ -1915,9 +1913,9 @@ border: #5eb0f6 solid 2px;
 
   .modal__product {
     position: absolute;
-    top: 20%;
+    top: 3%;
     left: 36%;
-    max-width: 85%;
+    max-width: 70%;
     -ms-transform: translateX(calc(-50% - 10px));
         transform: translateX(calc(-50% - 10px)); }
    .modal__product1 {
@@ -1940,7 +1938,7 @@ border: #5eb0f6 solid 2px;
 display: none  }
 
  #changi {
-width: 100%;
+width: 30%;
 
 
  }
@@ -2017,3 +2015,4 @@ position: relative;
   color: white;
   text-align: center;
 }
+

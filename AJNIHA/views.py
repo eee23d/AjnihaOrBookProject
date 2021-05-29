@@ -22,12 +22,15 @@ from io import BytesIO
 #@login_required(login_url='loginPage')
 def index(request):
     return render(request,['AJNIHA/indexa.html'])
+
 def stat(request):
     return render(request,['AJNIHA/stat.html'])
+
 def contactUs(request):
     return render(request,['AJNIHA/contactUs.html'])
-def suggestBook(request):
-    return render(request,['AJNIHA/suggest.html'])
+
+
+
 def thanks(request):
     return render(request,['AJNIHA/thanks.html'])
 
@@ -376,7 +379,7 @@ def loginPage(request):
             if user is not None:
                 login(request,user)
                 reader = ReaderAccount.objects.filter(username__username__exact= user).first()
-                return render(request,['AJNIHA/userHomePage.html'],{'reader':reader})
+                return render(request,['AJNIHA/notes.html'],{'reader':reader})
             else:
                 messages.info(request,'username or password is incorrect')
 

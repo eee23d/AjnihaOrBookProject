@@ -10825,5 +10825,8 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.modal-content{
+  width:60%;
+}
 
 /*# sourceMappingURL=bootstrap.css.map */

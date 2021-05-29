@@ -17,7 +17,6 @@ urlpatterns = [
     path('stat',views.stat,name='stat'),
     path('suggest',views.bookSuggest, name='suggest'),
     path('contactUs',views.contactUs, name='contactUs'),
-    path('suggestBook', views.suggestBook, name='suggestBook'),
     path('thanks', views.thanks, name='thanks'),
 
 ]
