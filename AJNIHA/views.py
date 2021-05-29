@@ -8,11 +8,12 @@ from .models import contacts,booksuggest
 # Create your views here.
 #from django.http import HttpResponse
 from datetime import datetime
+from datetime import datetime, timedelta
 from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
-from .models import Book,ReaderAccount,ReadingRecords,contacts,Shelves,shelves_Readers_Books,booksuggest,follow,liked_post
+from .models import Book,ReaderAccount,ReadingRecords,contacts,Shelves,shelves_Readers_Books,booksuggest,liked_post
 import urllib.request
 from django.core import files
 from io import BytesIO
@@ -46,7 +47,7 @@ def notes(request):
             note = request.POST.get('note')
             fromP =request.POST.get('fromP')
             toP = request.POST.get('toP')
-            date = str(datetime.date(datetime.now()))
+            date = datetime.now()
             private= request.POST.get('private')
             if private=="on":
                 private=True
@@ -349,18 +350,16 @@ def userHome(request):
     return render(request, ['AJNIHA/userHomePage.html'], {'reader': reader})
 
 def register(request):
-    if request.user.is_authenticated:
-        return redirect('userHome')
-    if True:
-        form=CreateUserForm()
-        if request.method=='POST':
-            form=CreateUserForm(request.POST)
-            if form.is_valid():
-                form.save()
-                messages.success(request,'Account was created for '+form.cleaned_data.get('username'))
-                return redirect('loginPage')
-        context={'form':form}
-        return render(request,'AJNIHA/register.html',context)
+
+    form=CreateUserForm()
+    if request.method=='POST':
+        form=CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'Account was created for '+form.cleaned_data.get('username'))
+            return redirect('loginPage')
+    context={'form':form}
+    return render(request,'AJNIHA/register.html',context)
 
 
 
@@ -369,7 +368,6 @@ def loginPage(request):
     if request.user.is_authenticated:
         return redirect('index')
     else:
-
         if request.method=='POST':
             #taking thr value of these fields
             username=request.POST.get('username')
@@ -385,15 +383,6 @@ def loginPage(request):
         context={}
         return render(request,['AJNIHA/login.html'],context)
 
-
-def setting(request):
-    reader = ReaderAccount.objects.filter(username__username__exact=request.user).first()
-    if request.method == 'POST' and request.FILES['myfile']:
-        myfile = request.FILES['myfile']
-        reader.prof_pic = myfile
-        reader.save()
-    return render(request, ['AJNIHA/setting.html'], {'reader': reader})
-
 def setting(request):
     reader = ReaderAccount.objects.filter(username__username__exact=request.user).first()
     if request.method == 'POST':
@@ -407,9 +396,28 @@ def setting(request):
 
 @login_required(login_url='loginPage')
 def stat(request):
+    one_week_ago = datetime.today() - timedelta(days=7)
     reader = ReaderAccount.objects.filter(username__username__exact=request.user).first()
-    completedBooks= shelves_Readers_Books.objects.filter()
-    return render(request,['AJNIHA/stat.html'],{'reader': reader})
+    completedBooks= shelves_Readers_Books.objects.filter(reader = ReaderAccount.objects.filter(username__username__exact=request.user).first(),shelf__shelfType__exact=4).count()
+    daily = ReadingRecords.objects.filter( book_shelf_user__reader = ReaderAccount.objects.filter(username__username__exact=request.user).first(),date__day=datetime.now().day,date__month=datetime.now().month,date__year=datetime.now().year)
+    weekly = ReadingRecords.objects.filter( book_shelf_user__reader = ReaderAccount.objects.filter(username__username__exact=request.user).first(),date__gte=one_week_ago,date__month=datetime.now().month,date__year=datetime.now().year)
+    monthly = ReadingRecords.objects.filter( book_shelf_user__reader = ReaderAccount.objects.filter(username__username__exact=request.user).first(),date__month=datetime.now().month,date__year=datetime.now().year)
+    yearly = ReadingRecords.objects.filter( book_shelf_user__reader = ReaderAccount.objects.filter(username__username__exact=request.user).first(),date__year=datetime.now().year)
+
+    pagenumDaily = 0
+    pageWeekly=0
+    pagenumonthly = 0
+    pageYearly =0
+    for read in daily:
+        pagenumDaily += int(read.toPage) - int(read.fromPage) +1
+    for read in weekly:
+        pageWeekly += int(read.toPage) - int(read.fromPage) +1
+    for read in monthly:
+        pagenumonthly += int(read.toPage) - int(read.fromPage) +1
+    for read in yearly:
+        pageYearly += int(read.toPage) - int(read.fromPage) +1
+
+    return render(request,['AJNIHA/stat.html'],{'reader': reader,'bookNum':completedBooks,'pagenumDaily':pagenumDaily,'pageWeekly':pageWeekly,'pagenumonthly':pagenumonthly,'pageYearly':pageYearly })
 
 def logoutUser(request):
     logout(request)
