@@ -3,7 +3,6 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.forms import UserCreationForm
 import requests
-from .models import contacts,booksuggest
 #from .models import Contact, Blog, Course
 # Create your views here.
 #from django.http import HttpResponse
@@ -22,14 +21,6 @@ from io import BytesIO
 #@login_required(login_url='loginPage')
 def index(request):
     return render(request,['AJNIHA/indexa.html'])
-def stat(request):
-    return render(request,['AJNIHA/stat.html'])
-def contactUs(request):
-    return render(request,['AJNIHA/contactUs.html'])
-def suggestBook(request):
-    return render(request,['AJNIHA/suggest.html'])
-def thanks(request):
-    return render(request,['AJNIHA/thanks.html'])
 
 @login_required(login_url='loginPage')
 def notes(request):
@@ -184,18 +175,9 @@ def filterNotes(request,nav1,filterKey):
                    'bookForShelf': shelf_reader_books, 'message': "error", 'fav': liskedNotes})
 
 
-
-def bookSuggest(request):
-    if request.method=="POST":
-        booktitle=request.POST.get('bookTitle')
-        bookDescription=request.POST.get('description')
-        var_suggestion = booksuggest(accountUser=ReaderAccount.objects.filter(username__exact=request.user).first(),book_Title=booktitle,book_description=bookDescription )
-        var_suggestion.save()
-        return render(request,['AJNIHA/thanks.html'])
-    else:
-        return render(request,['AJNIHA/suggest.html'])
-
+@login_required(login_url='loginPage')
 def contact(request):
+    reader = ReaderAccount.objects.filter(username__username__exact=request.user).first()
     if request.method=="POST":
         userName=request.POST.get('name')
         userEmail=request.POST.get('email')
@@ -203,11 +185,9 @@ def contact(request):
         userMessage=request.POST.get('message')
         var_contact=contacts(name=userName,email=userEmail,title=userSub,message=userMessage)
         var_contact.save()
-        return render(request,['AJNIHA/thanks.html'])
+        return render(request,['AJNIHA/thanks.html'],{'reader': reader})
     else:
-        reader = ReaderAccount.objects.filter(username__username__exact=request.user).first()
         return render(request,['AJNIHA/contact.html'],{'reader': reader})
-
 
 @login_required(login_url='loginPage')
 def search(request):
@@ -347,7 +327,7 @@ def userHome(request):
         myfile = request.FILES['myfile']
         reader.prof_pic=myfile
         reader.save()
-    return render(request, ['AJNIHA/userHomePage.html'], {'reader': reader})
+    return render(request, ['AJNIHA/notes.html'], {'reader': reader})
 
 def register(request):
 
@@ -366,7 +346,7 @@ def register(request):
 #login
 def loginPage(request):
     if request.user.is_authenticated:
-        return redirect('index')
+        return redirect('notes')
     else:
         if request.method=='POST':
             #taking thr value of these fields
@@ -376,7 +356,7 @@ def loginPage(request):
             if user is not None:
                 login(request,user)
                 reader = ReaderAccount.objects.filter(username__username__exact= user).first()
-                return render(request,['AJNIHA/userHomePage.html'],{'reader':reader})
+                return render(request,['AJNIHA/notes.html'],{'reader':reader})
             else:
                 messages.info(request,'username or password is incorrect')
 
@@ -419,7 +399,25 @@ def stat(request):
 
     return render(request,['AJNIHA/stat.html'],{'reader': reader,'bookNum':completedBooks,'pagenumDaily':pagenumDaily,'pageWeekly':pageWeekly,'pagenumonthly':pagenumonthly,'pageYearly':pageYearly })
 
+
+def contactUs(request):
+    reader = ReaderAccount.objects.filter(username__username__exact=request.user).first()
+    return render(request,['AJNIHA/contactUs.html'],{'reader':reader})
+
+def suggest(request):
+    if request.method == "POST":
+        booktitle = request.POST.get('bookTitle')
+        bookDescription = request.POST.get('description')
+        var_suggestion = booksuggest(accountUser=ReaderAccount.objects.filter(username__exact=request.user).first(),
+                                     book_Title=booktitle, book_description=bookDescription)
+        var_suggestion.save()
+        return render(request, ['AJNIHA/thanks.html'])
+    else:
+        return render(request, ['AJNIHA/suggest.html'])
+
+def thanks(request):
+    return render(request,['AJNIHA/thanks.html'])
+
 def logoutUser(request):
     logout(request)
     return redirect('loginPage')
-
