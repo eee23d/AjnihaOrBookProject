@@ -232,7 +232,7 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: space-between;
   padding: 10px 0 10px 30px;
   font-family: "Roboto", sans-serif;
-  font-size: 13px;
+  font-size: 25px;
   color: #626262;
   white-space: nowrap;
   transition: 0.3s;
@@ -241,7 +241,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar a i {
-  font-size: 12px;
+  font-size: 25px;
   line-height: 0;
   margin-left: 5px;
 }
@@ -276,7 +276,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar .dropdown ul a i {
-  font-size: 12px;
+  font-size: 25px;
 }
 
 .navbar .dropdown ul a:hover, .navbar .dropdown ul .active:hover, .navbar .dropdown ul li:hover > a {
@@ -399,7 +399,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar-mobile .dropdown ul a i {
-  font-size: 12px;
+  font-size: 20px;
 }
 
 .navbar-mobile .dropdown ul a:hover, .navbar-mobile .dropdown ul .active:hover, .navbar-mobile .dropdown ul li:hover > a {

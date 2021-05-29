@@ -324,18 +324,16 @@ def userHome(request):
     return render(request, ['AJNIHA/userHomePage.html'], {'reader': reader})
 
 def register(request):
-    if request.user.is_authenticated:
-        return redirect('userHome')
-    if True:
-        form=CreateUserForm()
-        if request.method=='POST':
-            form=CreateUserForm(request.POST)
-            if form.is_valid():
-                form.save()
-                messages.success(request,'Account was created for '+form.cleaned_data.get('username'))
-                return redirect('loginPage')
-        context={'form':form}
-        return render(request,'AJNIHA/register.html',context)
+
+    form=CreateUserForm()
+    if request.method=='POST':
+        form=CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'Account was created for '+form.cleaned_data.get('username'))
+            return redirect('loginPage')
+    context={'form':form}
+    return render(request,'AJNIHA/register.html',context)
 
 
 
@@ -344,7 +342,6 @@ def loginPage(request):
     if request.user.is_authenticated:
         return redirect('index')
     else:
-
         if request.method=='POST':
             #taking thr value of these fields
             username=request.POST.get('username')

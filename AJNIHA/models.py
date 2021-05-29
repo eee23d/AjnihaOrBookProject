@@ -34,10 +34,6 @@ class ReaderAccount(models.Model):
     sName = models.CharField(max_length=40)
     username= models.ForeignKey(User,on_delete=models.CASCADE)
     email= models.EmailField()
-    Gender= models.CharField(choices=GENDER_CHOICES,null=True, max_length=10)
-    country = models.CharField(max_length=40,blank=True, null=True)
-    password = models.CharField(max_length=40)
-    birthday = models.DateField(blank=True, null=True)
     prof_pic= models.ImageField(default='/default.png',blank=True,null=True,upload_to='')
     #Basically blank allows you to pass it a null value, but null tells the database to accept null values.
     def __str__(self):
