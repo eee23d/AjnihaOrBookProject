@@ -17,7 +17,13 @@
     <style>
         p{font-size: 10px;}
     </style>
-
+<script>
+    document.getElementById("libMainNav").classList.add("active")
+    document.getElementById("noteMainNav").className ="nav-link scrollto"
+    document.getElementById("addMainNav").className ="nav-link scrollto"
+    document.getElementById("readMainNav").className ="nav-link scrollto"
+    document.getElementById("contactlibMainNav").className ="nav-link scrollto"
+</script>
     </head>
   <header >
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -30,8 +36,6 @@
         <section id="portfolio" class="portfolio section-bg">
 
 
-<a href="{% url 'search' %}"><button class="add" >إضافة كتاب</button></a>
-<button type="button" class="add" data-toggle="modal" data-target="#myModal">إضافة رف</button>
 {% for shelf in shelves %}
 
     <div style="" class="container">
@@ -128,6 +132,8 @@
 </script>
 
 
+<a href="{% url 'search' %}"><button class="add" >إضافة كتاب</button></a>
+<button type="button" class="add" data-toggle="modal" data-target="#myModal">إضافة رف</button>
 
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">

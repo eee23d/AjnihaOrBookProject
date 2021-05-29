@@ -337,7 +337,7 @@ blockquote{
 }
 
 .mobile-nav-toggle.bi-x {
-  color: #fff;
+  color: #ece4e4;
 }
 
 @media (max-width: 991px) {
@@ -441,6 +441,7 @@ blockquote{
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   position: absolute;
   top: 0;
   right: 0;
@@ -504,6 +505,7 @@ blockquote{
   background: none;
   font-size: 30px;
   line-height: 0;
+
   width: auto;
   height: auto;
   background: rgba(255, 255, 255, 0.2);
