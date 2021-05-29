@@ -1,0 +1,39 @@
+{% extends 'AJNIHA/layout.html' %}
+{% load static %}
+{% block content %}
+
+<main id="main">
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>اقترح كتاباً</h2>
+        </div>
+
+        <div style="margin: auto;width: 50%;" class="row">
+            <form id="suggestBook" action="{% url 'suggest' %}" method="POST" role="form" class="php-email-form">
+                {% csrf_token %}
+              <div class="row">
+                <div class="form-group mt-3">
+                  <label for="bookTitle">عنوان الكتاب</label>
+                  <input type="text" name="bookTitle" class="form-control" id="name" required>
+                </div>
+              </div>
+                 <div class="form-group mt-3">
+                <label for="description">نبذة عن الكتاب</label>
+                <textarea placeholder="اكتب نبذة عن الكتاب، أو اخبرنا سبب اقتراحه" class="form-control" name="description" rows="10" required></textarea>
+              </div>
+
+              <div class="text-center">
+                  <button type="submit" onclick="document.getElementById('suggestBook').submit();">ارسال</button>
+              </div>
+            </form>
+          </div>
+
+      </div>
+
+    </section><!-- End Contact Section -->
+</main>
+{% endblock %}
