@@ -75,7 +75,7 @@
 </div>
 <hr style="color: transparent">
 {% for item in response %}
-    <div style="width: 33%;"class="col-lg-4 col-md-6 portfolio-item filter-app radios ">
+    <div style=""class="col-lg-4 col-md-6 portfolio-item filter-app radios ">
         <input type="radio" name="rGroup" value="{{ item.selfLink }}"
                id="{{ item.selfLink }}">
         <label for="{{ item.selfLink }}" class="radio"> </label>
@@ -199,14 +199,14 @@
     {% endfor %}
 {% endif %}
 
-<div class="modal-footer">
-    <select  name="shelfSelect" id="shelfSelect" title="اختر رف" style="padding-right: 4.2%; width: 15%">
+<div style="padding-right: 0px;margin-right: 0%;margin-left: 0%;padding-top: 0px;padding-bottom: 0px;padding-left: 0px;border-top-width: 0px;" class="modal-footer">
+    <select  name="shelfSelect" id="shelfSelect" title="اختر رف" style="padding-right: 4.2%;">
         <option disabled selected value> اختر الرف</option>
         {% for shelf in shelves %}
             <option class="dropdown">{{ shelf.shelfName }}</option>
         {% endfor %}
     </select>
-    <button class="button" style="width: 50%;text-align: center;" name="addBookSearched"
+    <button id="addsBtn" class="button" style="text-align: center;" name="addBookSearched"
             type="submit" id="addBookSearched">اضف
     </button>
 

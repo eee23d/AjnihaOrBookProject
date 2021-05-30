@@ -1317,6 +1317,12 @@ input[type=radio] {
 	display: none;
 }
 
+.radios{
+  width: 33%;
+}
+
+
+
 input[type=radio]:checked {
 	display: inline;
 }
@@ -1930,6 +1936,7 @@ border: #5eb0f6 solid 2px;
     -ms-flex: 3;
         flex: 3;
     padding: 10px 10px;
+    max-width: 100%;;
   }
 
 
@@ -1938,7 +1945,7 @@ border: #5eb0f6 solid 2px;
 display: none  }
 
  #changi {
-width: 30%;
+width: 50%;
 
 
  }
@@ -1946,7 +1953,22 @@ width: 30%;
   padding-right: 0; /* Location of the box */
 
   }
+  #changi1{
+    width: 50%;
+
   }
+  #editModal{
+      padding-right: 0; /* Location of the box */
+
+  }
+  }
+
+.ico{
+  width:60px;
+}
+@media (max-width: 1000px) {
+  .ico{width: 40px}
+}
 
 
 select {
@@ -2016,3 +2038,17 @@ position: relative;
   text-align: center;
 }
 
+div.row:nth-child(4) {
+margin-right: auto;
+margin-top: 0px;
+margin-left: 0px;
+margin-bottom: 0px;
+}
+
+.shelfSelect{
+  width:50%;
+}
+#addsBtn{
+    width:50%;
+
+}

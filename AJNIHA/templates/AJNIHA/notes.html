@@ -57,29 +57,19 @@
 
 <!-- The Modal -->
 	<div style="padding-top: 1%" id="myModal" class="modal" >
-
 	  <!-- Modal content -->
 	  <div style="padding: 0;width:60%;top:1%" class="modal-content" id="changi">
-
 	    <div class="modal-body">
 	      <div style="border: transparent  3px" id="myModel1" class="modal1">
 	    <div  class="modal__container">
 	      <div id="pici" style="transform:rotateY(180deg);" class="modal__featured">
 	<button disabled type="button" class="button--transparent button--close">
-
-
-
-
 	          <span class="close">&times;</span>
         </button>
-
         <div class="modal__circle" > </div>
         <img src="https://raw.githubusercontent.com/eee23d/w1/main/qe.png" class="modal__product"  />
       </div>
-
-
   <form method="post">
-
 {% csrf_token %}
       <div style="" class="modal__content">
           <li style="" class="form-list__row form-list__row--inline">
@@ -154,10 +144,8 @@
 
 <!--modal for edit notes!! -->
 <div style="padding-top:0;" id="editModal" class="modal" >
-
   <!-- Modal content -->
 	<div style="padding: 0;width:60%;top:1%" class="modal-content" id="changi1">
-
     <div class="modal-body">
       <div style="border: transparent  3px" id="myModel1" class="modal1">
     <div class="modal__container">
@@ -166,12 +154,9 @@
 
           <span class="close" id = "closeEdit">&times;</span>
         </button>
-
         <div class="modal__circle" > </div>
         <img src="https://raw.githubusercontent.com/eee23d/w1/main/qe.png" class="modal__product"  />
       </div>
-
-
   <form method="post">
 {% csrf_token %}
       <div style="" class="modal__content">
@@ -180,7 +165,7 @@
           <li style="" class="form-list__row form-list__row--inline">
         <h2>تعديل تدوينة</h2>
                 <div class="dropdown">
-                    <select name="shelfSelectEdit" id="shelfSelectEdit" style="width: 180px;margin: 7px;" title="اختر كتاب">
+                    <select name="shelfSelectEdit" id="shelfSelectEdit" style="width: 100%;margin: 7px;" title="اختر كتاب">
                     <option disabled selected value> اختر كتاب</option>
                       {% for book in bookForShelf %}
                     <option  value="{{book.book.bookTitle }}" class="dropdown">{{ book.book.bookTitle }}</option>
@@ -270,7 +255,6 @@ var span2= document.getElementById("closeEdit")
 // When the user clicks the button, open the modal
 btn.onclick = function() {
   modal.style.display = "block";
-
 }
 
 // When the user clicks on <span> (x), close the modal
@@ -285,8 +269,11 @@ span2.onclick = function (){
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
-  }
-}
+  }}
+  window.onclick = function(event) {
+  if (event.target == modal2) {
+    modal2.style.display = "none"
+  }}
 </script>
 
 </body>
@@ -348,10 +335,10 @@ padding: 10px;
                 {{ note.note_id.summary}}
                      <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                     <div class="portfolio-links" >
-                 <a href=""  class="portfolio-lightbox" title="
+                 <a  class="portfolio-lightbox" title="
 
-	                  <h3 style='color:#e2d810;' > عنوان التدوينة: {{ note.note_id.note_title }} </h3> </b>
-	                  <h5 style='color:#e2d810;' > من كتاب: {{ note.note_id.book_shelf_user.book.bookTitle }}
+	                  <h3 style='color:#e16912;' > عنوان التدوينة: {{ note.note_id.note_title }} </h3> </b>
+	                  <h5 style='color:#e16912;' > من كتاب: {{ note.note_id.book_shelf_user.book.bookTitle }}
 	                   من صفحة {{ note.note_id.fromPage }}
 	                   إلى {{ note.note_id.toPage }}</h5>
 	                  <hr>
@@ -385,9 +372,9 @@ padding: 10px;
 
             </p>
             <div class="portfolio-links" >
-                 <a href=""  class="portfolio-lightbox" title="
-	                  <h3 style='color:#e2d810;' > عنوان التدوينة: {{ note.note_title }} </h3> </b>
-	                  <h5 style='color:#e2d810;' > من كتاب: {{ note.book_shelf_user.book.bookTitle }}
+                 <a  class="portfolio-lightbox" title="
+	                  <h3 style='color:#e16912;' > عنوان التدوينة: {{ note.note_title }} </h3> </b>
+	                  <h5 style='color:#e16912;' > من كتاب: {{ note.book_shelf_user.book.bookTitle }}
 	                   من صفحة {{ note.fromPage }}
 	                   إلى {{ note.toPage }}</h5>
 	                  <hr>

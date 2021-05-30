@@ -115,7 +115,8 @@
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
-    flex-direction: column
+    flex-direction: column;
+    background-color: #ffffff;
 }
 
 .glightbox-container .ginner-container.desc-left, .glightbox-container .ginner-container.desc-right {

@@ -314,12 +314,23 @@ h1, h2, h3, h4, h5, h6 {
 * Mobile Navigation
 */
 .mobile-nav-toggle {
-  color: #555555;
-  font-size: 28px;
-  cursor: pointer;
   display: none;
+  position: relative;
+  left: 1px;
+  top: 15px;
+  z-index: 9998;
+  border: 0;
+  font-size: 24px;
+  transition: all 0.4s;
+  outline: none !important;
+  color: #306799;
+  width: 40px;
+  height: 40px;
+
   line-height: 0;
-  transition: 0.5s;
+  border-radius: 50px;
+  cursor: pointer;
+
 }
 
 .mobile-nav-toggle.bi-x {
