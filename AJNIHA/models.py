@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.dispatch import receiver
 # Create your models here.
+from django.db.models import Max
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 ''''''
@@ -50,7 +51,6 @@ def create_auto_sheleves(sender, instance, created, **kwargs):
         Shelves.objects.create(shelfName="أود قرائته", Reader=instance, shelfType=2)
         Shelves.objects.create(shelfName="تمت قراءته", Reader=instance, shelfType=4)
         Shelves.objects.create(shelfName="مفضلة", Reader=instance, shelfType=5)
-        print('Profile created!')
 
 
 
@@ -61,6 +61,13 @@ class shelves_Readers_Books(models.Model):
     shelf= models.ForeignKey(Shelves,unique=False, on_delete=models.CASCADE)
     class Meta:
         unique_together = ('reader', 'book','shelf')
+    def reached(self):
+        bookNotes = ReadingRecords.objects.filter(book_shelf_user__exact=self)
+        max_reading = bookNotes.aggregate(Max('toPage'))['toPage__max']
+        if not max_reading:
+            return 0
+        return max_reading
+
     def __str__(self):
         return str(self.book)+" ,"+str(self.shelf)
 
@@ -73,6 +80,7 @@ class ReadingRecords(models.Model):
     note = models.TextField()
     private = models.BooleanField(default=False)
     bookcompleted = models.BooleanField(default=False)
+
 
     def __str__(self):
         return str(self.note_title)+ " ,"+ str(self.book_shelf_user)

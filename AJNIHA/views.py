@@ -6,14 +6,12 @@ import requests
 #from .models import Contact, Blog, Course
 # Create your views here.
 #from django.http import HttpResponse
-from datetime import datetime
 from datetime import datetime, timedelta
 from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from .models import Book,ReaderAccount,ReadingRecords,contacts,Shelves,shelves_Readers_Books,booksuggest,liked_post
-import urllib.request
 from django.core import files
 from io import BytesIO
 
