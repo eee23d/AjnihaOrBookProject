@@ -3,9 +3,7 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.forms import UserCreationForm
 import requests
-#from .models import Contact, Blog, Course
 # Create your views here.
-#from django.http import HttpResponse
 from datetime import datetime, timedelta
 from .forms import CreateUserForm
 from django.contrib import messages
@@ -15,8 +13,7 @@ from .models import Book,ReaderAccount,ReadingRecords,contacts,Shelves,shelves_R
 from django.core import files
 from io import BytesIO
 
-#string-->http response
-#@login_required(login_url='loginPage')
+
 def index(request):
     return render(request,['AJNIHA/indexa.html'])
 

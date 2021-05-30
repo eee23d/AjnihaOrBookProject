@@ -1,0 +1,1 @@
+web: gunicorn AJNIHA_Project.wsgi
