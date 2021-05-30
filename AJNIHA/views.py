@@ -1,7 +1,5 @@
-from django.core.files.storage import FileSystemStorage
-from django.shortcuts import render,redirect, get_object_or_404
-from django.contrib.auth.models import User, auth
-from django.contrib.auth.forms import UserCreationForm
+
+from django.shortcuts import render,redirect
 import requests
 # Create your views here.
 from datetime import datetime, timedelta
@@ -13,10 +11,11 @@ from .models import Book,ReaderAccount,ReadingRecords,contacts,Shelves,shelves_R
 from django.core import files
 from io import BytesIO
 
-
+#index page
 def index(request):
     return render(request,['AJNIHA/indexa.html'])
 
+#notes page
 @login_required(login_url='loginPage')
 def notes(request):
     user = request.user
@@ -98,7 +97,7 @@ def notes(request):
         return niv(request, "myNotes","")
 
 
-
+#for navigation in note page, it will return the page with required variable
 def niv(request,nav1,msg):
     reader = ReaderAccount.objects.filter(username__username__exact=request.user).first()
     user = request.user
@@ -127,7 +126,7 @@ def niv(request,nav1,msg):
                    'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader': reader})
 
 
-
+#for note searching
 def filterNotes(request,nav1,filterKey):
     user = request.user
     reader = ReaderAccount.objects.filter(username__username__exact=request.user).first()
@@ -170,6 +169,7 @@ def filterNotes(request,nav1,filterKey):
                    'bookForShelf': shelf_reader_books, 'message': "error", 'fav': liskedNotes})
 
 
+#contact page (Send message)
 @login_required(login_url='loginPage')
 def contact(request):
     reader = ReaderAccount.objects.filter(username__username__exact=request.user).first()
@@ -184,6 +184,7 @@ def contact(request):
     else:
         return render(request,['AJNIHA/contact.html'],{'reader': reader})
 
+#add book page
 @login_required(login_url='loginPage')
 def search(request):
     reader = ReaderAccount.objects.filter(username__username__exact=request.user).first()
@@ -297,6 +298,7 @@ def search(request):
     else:
         return render(request,['AJNIHA/search.html'],{'response':"",'shelves': shelves,'error':"",'reader': reader})
 
+#library page
 @login_required(login_url='loginPage')
 def library(request):
     user = request.user
@@ -315,6 +317,7 @@ def library(request):
     shelf_books = Book.objects.filter(id__in=shelf_reader_books)
     return render(request,['AJNIHA/library1.html'],{'shelves': shelves,'shelf_books':shelf_books,'bookForShelf':shelf_reader_books,'reader': reader})
 
+#go to note page if user account is valid
 @login_required(login_url='loginPage')
 def userHome(request):
     reader = ReaderAccount.objects.filter(username__username__exact=request.user).first()
@@ -324,6 +327,7 @@ def userHome(request):
         reader.save()
     return render(request, ['AJNIHA/notes.html'], {'reader': reader})
 
+#register account
 def register(request):
 
     form=CreateUserForm()
@@ -358,6 +362,8 @@ def loginPage(request):
         context={}
         return render(request,['AJNIHA/login.html'],context)
 
+
+#change profile page
 def setting(request):
     reader = ReaderAccount.objects.filter(username__username__exact=request.user).first()
     if request.method == 'POST':
@@ -369,6 +375,7 @@ def setting(request):
             pass
     return render(request, ['AJNIHA/setting.html'], {'reader': reader})
 
+#reading statistic page
 @login_required(login_url='loginPage')
 def stat(request):
     one_week_ago = datetime.today() - timedelta(days=7)
@@ -394,11 +401,12 @@ def stat(request):
 
     return render(request,['AJNIHA/stat.html'],{'reader': reader,'bookNum':completedBooks,'pagenumDaily':pagenumDaily,'pageWeekly':pageWeekly,'pagenumonthly':pagenumonthly,'pageYearly':pageYearly })
 
-
+#page to choose contact mwthod
 def contactUs(request):
     reader = ReaderAccount.objects.filter(username__username__exact=request.user).first()
     return render(request,['AJNIHA/contactUs.html'],{'reader':reader})
 
+#suggest book page
 def suggest(request):
     if request.method == "POST":
         booktitle = request.POST.get('bookTitle')
@@ -410,9 +418,11 @@ def suggest(request):
     else:
         return render(request, ['AJNIHA/suggest.html'])
 
+#thank page after contact
 def thanks(request):
     return render(request,['AJNIHA/thanks.html'])
 
+#logout account and end session
 def logoutUser(request):
     logout(request)
     return redirect('loginPage')
