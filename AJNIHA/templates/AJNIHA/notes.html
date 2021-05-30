@@ -294,7 +294,7 @@ window.onclick = function(event) {
 <form method="post" class="row">
     {% csrf_token %}
  <input type="text" placeholder=" ابحث في المدونات"  style="width: 40% ;height: 50px;float: right;  margin-top: 20px; margin-right: 10px"  id="search-box" name="search-boc"  />
-    <button type="submit" id="search" name="search" class="button" style="float: right; margin-top: 20px; margin-right: 10px; width: 12%">  ابحث</button>
+    <button type="submit" id="search" name="search" class="button" style="float: right;padding-right: 3%; margin-top: 20px; margin-right: 10px; width: 12%">  ابحث</button>
     <input name="t" type="text" style="visibility: hidden; height: 1px;width: 1px" value="{{ nav }}">
 
 </form>
@@ -349,23 +349,32 @@ padding: 10px;
                      <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                     <div class="portfolio-links" >
                  <a href=""  class="portfolio-lightbox" title="
-	                 <b style='color:green;'> عنوان التدوينة: {{ note.note_id.note_title }} </b>
-	 <hr>
+
+	                  <h3 style='color:#e2d810;' > عنوان التدوينة: {{ note.note_id.note_title }} </h3> </b>
+	                  <h5 style='color:#e2d810;' > من كتاب: {{ note.note_id.book_shelf_user.book.bookTitle }}
+	                   من صفحة {{ note.note_id.fromPage }}
+	                   إلى {{ note.note_id.toPage }}</h5>
+	                  <hr>
+	<h4 style='color: #322e2f;'>
 	 {{ note.note_id.note }}
+	 </h4>
 	 <br>
 	 <hr>
-	  <h4 style='color:blue;'>
+	 <h4 style='color:#12a4d9;'>
 	{{ note.note_id.book_shelf_user.reader.username }} :نشرت بواسطة
 	<br>
-	{{ note.note_id.date.date }} :بتاريخ
 	</h4>
-	"style="padding-left: 5px" >
+	<h6 style='color:#12a4d9;'>
+	{{ note.note_id.date}}
+	</h6>
+	</div>
+	" style="padding-left: 5px; " >
 
                     <img width="20px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQ2MS4zMTIgNDYxLjMxMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNMjMwLjY1NiwxNTYuNDE2Yy00MC45NiwwLTc0LjI0LDMzLjI4LTc0LjI0LDc0LjI0czMzLjI4LDc0LjI0LDc0LjI0LDc0LjI0czc0LjI0LTMzLjI4LDc0LjI0LTc0LjI0ICAgIFMyNzEuNjE2LDE1Ni40MTYsMjMwLjY1NiwxNTYuNDE2eiBNMjI1LjAyNCwyMDguNjRjLTkuMjE2LDAtMTYuODk2LDcuNjgtMTYuODk2LDE2Ljg5NmgtMjQuNTc2ICAgIGMwLjUxMi0yMy4wNCwxOC45NDQtNDEuNDcyLDQxLjQ3Mi00MS40NzJWMjA4LjY0eiIgZmlsbD0iIzFmODhlMiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNNDU1LjkzNiwyMTUuMjk2Yy0yNS4wODgtMzEuMjMyLTExNC42ODgtMTMzLjEyLTIyNS4yOC0xMzMuMTJTMzAuNDY0LDE4NC4wNjQsNS4zNzYsMjE1LjI5NiAgICBjLTcuMTY4LDguNzA0LTcuMTY4LDIxLjUwNCwwLDMwLjcyYzI1LjA4OCwzMS4yMzIsMTE0LjY4OCwxMzMuMTIsMjI1LjI4LDEzMy4xMnMyMDAuMTkyLTEwMS44ODgsMjI1LjI4LTEzMy4xMiAgICBDNDYzLjEwNCwyMzcuMzEyLDQ2My4xMDQsMjI0LjUxMiw0NTUuOTM2LDIxNS4yOTZ6IE0yMzAuNjU2LDMzOC4xNzZjLTU5LjM5MiwwLTEwNy41Mi00OC4xMjgtMTA3LjUyLTEwNy41MiAgICBzNDguMTI4LTEwNy41MiwxMDcuNTItMTA3LjUyczEwNy41Miw0OC4xMjgsMTA3LjUyLDEwNy41MlMyOTAuMDQ4LDMzOC4xNzYsMjMwLjY1NiwzMzguMTc2eiIgZmlsbD0iIzFmODhlMiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjwvZz48L3N2Zz4=" />
                 </a>
                         <a title="إضافة إلى المفضلة" class="" id="{{ note.note_id.id }}" name="FavNav" ><i class="bx bxs-heart" style="padding-left: 5px; color: darkred;" id="{{ note.note_id.id }}"></i> </a>
                 {% else %}
-                    <b style="font-size: 24px;float: right">{{ note.note_title }}</b>
+                    <b style="font-size: 24px;float: right;" >{{ note.note_title }}</b>
                <p>  {{ note.book_shelf_user.reader.username }} في  {{ note.date.date}}</p>
                     <b>من كتاب:  {{ note.book_shelf_user.book.bookTitle }}</b>
                     <br>
@@ -377,16 +386,24 @@ padding: 10px;
             </p>
             <div class="portfolio-links" >
                  <a href=""  class="portfolio-lightbox" title="
-	                 <b style='color:green;'> عنوان التدوينة: {{ note.note_title }} </b>
+	                  <h3 style='color:#e2d810;' > عنوان التدوينة: {{ note.note_title }} </h3> </b>
+	                  <h5 style='color:#e2d810;' > من كتاب: {{ note.book_shelf_user.book.bookTitle }}
+	                   من صفحة {{ note.fromPage }}
+	                   إلى {{ note.toPage }}</h5>
 	                  <hr>
+	<h4 style='color: #322e2f;'>
 	 {{ note.note }}
+	 </h4>
 	 <br>
 	 <hr>
-	  <h4 style='color:blue;'>
+	 <h4 style='color:#12a4d9;'>
 	{{ note.book_shelf_user.reader.username }} :نشرت بواسطة
 	<br>
-	{{ note.date.date}} :بتاريخ
 	</h4>
+	<h6 style='color:#12a4d9;'>
+	{{ note.date}}
+	</h6>
+	</div>
 	" style="padding-left: 5px">
                     <img width="20px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDQ2MS4zMTIgNDYxLjMxMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNMjMwLjY1NiwxNTYuNDE2Yy00MC45NiwwLTc0LjI0LDMzLjI4LTc0LjI0LDc0LjI0czMzLjI4LDc0LjI0LDc0LjI0LDc0LjI0czc0LjI0LTMzLjI4LDc0LjI0LTc0LjI0ICAgIFMyNzEuNjE2LDE1Ni40MTYsMjMwLjY1NiwxNTYuNDE2eiBNMjI1LjAyNCwyMDguNjRjLTkuMjE2LDAtMTYuODk2LDcuNjgtMTYuODk2LDE2Ljg5NmgtMjQuNTc2ICAgIGMwLjUxMi0yMy4wNCwxOC45NDQtNDEuNDcyLDQxLjQ3Mi00MS40NzJWMjA4LjY0eiIgZmlsbD0iIzFmODhlMiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNNDU1LjkzNiwyMTUuMjk2Yy0yNS4wODgtMzEuMjMyLTExNC42ODgtMTMzLjEyLTIyNS4yOC0xMzMuMTJTMzAuNDY0LDE4NC4wNjQsNS4zNzYsMjE1LjI5NiAgICBjLTcuMTY4LDguNzA0LTcuMTY4LDIxLjUwNCwwLDMwLjcyYzI1LjA4OCwzMS4yMzIsMTE0LjY4OCwxMzMuMTIsMjI1LjI4LDEzMy4xMnMyMDAuMTkyLTEwMS44ODgsMjI1LjI4LTEzMy4xMiAgICBDNDYzLjEwNCwyMzcuMzEyLDQ2My4xMDQsMjI0LjUxMiw0NTUuOTM2LDIxNS4yOTZ6IE0yMzAuNjU2LDMzOC4xNzZjLTU5LjM5MiwwLTEwNy41Mi00OC4xMjgtMTA3LjUyLTEwNy41MiAgICBzNDguMTI4LTEwNy41MiwxMDcuNTItMTA3LjUyczEwNy41Miw0OC4xMjgsMTA3LjUyLDEwNy41MlMyOTAuMDQ4LDMzOC4xNzYsMjMwLjY1NiwzMzguMTc2eiIgZmlsbD0iIzFmODhlMiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjwvZz48L3N2Zz4=" />
                 </a>
