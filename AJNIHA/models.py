@@ -29,7 +29,7 @@ class ReaderAccount(models.Model):
     sName = models.CharField(max_length=40)
     username= models.ForeignKey(User,on_delete=models.CASCADE)
     email= models.EmailField()
-    prof_pic= models.ImageField(default='/default.png',blank=True,null=True,upload_to='')
+    prof_pic= models.ImageField(default='/default.jpg',blank=True,null=True,upload_to='')
     #Basically blank allows you to pass it a null value, but null tells the database to accept null values.
     def __str__(self):
         return str(self.username)
