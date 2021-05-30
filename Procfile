@@ -1,1 +1,1 @@
-web: gunicorn AJNIHA_Project.wsgi
+web: gunicorn AJNIHA_ProjectFinal.wsgi
