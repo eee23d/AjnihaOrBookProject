@@ -85,13 +85,14 @@ class ReadingRecords(models.Model):
     def __str__(self):
         return str(self.note_title)+ " ,"+ str(self.book_shelf_user)
     def summary(self):
-        return self.note[:80]+"..."
+        return self.note[:20]+"..."
 
 
 class booksuggest(models.Model):
     accountUser = models.ForeignKey(ReaderAccount, on_delete=models.CASCADE)
     book_Title = models.CharField(max_length=40)
     book_description = models.TextField()
+
     def __str__(self):
             return str(self.accountUser)
 
