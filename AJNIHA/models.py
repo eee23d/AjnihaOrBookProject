@@ -9,8 +9,7 @@ from django.contrib.auth.models import User
 def create_auto_sheleves(sender, instance, created, **kwargs):
     if created:
         ReaderAccount.objects.create(fName=instance.first_name, sName=instance.last_name,
-                                            username=instance, email=instance.email, Gender="",
-                                            country="", password=instance.password, birthday=None)
+                                            username=instance, email=instance.email)
         print('user account created!')
 
 class Book(models.Model):
@@ -22,11 +21,6 @@ class Book(models.Model):
     image = models.ImageField(default='/book.png',blank=True,null=True,auto_created=True,upload_to='')
     def __str__(self):
         return self.bookTitle
-
-GENDER_CHOICES = (
-   ('M', 'Male'),
-   ('F', 'Female')
-)
 
 class ReaderAccount(models.Model):
 

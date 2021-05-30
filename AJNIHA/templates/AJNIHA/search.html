@@ -52,13 +52,13 @@
                             <span class="bg-danger alert-danger border-danger text-black-50 text-center">{{ error }}</span>
                         {% endif %}
                         <div class="modal-header" style="background-color: transparent;padding: 0;">
-                            <input placeholder=" ابحث عن كتاب" style="width: 60%" type="search" id="search-box"
-                                   name="search-box" class="form-control row"/>
-                            <select name="searchSelect" id="searchSelect" title="اختر طريقة البحث">
+                            <input placeholder=" ابحث عن كتاب" style="width: 50%" type="search" id="search-box"
+                                   name="search-box" class="form-control row" />
+                            <select name="searchSelect" id="searchSelect" title="اختر طريقة البحث" style="width: 20%; font-size:0.8vw;display: block;margin-left: 5px;margin-right:5px;height: 45px; padding-right: 4%;padding-left: 2%" class="button row ">
                                 <option class="dropdown" value="1" id="op1">مكتبة google books</option>
                                 <option class="dropdown" value="2" id="op2">مكتبة أجنحة</option>
                             </select>
-                            <button type="submit" id="search" name="search" class="button row">ابحث</button>
+                            <button type="submit" id="search" name="search" class="button row" style="width: 15%;display: block; padding-right: 3%">ابحث</button>
 
                         </div>
 
@@ -177,8 +177,6 @@
                                 <p style="color:#3f6bae">المؤلفون:</p>
                                     <p style="color: black">{{ item.author }}</p>
 
-
-
                             </li>
                             <li></li>
                             <li></li>
@@ -193,7 +191,6 @@
                             <li></li>
                             <li></li>
                         </ul>
-
                     </figure>
                 </li>
             </ul>
@@ -203,7 +200,7 @@
 {% endif %}
 
 <div class="modal-footer">
-    <select  name="shelfSelect" id="shelfSelect" title="اختر رف">
+    <select  name="shelfSelect" id="shelfSelect" title="اختر رف" style="padding-right: 4.2%; width: 15%">
         <option disabled selected value> اختر الرف</option>
         {% for shelf in shelves %}
             <option class="dropdown">{{ shelf.shelfName }}</option>

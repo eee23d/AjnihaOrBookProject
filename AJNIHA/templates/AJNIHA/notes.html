@@ -294,7 +294,7 @@ window.onclick = function(event) {
 <form method="post" class="row">
     {% csrf_token %}
  <input type="text" placeholder=" ابحث في المدونات"  style="width: 40% ;height: 50px;float: right;  margin-top: 20px; margin-right: 10px"  id="search-box" name="search-boc"  />
-    <button type="submit" id="search" name="search" class="button" style="float: right; margin-top: 20px; margin-right: 10px; width: 12%">  ابحث</button>
+    <button type="submit" id="search" name="search" class="button" style="float: right;padding-right: 3%; margin-top: 20px; margin-right: 10px; width: 12%">  ابحث</button>
     <input name="t" type="text" style="visibility: hidden; height: 1px;width: 1px" value="{{ nav }}">
 
 </form>
