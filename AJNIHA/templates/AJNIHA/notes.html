@@ -281,8 +281,8 @@ window.onclick = function(event) {
 <form method="post" class="row">
     {% csrf_token %}
  <input type="text" placeholder=" ابحث في المدونات"  style="width: 40% ;height: 50px;float: right;  margin-top: 20px; margin-right: 10px"  id="search-box" name="search-boc"  />
-    <button type="submit" id="search" name="search" class="button" style="float: right;padding-right: 3%; margin-top: 20px; margin-right: 10px; width: 12%">  ابحث</button>
-    <input name="t" type="text" style="visibility: hidden; height: 1px;width: 1px" value="{{ nav }}">
+            <button type="submit" id="search" name="search" class="button" style="float: right;padding-right: 3%; margin-top: 20px; margin-right: 10px; width: 12%">  ابحث</button>
+    <input name="ty" type="text" style="visibility: hidden; height: 1px;width: 1px" value="{{ nav }}">
 
 </form>
 
@@ -413,7 +413,9 @@ padding: 10px;
                 <input type="text" style="visibility: hidden" name="txt" id="txt"  >
                 <input type="text" style="visibility: hidden" name="t" value="{{ nav }}" >
      <input type="submit" name = "FavA" id="FavA" style="visibility: hidden">
-
+        </form>
+ <form method="post">
+     {% csrf_token %}
                 <input type="text" style="visibility: hidden" id="noteDelete" name="noteDelete">
                 <input type="submit" style="visibility: hidden" name="noteToDelete" id="noteToDelete">
             </form>
@@ -437,42 +439,24 @@ anyway noProblem  all matters to know it I made with love:} -->
 <!--as you see Ladies and Gentlemen I handeled bad input here for bad page input (if from larger than to and other many cases, no body will say thanks? even ms I dont think she can notice it,
 anyway noProblem  all matters to know it I made with love:} -->
   <script>
+        //fav navigation
+        {% if nav == "liked" %}
+     var favNav = document.getElementsByName("FavNav");
+    for (var i = 0; i < favNav.length; i++) {
+        favNav[i].addEventListener("click",favAddFnav);
+         {% for note in notes %}
+        if (favNav[i].id == "{{ note.id }}") {
+             {% for n in fav %}
+                {% if note.note_id.id == n.note_id.id %}
+                    favNav[i].setAttribute("title","إزالة من المفضلة");
+                   favNav[i].getElementsByTagName('i')[0].className= "bx bxs-heart";
 
-    document.getElementById("minusB1").addEventListener("click",constrain1);
-    document.getElementById("plusB1").addEventListener("click",constrain1);
-    document.getElementById("minusB2").addEventListener("click",constrain2);
-    document.getElementById("plusB2").addEventListener("click",constrain2);
-    document.getElementById("fromP").addEventListener("input",update);
-    document.getElementById("toP").addEventListener("input",update);
-    function constrain1(){
-         var fromP = document.getElementById("fromP");
-     var toP = document.getElementById("toP");
-     toP.setAttribute("min",fromP.value);
-     fromP.setAttribute("max",toP.value);
-
-
-    }
-
-    function constrain2(){
-        var fromP = document.getElementById("fromP");
-        var toP = document.getElementById("toP");
-     fromP.setAttribute("max",toP.value);
-     toP.setAttribute("min",fromP.value);
-
-
-    }
-
-
-    function favAdd(r){
-        var Id= r.target.id;
-        {% for note in notes %};
-        if (Id == "{{ note.id }}") {
-            document.getElementById("txt").value="{{  note.id  }}";
-           document.getElementById("FavA").click();
-        }
+                {% endif %}
+             {% endfor %}
+            }
         {% endfor %}
     }
-     function favAddFnav(r){
+    function favAddFnav(r){
         var Id= r.target.id;
         {% for note in notes %};
         if (Id == "{{ note.note_id.id }}") {
@@ -481,9 +465,10 @@ anyway noProblem  all matters to know it I made with love:} -->
         }
         {% endfor %}
     }
+
+        {% else %}
      //for fav, add and cancel
     var favEl = document.getElementsByName("addFav");
-    var favNav = document.getElementsByName("FavNav");
 
     for (var i = 0; i < favEl.length; i++) {
         favEl[i].addEventListener("click",favAdd);
@@ -498,21 +483,37 @@ anyway noProblem  all matters to know it I made with love:} -->
             }{% endfor %}
     }
 
-    for (var i = 0; i < favNav.length; i++) {
-        favNav[i].addEventListener("click",favAddFnav);
-            console.log("it");
-         {% for note in notes %}
-        if (favNav[i].id == "{{ note.id }}") {
-             {% for n in fav %}
-                {% if note.note_id.id == n.note_id.id %}
-                    favNav[i].setAttribute("title","إزالة من المفضلة");
-                   favNav[i].getElementsByTagName('i')[0].className= "bx bxs-heart";
 
-                {% endif %}
-             {% endfor %}
-            }
-
+    function favAdd(r){
+        var Id= r.target.id;
+        {% for note in notes %};
+        if (Id == "{{ note.id }}") {
+            document.getElementById("txt").value="{{  note.id  }}";
+           document.getElementById("FavA").click();
+        }
         {% endfor %}
+    }
+        {% endif %}
+        {% if nav == "myNotes" %}
+
+    document.getElementById("minusB1").addEventListener("click",constrain1);
+    document.getElementById("plusB1").addEventListener("click",constrain1);
+    document.getElementById("minusB2").addEventListener("click",constrain2);
+    document.getElementById("plusB2").addEventListener("click",constrain2);
+    document.getElementById("fromP").addEventListener("input",update);
+    document.getElementById("toP").addEventListener("input",update);
+    function constrain1(){
+         var fromP = document.getElementById("fromP");
+     var toP = document.getElementById("toP");
+     toP.setAttribute("min",fromP.value);
+     fromP.setAttribute("max",toP.value);
+    }
+
+    function constrain2(){
+        var fromP = document.getElementById("fromP");
+        var toP = document.getElementById("toP");
+     fromP.setAttribute("max",toP.value);
+     toP.setAttribute("min",fromP.value);
     }
 
     function update(e){
@@ -545,7 +546,7 @@ anyway noProblem  all matters to know it I made with love:} -->
 
     function edit(e){
         var id= e.target.id;
-        myModal.style.display = "block";
+        modal.style.display = "block";
         {% for note in notes %}
 
         if (id == "{{ note.id }}") {
@@ -561,6 +562,7 @@ anyway noProblem  all matters to know it I made with love:} -->
         }
             {% endfor %}
     }
+
     function delet(e){
         var Id= e.target.id;
         {% for note in notes %}
@@ -570,6 +572,7 @@ anyway noProblem  all matters to know it I made with love:} -->
         }
             {% endfor %}
     }
+    {% endif %}
 
  </script>
 {% endblock %}

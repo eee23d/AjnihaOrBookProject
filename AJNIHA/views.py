@@ -20,12 +20,7 @@ def index(request):
 def notes(request):
     user = request.user
     nav1 = request.POST.get("typeTrack")
-    myNotes = ReadingRecords.objects.filter(book_shelf_user__reader__username=user)
-    liskedNotes= liked_post.objects.filter(liked_by__username__username__exact=user)
-    shelves = Shelves.objects.filter(Reader__username__exact=user)
     shelf_reader_books = shelves_Readers_Books.objects.filter(reader__username__exact=user)
-    shelf_books = Book.objects.filter(id__in=shelf_reader_books)
-    error=""
     if request.method == "POST":
         if "AddNote" in request.POST:
             title= request.POST.get('title')
@@ -50,7 +45,6 @@ def notes(request):
             toP = request.POST.get('toPEdit')
             noteId = request.POST.get("noteSelected")
             private = request.POST.get('privateEdit')
-            nav1="myNotes"
             if private == "on":
                 private = True
             else:
@@ -69,7 +63,6 @@ def notes(request):
             Record.save()
             return niv(request, "myNotes", "succE")
         elif "noteToDelete" in request.POST:
-            nav1 = request.POST.get("type")
             noteId= request.POST.get("noteDelete")
             noteId =ReadingRecords.objects.filter(id__exact=noteId)
             noteId.delete()
@@ -87,7 +80,7 @@ def notes(request):
                 var_com.delete()
             return niv(request, nav1,"succL")
         elif "search" in request.POST:
-            typeOfNotes = request.POST.get("t")
+            typeOfNotes = request.POST.get("ty")
             filterKey = request.POST.get("search-boc")
             return filterNotes(request,typeOfNotes,filterKey)
 
@@ -136,41 +129,44 @@ def filterNotes(request,nav1,filterKey):
     shelf_books = Book.objects.filter(id__in=shelf_reader_books)
 
     liskedNotes = liked_post.objects.filter(liked_by__username__username__exact=user,note_id__note__contains=filterKey) \
-                  |liked_post.objects.filter(liked_by__username__username__exact=user,note_id__note_title__contains=filterKey)
+                  |liked_post.objects.filter(liked_by__username__username__exact=user,note_id__note_title__contains=filterKey) |\
+                  liked_post.objects.filter(liked_by__username__username__exact=user,note_id__book_shelf_user__book__bookTitle__contains=filterKey)
     if nav1 == "myNotes":
         myNotes = ReadingRecords.objects.filter(book_shelf_user__reader__username=user, note__contains=filterKey)\
-                  |ReadingRecords.objects.filter(book_shelf_user__reader__username=user, note_title__contains=filterKey)
+                  |ReadingRecords.objects.filter(book_shelf_user__reader__username=user, note_title__contains=filterKey)|\
+                  ReadingRecords.objects.filter(book_shelf_user__reader__username=user, book_shelf_user__book__bookTitle__contains=filterKey)
         if not myNotes:
             msg="no results"
         return render(request, ['AJNIHA/notes.html'],
                       {'notes': myNotes, "nav": nav1, 'shelves': shelves, 'shelf_books': shelf_books,
-                       'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes})
+                       'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader':reader})
     elif nav1 == "glob":
 
         allNotes = ReadingRecords.objects.filter(private__exact=False,
                                                  note__contains=filterKey) | ReadingRecords.objects.filter(
             book_shelf_user__reader__username=user, note__contains=filterKey)|ReadingRecords.objects.filter(
             book_shelf_user__reader__username=user, note_title__contains=filterKey) |ReadingRecords.objects.filter(
-            private__exact=False, note_title__contains=filterKey)
+            private__exact=False, note_title__contains=filterKey)|\
+                   ReadingRecords.objects.filter(book_shelf_user__reader__username=user, book_shelf_user__book__bookTitle__contains=filterKey) |\
+                   ReadingRecords.objects.filter(private__exact=False, book_shelf_user__book__bookTitle__contains=filterKey)
         if not allNotes:
             msg="no results"
         return render(request, ['AJNIHA/notes.html'],
                       {'notes': allNotes, "nav": nav1, 'shelves': shelves, 'shelf_books': shelf_books,
-                       'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes})
+                       'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader':reader})
     elif nav1 == "liked":
         if not liskedNotes:
             msg="no results"
         return render(request, ['AJNIHA/notes.html'],
                       {'notes': liskedNotes, "nav": nav1, 'shelves': shelves, 'shelf_books': shelf_books,
-                       'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes})
+                       'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader':reader})
 
     return render(request, ['AJNIHA/notes.html'],
                   {'notes': "", "nav": nav1, 'shelves': shelves, 'shelf_books': shelf_books,
-                   'bookForShelf': shelf_reader_books, 'message': "error", 'fav': liskedNotes})
+                   'bookForShelf': shelf_reader_books, 'message': "error", 'fav': liskedNotes,'reader':reader})
 
 
 #contact page (Send message)
-@login_required(login_url='loginPage')
 def contact(request):
     reader = ReaderAccount.objects.filter(username__username__exact=request.user).first()
     if request.method=="POST":
@@ -329,7 +325,8 @@ def userHome(request):
 
 #register account
 def register(request):
-
+    if request.user.is_authenticated:
+        logout(request)
     form=CreateUserForm()
     if request.method=='POST':
         form=CreateUserForm(request.POST)
