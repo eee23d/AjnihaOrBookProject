@@ -1,0 +1,505 @@
+{% extends 'AJNIHA/layout.html' %}
+{% load static %}
+{% block title %}أجنحة | {{ request.user }} {% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="{% static 'wingsApp/userHome/assets/css/noteNavStyle.css'%}" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" media="all">
+
+<script>
+    document.getElementById("noteMainNav").classList.add("active")
+    document.getElementById("libMainNav").className ="nav-link scrollto"
+    document.getElementById("addMainNav").className ="nav-link scrollto"
+    document.getElementById("readMainNav").className ="nav-link scrollto"
+    document.getElementById("contactlibMainNav").className ="nav-link scrollto"
+
+</script>
+</head>
+<body>
+<!--header  -->
+
+<header class="topnav">
+    <div class="navTypes">
+           <a class="" href="{% url 'allNotes' %}"> القرَّاء <i class="bx bx-globe"></i></a>
+            <a   href="{% url 'liked' %}"> المفضلة<i class="bx bx-book-bookmark"></i> </a>
+    <a  class="activeNote" href="{% url 'myNotes' %}"> مدوناتي<i class="bx bx-note"> </i> </a>
+        </div>
+<div class="search-container">
+           <form method="post">
+    {% csrf_token %}
+
+ <input type="text" placeholder="...ابحث"   id="search-box" name="search-boc"  />
+                                  <button type="submit" id="search" name="search" ><i  class="bx bx-search" ></i></button>
+         </form>
+  </div>
+</header>
+<!--endHeader -->
+<main id="main">
+
+
+
+    <section style="background-color: transparent" id="portfolio" class="portfolio section-bg" >
+
+<div style="direction:rtl;background-color: rgba(5,32,40,0.37);
+  align-items: center;
+  padding: 30px;
+"
+ class="container">
+
+<div class="form__group">
+
+  {% if message == "succD" %}
+      <h3 style="width: 90%; margin: auto; border-radius: 2em;  color: white" class=" border-success alert-success bg-success  text-center" >تم حذف المدونة بنجاح</h3>
+      {% elif message == "succA" %}
+          <h3 style="width: auto" class=" border-success alert-success bg-success  text-center" >تم إضافة المدونة  </h3>
+      {% elif message == "succE" %}
+          <h3 style="width: auto" class=" border-success alert-success bg-success  text-center" >تم التعديل على المدونة </h3>
+      {% elif message == "succL" %}
+          <h3 style="width: auto" class=" border-success alert-success bg-success  text-center" >تم تعديل المفضلة</h3>
+      {% elif message == "succD" %}
+          <h3 style="width: auto" class=" border-success alert-success bg-success  text-center" >تم حذف المدونة </h3>
+      {% elif message == "error" %}
+          <h3 style="width: auto" class=" border-warning alert-warning bg-warning  text-center" >حدث خطأ :<</h3>
+      {% endif %}
+
+</div>
+
+
+
+<!-- The Modal -->
+	<div style="padding-top: 1%" id="myModal" class="modal" >
+	  <!-- Modal content -->
+	  <div style="padding: 0;width:80%;top:1%" class="modal-content" id="changi">
+	    <div class="modal-body">
+	      <div style="border: transparent  3px" id="myModel1" class="modal1">
+	    <div  class="modal__container">
+	      <div id="pici" style="transform:rotateY(180deg);" class="modal__featured">
+	<button disabled type="button" class="button--transparent button--close">
+	          <span class="close">&times;</span>
+        </button>
+        <div class="modal__circle" > </div>
+        <img src="https://raw.githubusercontent.com/eee23d/w1/main/qe.png" class="modal__product"  />
+      </div>
+  <form method="post">
+{% csrf_token %}
+      <div style="" class="modal__content">
+          <li style="" class="form-list__row form-list__row--inline">
+        <h2>إضافة تدوينة</h2>
+                <div class="dropdown">
+                    <select name="shelfSelect" id="shelfSelect"style="width: 100px;margin: 7px;" title="اختر كتاب"  required>
+                    <option disabled selected value> اختر كتاب</option>
+                      {% for book in bookForShelf %}
+                    <option  value="{{book.book.bookTitle }}" class="dropdown">{{ book.book.bookTitle }}</option>
+                    {% endfor %}
+                    </select>
+              </div>
+            </li>
+          <ul class="form-list">
+            <li class="form-list__row">
+              <input placeholder="عنوان التدوينة" type="text" name="title" required />
+            </li>
+            <li class="form-list__row">
+            {{ editor.media }}
+
+            {{ editor.as_p }}
+            </li>
+                  <h2>اضافة ورد</h2>
+              <li class="form-list__row form-list__row--inline" style="margin: auto">
+              من
+                    <div style="direction: rtl;" class="number-input">
+                        <button style="background-color: #5eb0f6" type="button" id = "minusB1" class="btn btn-primary"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
+                        </button>
+                        <input style="font-size: 20px;" class="quantity" min=1 name="fromP" id ="fromP" value=1 type="number" required>
+                        <button style="background-color: #5eb0f6; direction: rtl;" type="button" id ="plusB1" class="btn btn-primary"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                class="plus">+
+                        </button>
+                    </div>
+إلى
+                    <div style="direction: rtl;" class="number-input">
+                        <button style="background-color: #5eb0f6" type="button" id="minusB2" class="btn btn-primary"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
+                        </button>
+                        <input style="font-size: 20px;" class="quantity" name="toP" id="toP" value=2 type="number" required >
+                        <!--check num-->
+                        <button style="background-color: #5eb0f6" type="button" class="btn btn-primary" id ="plusB2"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                class="plus">+
+                        </button>
+                    </div>
+            </li>
+              <li class="" style="margin: auto">
+                     <label class="form-check-label"  for="private" >تدوينة خاصة</label>
+                  <input type="checkbox" style="width: 30px;margin-right: 20px"  name="private" >
+
+
+            </li>
+              <hr>
+              <input style="border: transparent;width: 20%;" type="file" name="myfile" id="input" >
+                <li class="form-list__row" >
+              <button style="width: 100%;
+    "; type="submit" name="AddNote" id="AddNote" class="button">نشر</button>
+
+            </li>
+          </ul>
+      </div>
+        </form>
+</div>
+
+      </div> <!-- END: .modal__content -->
+    </div> <!-- END: .modal__container -->
+  </div> <!-- END: .modal -->
+    </div>
+
+<!--modal for edit notes!! -->
+<div style="padding-top:0;" id="editModal" class="modal" >
+  <!-- Modal content -->
+	<div style="padding: 0;width:60%;top:1%" class="modal-content" id="changi1">
+    <div class="modal-body">
+      <div style="border: transparent  3px" id="myModel1" class="modal1">
+    <div class= "modal__container">
+      <div id="pici" style="transform:rotateY(180deg);" class="modal__featured">
+    	<button disabled type="button" class="button--transparent button--close">
+	          <span class="close" id="close">&times;</span>
+        </button>
+        <div class="modal__circle" > </div>
+        <img src="https://raw.githubusercontent.com/eee23d/w1/main/qe.png" class="modal__product"  />
+      </div>
+  <form method="post">
+{% csrf_token %}
+      <div style="" class="modal__content">
+      <input style="visibility: hidden" id="noteSelected" name ="noteSelected" >
+      <span style="width: auto" class="error-message alert-danger text-danger text-center" >{{ error }}</span>
+          <li style="" class="form-list__row form-list__row--inline">
+        <h2>تعديل تدوينة</h2>
+                <div class="dropdown">
+                    <select name="shelfSelectEdit" id="shelfSelectEdit" style="width: 100%;margin: 7px;" title="اختر كتاب">
+                    <option disabled selected value> اختر كتاب</option>
+                      {% for book in bookForShelf %}
+                    <option  value="{{book.book.bookTitle }}" class="dropdown">{{ book.book.bookTitle }}</option>
+                    {% endfor %}
+                    </select>
+              </div>
+
+            </li>
+
+          <ul class="form-list">
+            <li >
+              <input placeholder="عنوان التدوينة" type="text" name="titleEdit"  id="titleEdit"  required />
+            </li>
+            <li class="form-list__row" >
+                {{ editNote.media }}
+                {{ editNote.as_p }}
+            </li>
+                  <h2>اضافة ورد</h2>
+
+              <li class="form-list__row form-list__row--inline" style="margin: auto">
+              من
+                    <div style="direction: rtl;" class="number-input">
+                        <button style="background-color: #5eb0f6" type="button" id = "minusB1Edit" class="btn btn-primary"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
+                        </button>
+                        <input style="font-size: 20px;" class="quantity" min=1 name="fromPEdit" id ="fromPEdit" value=1 type="number" required>
+                        <button style="background-color: #5eb0f6; direction: rtl;" type="button" id ="plusB1Edit" class="btn btn-primary"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                class="plus">+
+                        </button>
+
+                    </div>
+إلى
+                    <div style="direction: rtl;" class="number-input">
+                        <button style="background-color: #5eb0f6" type="button" id="minusB2Edit" class="btn btn-primary"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
+                        </button>
+                        <input style="font-size: 20px;" class="quantity" name="toPEdit" id="toPEdit" value=2 type="number" required>
+                        <!--check num-->
+                        <button style="background-color: #5eb0f6" type="button" class="btn btn-primary" id ="plusB2Edit"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                class="plus">+
+                        </button>
+
+                    </div>
+
+            </li>
+              <li class="form-list__row">
+
+              </li>
+              <li class="form-list__row form-list__row--inline" style="margin: auto">
+
+
+                  <label class="form-check-label" for="private" >تدوينة خاصة</label>
+                  <input type="checkbox" name="privateEdit" style="width: 30px;margin-right: 20px" id="privateEdit">
+            </li>
+              <hr>
+
+                <li class="form-list__row" >
+              <button style="width: 100%;
+    "; type="submit" name="AddNoteEdit" id="AddNoteEdit" class="button">نشر</button>
+
+            </li>
+          </ul>
+      </div>
+        </form>
+</div>
+
+      </div> <!-- END: .modal__content -->
+    </div> <!-- END: .modal__container -->
+  </div>
+    </div><!-- END: .modal -->
+
+{% if error == "no results" %}
+              <h3 style="width: auto" class=" border-warning alert-warning bg-warning  text-center" >لا توجد نتائج.. </h3>
+
+{% endif %}
+{% for note in notes %}
+<div style=""  data-aos="fade-up" data-aos-delay="100">
+
+
+    <div style="  border-color: hsla(0, 0%, 100%, .6);
+" class=" portfolio-item filter-app">
+
+
+        <div style="background-color: white;
+border-style: solid;border-color: #b4b8b8;border-width: 2px;
+padding: 10px;
+" class="portfolio-wrap1  ">
+
+            <p style="text-align: right">
+
+               <p style="float: right;margin: 10px;">   <img src="{{ note.book_shelf_user.reader.prof_pic.url }}" style="height: 50px;width: 50px;" > {{ note.book_shelf_user.reader.username }} في  {{ note.date.date}}</p>
+                    <br><br><br>
+
+                    <b style="font-size: 24px;float: right;" >{{ note.note_title }}</b>
+                    <br><br>
+                    <b style="float: right;">من كتاب:  {{ note.book_shelf_user.book.bookTitle }}</b>
+                    <br><br>
+
+            <p style="float: right; margin-right: 10px"><i class="bx bxs-quote-alt-right" style="float: right;margin-right: 10px;margin-left: 10px"></i>{{ note.summary|safe }} <i class="bx bxs-quote-alt-left" style="margin-left: 10px;margin-right: 10px"></i></p><br><br>
+
+
+
+            <div class="portfolio-links" style="float: right;display: block;" >
+
+                 <a  class="portfolio-lightbox" title="
+	                  <h3 style='color:#e16912;margin-top: 30px;' > عنوان التدوينة: {{ note.note_title }} </h3> </b>
+	                  <h5 style='color:#e16912;' > من كتاب: {{ note.book_shelf_user.book.bookTitle }}
+	                   من صفحة {{ note.fromPage }}
+	                   إلى {{ note.toPage }}</h5>
+	                  <hr>
+     {% if note.headerImg  %}
+	  <img src='{{ note.headerImg.url }}' style='width:500px; display:block;margin:auto;' >
+        {% endif %}
+        <br><br>
+	<h4 style='color: #322e2f;display:block;overflow: auto;height:100px;width:90%; margin:auto;'>
+	 {{ note.note }}
+	 </h4>
+	 <hr>
+	 <h4 style='color:#12a4d9;'>
+	<img src='{{ note.book_shelf_user.reader.prof_pic.url }}' style='height: 70px;width: 70px;' >
+
+	{{ note.book_shelf_user.reader.username }} :نشرت بواسطة
+	</h4>
+	<h6 style='color:#12a4d9;'>
+	{{ note.date}}
+	</h6>
+	" style="padding-left: 5px;">
+
+         <i style="float: right;padding-right: 5px;text-decoration:underline;cursor: pointer ">عرض كامل المنشور</i>
+</a>
+
+        </div>
+<div style="display: inline-block; margin-bottom: 15px; padding: 0px" >
+                <a title="إضافة إلى المفضلة" id="{{ note.id }}" name="addFav" ><i class="bx bx-heart hvr-icon-bounce" style="padding-left: 5px; color: darkred; font-size:24px; "id="{{ note.id }}"></i> </a>
+                    <a  title="تعديل التدوينة" class=""  name="edit" id="{{ note.id }}" ><i class="bx bxs-edit-alt hvr-icon-bounce" style="padding-left: 5px; color: #0a58ca;font-size:24px;"  id="{{ note.id }}"></i></a>
+                   <a  title="حذف التدوينة" class="" name="delete"  id="{{note.id}}"> <i class="bx bxs-x-square hvr-icon-bounce" style="padding-left: 5px; color: chocolate;font-size:24px;"  id="{{ note.id }}"></i></a>
+
+
+                </div>
+
+
+    </div>
+
+
+</div>
+{% endfor %}
+ <form method="post">
+                     {% csrf_token %}
+                <input type="text" style="visibility: hidden" name="txt" id="txt"  >
+                <input type="text" style="visibility: hidden" name="t" value="{{ nav }}" >
+     <input type="submit" name = "FavA" id="FavA" style="visibility: hidden">
+        </form>
+ <form method="post">
+     {% csrf_token %}
+                <input type="text" style="visibility: hidden" id="noteDelete" name="noteDelete">
+                <input type="submit" style="visibility: hidden" name="noteToDelete" id="noteToDelete">
+            </form>
+
+</div>
+
+</div>
+</div>
+    </section>
+
+</main>
+<button id="myBtn"  type="button" class="button addNote bx bxs-pen" style="font-size:36px; border-radius: 100%;position: fixed; bottom: 5%;left: 3%;padding: 30px;" title="إضافة مدونة" ></button>
+
+
+<!--as you see Ladies and Gentlemen I handeled bad input here for bad page input (if from larger than to and other many cases, no body will say thanks? even ms I dont think she can notice it,
+anyway noProblem  all matters to know it I made with love:} -->
+  <script>
+
+     //for fav, add and cancel
+    var favEl = document.getElementsByName("addFav");
+
+    for (var i = 0; i < favEl.length; i++) {
+        favEl[i].addEventListener("click",favAdd);
+         {% for note in notes %}
+        if (favEl[i].id == "{{ note.id }}") {
+             {% for n in fav %}
+                {% if note.id == n.note_id.id %}
+                    favEl[i].setAttribute("title","إزالة من المفضلة");
+                   favEl[i].getElementsByTagName('i')[0].className= "bx bxs-heart hvr-icon-bounce";
+                {% endif %}
+             {% endfor %}
+            }{% endfor %}
+    }
+
+
+    function favAdd(r){
+        var Id= r.target.id;
+        {% for note in notes %};
+        if (Id == "{{ note.id }}") {
+            document.getElementById("txt").value="{{  note.id  }}";
+           document.getElementById("FavA").click();
+        }
+        {% endfor %}
+    }
+
+
+    document.getElementById("minusB1").addEventListener("click",constrain1);
+    document.getElementById("plusB1").addEventListener("click",constrain1);
+    document.getElementById("minusB2").addEventListener("click",constrain2);
+    document.getElementById("plusB2").addEventListener("click",constrain2);
+    document.getElementById("fromP").addEventListener("input",update);
+    document.getElementById("toP").addEventListener("input",update);
+    function constrain1(){
+         var fromP = document.getElementById("fromP");
+     var toP = document.getElementById("toP");
+     toP.setAttribute("min",fromP.value);
+     fromP.setAttribute("max",toP.value);
+    }
+
+    function constrain2(){
+        var fromP = document.getElementById("fromP");
+        var toP = document.getElementById("toP");
+     fromP.setAttribute("max",toP.value);
+     toP.setAttribute("min",fromP.value);
+    }
+
+    function update(e){
+         var fromP = document.getElementById("fromP");
+        var toP = document.getElementById("toP");
+         if (fromP.value>toP.value){
+         e.target.value=fromP.getAttribute("max");
+     }if (toP.value<fromP.value){
+             e.target.value=toP.getAttribute("min");
+        }
+         if (e.target.value==""){
+             e.target.value=1;
+         }
+     }
+     //for edit and delete
+    var elements = document.getElementsByName("edit");
+    var myModal = document.getElementById("editModal");
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].addEventListener("click",edit);
+
+    }
+    //for  delete
+    var posts = document.getElementsByName("delete");
+    for (var i = 0; i < elements.length; i++) {
+        posts[i].addEventListener("click",delet);
+
+    }
+
+
+
+    function edit(e){
+        var id= e.target.id;
+        modal2.style.display = "block";
+        {% for note in notes %}
+
+        if (id == "{{ note.id }}") {
+            document.getElementById("noteSelected").value="{{ note.id }}";
+            document.getElementById("titleEdit").value= "{{ note.note_title }}" ;
+            CKEDITOR.instances['id_noteEdit'].setData('{{ note.note|escapejs }}');
+            //CKEDITOR.instances[noteEdit].setData();
+            document.getElementById("fromPEdit").value = "{{ note.fromPage }}";
+            document.getElementById("toPEdit").value = "{{ note.toPage }}";
+            if ("{{ note.private }}" =="True"){
+                document.getElementById("privateEdit").checked = true;
+            }
+            document.getElementById("shelfSelectEdit").value = "{{ note.book_shelf_user.book.bookTitle }}";
+        }
+            {% endfor %}
+    }
+
+    function delet(e){
+        var Id= e.target.id;
+        {% for note in notes %}
+        if (Id == "{{ note.id }}") {
+            document.getElementById("noteDelete").value="{{ note.id }}";
+           document.getElementById("noteToDelete").click();
+        }
+            {% endfor %}
+    }
+
+
+// Get the modal
+var modal = document.getElementById("myModal");
+var modal2 = document.getElementById("editModal");
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+var span2 = document.getElementsByClassName("close")[1];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+span2.onclick = function() {
+  modal2.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    modal2.style.display = "none";
+
+  }}
+
+</script>
+
+
+
+
+
+  </body>
+    </html>
+
+{% endblock %}
+
+
