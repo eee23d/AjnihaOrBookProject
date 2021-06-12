@@ -1,0 +1,91 @@
+
+.topnav {
+     position: fixed;
+    display: block;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    z-index:1000;
+     margin-top: 0px;
+     padding-right: 1%;
+    padding-left: 1%;
+    padding-top: 10px;
+   padding-bottom: 10px;
+         overflow: hidden;
+  background-color: white;
+}
+
+.topnav .navTypes{
+    display: inline-block;
+    margin: auto;
+    width: 50%;
+}
+
+.topnav .navTypes a {
+    width: 30%;
+  display: inline-block;
+  color: black;
+  text-align: center;
+  padding: 16px 16px 16px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+    text-decoration: none;
+  color: black;
+}
+
+.topnav a.activeNote {
+  background-color: #5eb0f6;
+    text-decoration: none;
+  color: white;
+}
+
+
+.topnav .search-container {
+    float: left;
+    display: block;
+    margin-right: 6%;
+    margin-left: 2%;
+    width: 20%;
+
+}
+
+.topnav input[type=text] {
+    display: block;
+    float: right;
+    width: 65%;
+    padding-top: 10px;
+   padding-bottom: 10px;
+  margin-top: 8px;
+    margin-left: 1%;
+  font-size: 17px;
+  border-color: #d7d3d3;
+border-radius: 0.3em;
+}
+.topnav input[type=text]::placeholder{
+   text-align: right;
+}
+
+.topnav .search-container button {
+    display: inline-block;
+    float: left;
+    color: white;
+    width: 30%;
+ margin-left: 2%;
+     margin-right: 2%;
+  padding: 10px;
+  margin-top: 8px;
+  background: #5eb0f6;
+  font-size: 14px;
+  border-color:#5eb0f6;
+    border-radius: 0.2em;
+  cursor: pointer;
+}
+
+.topnav .search-container button:hover {
+  background: #869caf;
+}
+
