@@ -5,7 +5,9 @@ from django.dispatch import receiver
 from django.db.models import Max
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
-''''''
+from ckeditor.fields import RichTextField
+from datetime import datetime
+
 @receiver(post_save, sender=User)
 def create_auto_sheleves(sender, instance, created, **kwargs):
     if created:
@@ -19,12 +21,12 @@ class Book(models.Model):
     bookTitle = models.CharField(max_length=40)
     isbn=models.CharField(max_length=40,default=1,null=True,blank=True)
     description =models.TextField(null=True,blank=True)
+    bookLink = models.CharField(max_length=200,null=True,blank=True,default=None)
     image = models.ImageField(default='/book.png',blank=True,null=True,auto_created=True,upload_to='')
     def __str__(self):
         return self.bookTitle
 
 class ReaderAccount(models.Model):
-
     fName= models.CharField(max_length=40)
     sName = models.CharField(max_length=40)
     username= models.ForeignKey(User,on_delete=models.CASCADE)
@@ -61,9 +63,10 @@ class shelves_Readers_Books(models.Model):
     shelf= models.ForeignKey(Shelves,unique=False, on_delete=models.CASCADE)
     class Meta:
         unique_together = ('reader', 'book','shelf')
+
     def reached(self):
-        bookNotes = ReadingRecords.objects.filter(book_shelf_user__exact=self)
-        max_reading = bookNotes.aggregate(Max('toPage'))['toPage__max']
+        records = readingRange.objects.filter(book_shelf_user__book__bookTitle__exact=self.book.bookTitle)
+        max_reading = records.aggregate(Max('toPage'))['toPage__max']
         if not max_reading:
             return 0
         return max_reading
@@ -75,18 +78,29 @@ class ReadingRecords(models.Model):
     book_shelf_user= models.ForeignKey(shelves_Readers_Books,on_delete=models.CASCADE)
     note_title = models.CharField(max_length=40)
     date = models.DateTimeField()
+    #delete from to
     fromPage = models.IntegerField()
     toPage = models.IntegerField()
-    note = models.TextField()
+    note = RichTextField()
     private = models.BooleanField(default=False)
     bookcompleted = models.BooleanField(default=False)
+    headerImg=models.ImageField(blank=True,null=True,upload_to='')
 
 
     def __str__(self):
         return str(self.note_title)+ " ,"+ str(self.book_shelf_user)
     def summary(self):
-        return self.note[:20]+"..."
+        return self.note[:50]
 
+class readingRange(models.Model):
+    book_shelf_user = models.ForeignKey(shelves_Readers_Books, on_delete=models.CASCADE)
+    fromPage = models.IntegerField()
+    toPage = models.IntegerField()
+    date = models.DateTimeField(default=datetime.now())
+    bookcompleted = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.book_shelf_user)
 
 class booksuggest(models.Model):
     accountUser = models.ForeignKey(ReaderAccount, on_delete=models.CASCADE)

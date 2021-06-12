@@ -45,7 +45,7 @@
     <div class="d-flex flex-column">
       <div class="profile">
 <a href="{% url 'setting' %}">
-            <img src=" {% block profile %} {{ reader.prof_pic.url }} {% endblock %} " alt="" class="rounded-circle" style="border-radius: 6em;height: 115px;">
+            <img src=" {% block profile %} {{ reader.prof_pic.url }} {% endblock %} " alt="" class="rounded-circle" style="border-radius: 3em;height: 115px;">
 <div style="position: absolute;
   top: 12%;
   left: 50%;
@@ -60,8 +60,8 @@
     </div>
       <nav id="navbar" class="nav-menu navbar">
           <ul>
-          <li><a href="{% url 'notes' %}" class="nav-link scrollto " id ="noteMainNav"><span style="color:#1f435f; font-size: small">nnn</span> <span> مدوناتي </span><span style="color:#1f435f">d</span><i class="bx bx-file-blank"></i> </a></li>
-          <li><a href="{% url 'library' %}" class="nav-link scrollto"  id ="libMainNav"> <span style="color:#1f435f">hh</span> <span> مكتبتي </span><span style="color:#1f435f">d</span><i class="bx bx-library"></i></a></li>
+           <li><a href="{% url 'library' %}" class="nav-link scrollto"  id ="libMainNav"> <span style="color:#1f435f">hh</span> <span> مكتبتي </span><span style="color:#1f435f">d</span><i class="bx bx-library"></i></a></li>
+          <li><a href="{% url 'myNotes' %}" class="nav-link scrollto " id ="noteMainNav"><span style="color:#1f435f; font-size: small">nnn</span> <span> مدوناتي </span><span style="color:#1f435f">d</span><i class="bx bx-file-blank"></i> </a></li>
            <li><a href="{% url 'search' %}" class="nav-link scrollto"  id ="addMainNav"><span style="color:#1f435f; font-size: small">ddd</span><span> أضف كتاب </span><span style="color:#1f435f">d</span><i class="bx bx-book-add"></i> </a></li>
          <li><a href="{% url 'stat' %}" class="nav-link scrollto"  id ="readMainNav"><span style="color:#1f435f; font-size: small">ddd</span> <span> قراءتي </span><span style="color:#1f435f">d</span><i class="bx bx-chart"></i> </a></li>
            <li><a href="{% url 'contact' %}" class="nav-link scrollto"  id ="contactlibMainNav"><span style="color:#1f435f;font-size: small">d</span> <span> تواصل معنا </span><span style="color:#1f435f">d</span><i class="bx bx-envelope"></i> </a></li>
@@ -80,7 +80,7 @@
         <!-- You can delete the links only if you purchased the pro version. -->
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/ -->
-        &copy; Designed <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        &copy; <a href="https://bootstrapmade.com/">Bootstrap</a>
       </div>
     </div>
   </footer><!-- End  Footer -->

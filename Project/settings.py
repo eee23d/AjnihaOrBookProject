@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
 
 ]
 
@@ -128,6 +129,14 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'skin': 'moono',
+        'height': 300,
+        'width': 400,
+
+    },
+}
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

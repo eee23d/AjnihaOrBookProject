@@ -7,37 +7,58 @@ from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
-from .models import Book,ReaderAccount,ReadingRecords,contacts,Shelves,shelves_Readers_Books,booksuggest,liked_post
+from .models import Book,ReaderAccount,ReadingRecords,contacts,Shelves,shelves_Readers_Books,booksuggest,liked_post,readingRange
 from django.core import files
 from io import BytesIO
-
+from ckeditor.widgets import CKEditorWidget
+from django import forms
+from .forms import ReadingRecordForm,EditReadingReacordField
 #index page
 def index(request):
     return render(request,['AJNIHA/indexa.html'])
 
-#notes page
+#my notes
 @login_required(login_url='loginPage')
-def notes(request):
+def myNotes(request):
     user = request.user
-    nav1 = request.POST.get("typeTrack")
-    shelf_reader_books = shelves_Readers_Books.objects.filter(reader__username__exact=user)
+    nav1 = "myNotes"
     if request.method == "POST":
         if "AddNote" in request.POST:
-            title= request.POST.get('title')
+            title = request.POST.get('title')
             note = request.POST.get('note')
-            fromP =request.POST.get('fromP')
+            fromP = request.POST.get('fromP')
             toP = request.POST.get('toP')
             date = datetime.now()
-            private= request.POST.get('private')
-            if private=="on":
-                private=True
+            private = request.POST.get('private')
+            if private == "on":
+                private = True
             else:
-                private=False
-            bookSelect= request.POST.get("shelfSelect")
-            book_shelf_user = shelves_Readers_Books.objects.filter(reader__username__exact=user,book__bookTitle__exact=bookSelect)
-            record = ReadingRecords(book_shelf_user=book_shelf_user.first(),note_title=title,date=date,fromPage=fromP,toPage=toP,note=note,private=private)
+                private = False
+            myfile =None
+            try:
+                myfile = request.FILES['myfile']
+            except:
+                pass
+            bookSelect = request.POST.get("shelfSelect")
+
+            book_shelf_user = shelves_Readers_Books.objects.filter(reader__username__exact=user,
+                                                                   book__bookTitle__exact=bookSelect)
+            record = ReadingRecords(book_shelf_user=book_shelf_user.first(), note_title=title, date=date,
+                                    fromPage=fromP, toPage=toP, note=note, private=private,headerImg=myfile)
+
             record.save()
-            return niv(request,"myNotes","succA")
+            return niv(request, nav1, "succA")
+        elif "FavA" in request.POST:
+            noteId = request.POST.get("txt")
+            noteId = ReadingRecords.objects.filter(id__exact=noteId).first()
+            Reader = ReaderAccount.objects.filter(username__username__exact=user).first()
+            var_com = liked_post(note_id=noteId, liked_by=Reader)
+            try:
+                var_com.save()
+            except:
+                var_com = liked_post.objects.filter(note_id=noteId, liked_by=Reader).first()
+                var_com.delete()
+            return niv(request, nav1, "succL")
         elif "AddNoteEdit" in request.POST:
             title = request.POST.get('titleEdit')
             note = request.POST.get('noteEdit')
@@ -67,33 +88,99 @@ def notes(request):
             noteId =ReadingRecords.objects.filter(id__exact=noteId)
             noteId.delete()
             return niv(request, "myNotes", "succD")
+        elif "search" in request.POST:
+            filterKey = request.POST.get("search-boc")
+            return filterNotes(request, nav1, filterKey)
+    else:
+        return niv(request, nav1, "")
+
+#all notes
+@login_required(login_url='loginPage')
+def allNotes(request):
+    user = request.user
+    nav1 = "glob"
+    if request.method == "POST":
+        if "AddNote" in request.POST:
+            title = request.POST.get('title')
+            note = request.POST.get('note')
+            fromP = request.POST.get('fromP')
+            toP = request.POST.get('toP')
+            date = datetime.now()
+            private = request.POST.get('private')
+            if private == "on":
+                private = True
+            else:
+                private = False
+            bookSelect = request.POST.get("shelfSelect")
+            book_shelf_user = shelves_Readers_Books.objects.filter(reader__username__exact=user,
+                                                                   book__bookTitle__exact=bookSelect)
+            record = ReadingRecords(book_shelf_user=book_shelf_user.first(), note_title=title, date=date,
+                                    fromPage=fromP, toPage=toP, note=note, private=private)
+            record.save()
+            return niv(request, nav1, "succA")
         elif "FavA" in request.POST:
             noteId = request.POST.get("txt")
-            nav1= request.POST.get("t")
             noteId = ReadingRecords.objects.filter(id__exact=noteId).first()
-            Reader = ReaderAccount.objects.filter(username__username__exact= user).first()
-            var_com = liked_post(note_id=noteId,liked_by=Reader)
+            Reader = ReaderAccount.objects.filter(username__username__exact=user).first()
+            var_com = liked_post(note_id=noteId, liked_by=Reader)
             try:
                 var_com.save()
             except:
-                var_com = liked_post.objects.filter(note_id=noteId,liked_by=Reader).first()
+                var_com = liked_post.objects.filter(note_id=noteId, liked_by=Reader).first()
                 var_com.delete()
-            return niv(request, nav1,"succL")
+            return niv(request, nav1, "succL")
         elif "search" in request.POST:
-            typeOfNotes = request.POST.get("ty")
             filterKey = request.POST.get("search-boc")
-            return filterNotes(request,typeOfNotes,filterKey)
-
-        else:
-           return niv(request,nav1,"")
+            return filterNotes(request, nav1, filterKey)
     else:
-        return niv(request, "myNotes","")
+        return niv(request, nav1, "")
 
+#liked notes
+@login_required(login_url='loginPage')
+def liked(request):
+    user = request.user
+    nav1 = "liked"
+    if request.method == "POST":
+        if "AddNote" in request.POST:
+            title = request.POST.get('title')
+            note = request.POST.get('note')
+            fromP = request.POST.get('fromP')
+            toP = request.POST.get('toP')
+            date = datetime.now()
+            private = request.POST.get('private')
+            if private == "on":
+                private = True
+            else:
+                private = False
+            bookSelect = request.POST.get("shelfSelect")
+            book_shelf_user = shelves_Readers_Books.objects.filter(reader__username__exact=user,
+                                                                   book__bookTitle__exact=bookSelect)
+            record = ReadingRecords(book_shelf_user=book_shelf_user.first(), note_title=title, date=date,
+                                    fromPage=fromP, toPage=toP, note=note, private=private)
+            record.save()
+            return niv(request, nav1, "succA")
+        elif "FavA" in request.POST:
+            noteId = request.POST.get("txt")
+            noteId = ReadingRecords.objects.filter(id__exact=noteId).first()
+            Reader = ReaderAccount.objects.filter(username__username__exact=user).first()
+            var_com = liked_post(note_id=noteId, liked_by=Reader)
+            try:
+                var_com.save()
+            except:
+                var_com = liked_post.objects.filter(note_id=noteId, liked_by=Reader).first()
+                var_com.delete()
+            return niv(request, nav1, "succL")
+        elif "search" in request.POST:
+            filterKey = request.POST.get("search-boc")
+            return filterNotes(request, nav1, filterKey)
+    else:
+        return niv(request, nav1, "")
 
 #for navigation in note page, it will return the page with required variable
 def niv(request,nav1,msg):
     reader = ReaderAccount.objects.filter(username__username__exact=request.user).first()
     user = request.user
+    content = forms.CharField(widget=CKEditorWidget())
     allNotes = ReadingRecords.objects.filter(private__exact=False) | ReadingRecords.objects.filter(
         book_shelf_user__reader__username=user)
     myNotes = ReadingRecords.objects.filter(book_shelf_user__reader__username=user)
@@ -101,22 +188,24 @@ def niv(request,nav1,msg):
     shelves = Shelves.objects.filter(Reader__username__exact=user)
     shelf_reader_books = shelves_Readers_Books.objects.filter(reader__username__exact=user)
     shelf_books = Book.objects.filter(id__in=shelf_reader_books)
+    editor = ReadingRecordForm()
+    editNote =EditReadingReacordField()
     if nav1 == "myNotes":
-        return render(request, ['AJNIHA/notes.html'],
+        return render(request, ['AJNIHA/myNotes.html'],
                       {'notes': myNotes, "nav": nav1, 'shelves': shelves, 'shelf_books': shelf_books,
-                       'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader': reader})
+                       'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader': reader,'editor':editor,'editNote':editNote})
     elif nav1 == "glob":
-        return render(request, ['AJNIHA/notes.html'],
-                      {'notes': allNotes, "nav": nav1, 'shelves': shelves, 'shelf_books': shelf_books,
+        return render(request, ['AJNIHA/AllNotes.html'],
+                      {'notes': allNotes, 'shelves': shelves, 'shelf_books': shelf_books,
                        'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader': reader})
     elif nav1 == "liked":
-        return render(request, ['AJNIHA/notes.html'],
+        return render(request, ['AJNIHA/favNotes.html'],
                       {'notes': liskedNotes, "nav": nav1, 'shelves': shelves, 'shelf_books': shelf_books,
                        'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader': reader})
 
-    return render(request, ['AJNIHA/notes.html'],
+    return render(request, ['AJNIHA/myNotes.html'],
                   {'notes': "", "nav": nav1, 'shelves': shelves, 'shelf_books': shelf_books,
-                   'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader': reader})
+                   'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader': reader,'body':content})
 
 
 #for note searching
@@ -137,7 +226,7 @@ def filterNotes(request,nav1,filterKey):
                   ReadingRecords.objects.filter(book_shelf_user__reader__username=user, book_shelf_user__book__bookTitle__contains=filterKey)
         if not myNotes:
             msg="no results"
-        return render(request, ['AJNIHA/notes.html'],
+        return render(request, ['AJNIHA/myNotes.html'],
                       {'notes': myNotes, "nav": nav1, 'shelves': shelves, 'shelf_books': shelf_books,
                        'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader':reader})
     elif nav1 == "glob":
@@ -151,17 +240,17 @@ def filterNotes(request,nav1,filterKey):
                    ReadingRecords.objects.filter(private__exact=False, book_shelf_user__book__bookTitle__contains=filterKey)
         if not allNotes:
             msg="no results"
-        return render(request, ['AJNIHA/notes.html'],
+        return render(request, ['AJNIHA/myNotes.html'],
                       {'notes': allNotes, "nav": nav1, 'shelves': shelves, 'shelf_books': shelf_books,
                        'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader':reader})
     elif nav1 == "liked":
         if not liskedNotes:
             msg="no results"
-        return render(request, ['AJNIHA/notes.html'],
+        return render(request, ['AJNIHA/favNotes.html'],
                       {'notes': liskedNotes, "nav": nav1, 'shelves': shelves, 'shelf_books': shelf_books,
                        'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader':reader})
 
-    return render(request, ['AJNIHA/notes.html'],
+    return render(request, ['AJNIHA/myNotes.html'],
                   {'notes': "", "nav": nav1, 'shelves': shelves, 'shelf_books': shelf_books,
                    'bookForShelf': shelf_reader_books, 'message': "error", 'fav': liskedNotes,'reader':reader})
 
@@ -246,6 +335,11 @@ def search(request):
                         isbn= response["volumeInfo"]["industryIdentifiers"][1]["identifier"]
                     except:
                         isbn= ""
+                    try:
+                        link = str(response["volumeInfo"]['previewLink'])
+                    except:
+                        link = ""
+
                     bookTest = Book.objects.filter(bookTitle__exact=title,author__exact=author)
                     if not bookTest :
                         try:
@@ -260,14 +354,14 @@ def search(request):
                             file_name=title+".jpg"
                             #urllib.request.urlretrieve(imgurl, title+".jpg")
                             var_contact = Book(author=author,  pageNo=pageNo,bookTitle=title,isbn=isbn, description=description,
-                                                image="")
+                                                image="",bookLink=link)
                             var_contact.image.save(file_name, files.File(fp))
                             var_contact.save()
                             user_read = shelves_Readers_Books(reader=ReaderAccount.objects.filter(username__exact=request.user).first(), book=var_contact, shelf=shelf.first())
                             user_read.save()
                             print("book added for user succ.")
                         except:
-                            var_contact = Book(author=author, pageNo=pageNo, bookTitle=title, description=description,)
+                            var_contact = Book(author=author, pageNo=pageNo, bookTitle=title, description=description,bookLink=link,)
                             var_contact.save()
                             user_read = shelves_Readers_Books(reader=ReaderAccount.objects.filter(username__exact=request.user).first(), book=var_contact, shelf=shelf.first())
                             user_read.save()
@@ -304,6 +398,33 @@ def library(request):
             book_id= request.POST.get("bookDelete")
             bookToDel=shelves_Readers_Books.objects.filter(id__exact=book_id).first()
             bookToDel.delete()
+        elif "addRange" in request.POST:
+            book_id = request.POST.get("bookId")
+            fromP = request.POST.get("fromP")
+            toP =request.POST.get("toP")
+            completed = request.POST.get("completed")
+            book = shelves_Readers_Books.objects.filter(id__exact=book_id).first()
+            shelf = Shelves.objects.filter(Reader=reader,shelfType=4).first()
+            recentShelf =shelves_Readers_Books.objects.filter(reader=book.reader,shelf__shelfType__exact=1)
+            if completed == "on":
+                record = readingRange(book_shelf_user=book,fromPage=fromP,toPage=toP,bookcompleted=True)
+                bookCompleted = shelves_Readers_Books(reader=book.reader,book=book.book,shelf=shelf)
+                try:
+                    bookCompleted.save()
+                except:
+                    pass
+            else:
+                record = readingRange(book_shelf_user=book, fromPage=fromP, toPage=toP, bookcompleted=False)
+            if book.shelf.shelfType != 1:
+                recent = shelves_Readers_Books(reader=book.reader,book=book.book,shelf=Shelves.objects.filter(Reader=reader,shelfType=1).first())
+
+                if recentShelf.count() > 2 or recentShelf.count() == 3:
+                    recentShelf[0].delete()
+                try:
+                    recent.save()
+                except:
+                    pass
+                record.save()
         else:
             sheldName= request.POST.get("addShelf")
             shelf= Shelves(Reader= ReaderAccount.objects.filter(username__exact=request.user).first(),shelfName=sheldName,shelfType="3")
@@ -321,7 +442,7 @@ def userHome(request):
         myfile = request.FILES['myfile']
         reader.prof_pic=myfile
         reader.save()
-    return render(request, ['AJNIHA/notes.html'], {'reader': reader})
+    return render(request, ['AJNIHA/library1.html'], {'reader': reader})
 
 #register account
 def register(request):
@@ -342,7 +463,7 @@ def register(request):
 #login
 def loginPage(request):
     if request.user.is_authenticated:
-        return redirect('notes')
+        return library(request)
     else:
         if request.method=='POST':
             #taking thr value of these fields
@@ -352,7 +473,7 @@ def loginPage(request):
             if user is not None:
                 login(request,user)
                 reader = ReaderAccount.objects.filter(username__username__exact= user).first()
-                return render(request,['AJNIHA/notes.html'],{'reader':reader})
+                return render(request,['AJNIHA/library1.html'],{'reader':reader})
             else:
                 messages.info(request,'username or password is incorrect')
 
@@ -378,10 +499,10 @@ def stat(request):
     one_week_ago = datetime.today() - timedelta(days=7)
     reader = ReaderAccount.objects.filter(username__username__exact=request.user).first()
     completedBooks= shelves_Readers_Books.objects.filter(reader = ReaderAccount.objects.filter(username__username__exact=request.user).first(),shelf__shelfType__exact=4).count()
-    daily = ReadingRecords.objects.filter( book_shelf_user__reader = ReaderAccount.objects.filter(username__username__exact=request.user).first(),date__day=datetime.now().day,date__month=datetime.now().month,date__year=datetime.now().year)
-    weekly = ReadingRecords.objects.filter( book_shelf_user__reader = ReaderAccount.objects.filter(username__username__exact=request.user).first(),date__gte=one_week_ago,date__month=datetime.now().month,date__year=datetime.now().year)
-    monthly = ReadingRecords.objects.filter( book_shelf_user__reader = ReaderAccount.objects.filter(username__username__exact=request.user).first(),date__month=datetime.now().month,date__year=datetime.now().year)
-    yearly = ReadingRecords.objects.filter( book_shelf_user__reader = ReaderAccount.objects.filter(username__username__exact=request.user).first(),date__year=datetime.now().year)
+    daily = readingRange.objects.filter( book_shelf_user__reader = ReaderAccount.objects.filter(username__username__exact=request.user).first(),date__day=datetime.now().day,date__month=datetime.now().month,date__year=datetime.now().year)
+    weekly = readingRange.objects.filter( book_shelf_user__reader = ReaderAccount.objects.filter(username__username__exact=request.user).first(),date__gte=one_week_ago,date__month=datetime.now().month,date__year=datetime.now().year)
+    monthly = readingRange.objects.filter( book_shelf_user__reader = ReaderAccount.objects.filter(username__username__exact=request.user).first(),date__month=datetime.now().month,date__year=datetime.now().year)
+    yearly = readingRange.objects.filter( book_shelf_user__reader = ReaderAccount.objects.filter(username__username__exact=request.user).first(),date__year=datetime.now().year)
 
     pagenumDaily = 0
     pageWeekly=0

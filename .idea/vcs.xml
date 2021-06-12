@@ -2,6 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/AJNIHA/static/wingsApp/userHome/assets/img/last_lab/portfolio" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/origin/main" vcs="Git" />
   </component>
 </project>

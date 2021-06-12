@@ -41,15 +41,13 @@
     <div style="" class="container">
         <div class="section-title">
             <h2> {{ shelf.shelfName }}</h2>
-
         </div>
-
         <div style="" class="row" data-aos="fade-up" data-aos-delay="100">
             {% for book in bookForShelf %}
                 {% if book.shelf == shelf %}
-        <div style=""class="col-lg-4 col-md-6 portfolio-item filter-app radios ">
+        <div style="" class=" col-lg-4 col-md-6 portfolio-item filter-app radios ">
                     <div style="width: 200px" class="portfolio-item filter-app">
-                          <a title="حذف الكتاب" name="delete" id="{{ book.id }}"><i class="bx bx-x" id="{{ book.id }}"></i></a>
+                                                     <a title ="حذف الكتاب" name="delete" id="{{ book.id }}"><i class="bx bx-x hvr-icon-bounce" id="{{ book.id }}" style="font-size:24px; margin:6px;padding: 10px;float: right "></i></a>
                         <div class="component">
             <ul class="align">
                 <li>
@@ -72,8 +70,11 @@
                                     <p style="color: black">{{ book.book.author }}</p>
                                  <p style="color:#3f6bae"> قرأت حتى صفحة: </p>
                                     <p style="color: black">{{ book.reached }}</p>
-
-
+                                {% if book.book.bookLink %}
+                                <a href="{{ book.book.bookLink }}" ;
+                                   target="_blank" rel="noopener noreferrer"
+                                   title="عرض معلومات الكتاب "><i class="bx bx-link"></i></a>
+                                    {% endif %}
                             </li>
                             <li></li>
                             <li></li>
@@ -93,7 +94,11 @@
                 </li>
             </ul>
         </div>
+         <a title="إضافة ورد" data-toggle="modal" data-target="#myModal2"  id="{{ book.id }}"
+            onclick="document.getElementById('toP').value= (parseInt('{{ book.reached }}')+10); document.getElementById('fromP').value=parseInt('{{ book.reached }}') +1;  document.getElementById('bookId').value='{{ book.id }}' " >
+             <i class="bx bxs-plus-circle hvr-icon-bounce" id="{{ book.id }}"style="font-size:24px;margin: 6px;color: #5eb0f6;"></i></a>
     </div>
+
                     </div>
 
                 {% endif %}
@@ -131,9 +136,6 @@
 </script>
 
 
-<a href="{% url 'search' %}"><button class="add" >إضافة كتاب</button></a>
-<button type="button" class="add" data-toggle="modal" data-target="#myModal">إضافة رف</button>
-
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -150,7 +152,7 @@
         <input name="addShelf" placeholder="أدخل اسم الرف " required>
         </div>
         <div class="modal-footer">
-           <button type="submit" class="btn btn-primary">إضافة الرف</button>
+           <button type="submit" name="addShelf" class="btn btn-primary">إضافة الرف</button>
            <button type="button" class="btn btn-default" data-dismiss="modal">إغلاق</button>
 
         </div>
@@ -160,6 +162,86 @@
   </div>
 
 
+  <!--Modal -->
+  <div class="modal fade" id= "myModal2" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+        <form method="post">
+                 {% csrf_token %}
+      <div class="modal-content">
+        <div class="modal-header">
+                      <h4 class="modal-title">إضافة ورد</h4>
+
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+                 <input style="visibility: hidden" id="bookId" name ="bookId" >
+
+                    <li class="form-list__row form-list__row--inline" style="margin: auto">
+              من
+                    <div style="direction: rtl;" class="number-input">
+                        <button style="background-color: #5eb0f6" type="button" id = "minusB1" class="btn btn-primary"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
+                        </button>
+                        <input style="font-size: 20px;width: 50px;" class="quantity" min=1 name="fromP" id ="fromP" value=1  type="number" required>
+                        <button style="background-color: #5eb0f6; direction: rtl;" type="button" id ="plusB1" class="btn btn-primary"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                class="plus">+
+                        </button>
+                    </div>
+إلى
+                    <div style="direction: rtl;" class="number-input">
+                        <button style="background-color: #5eb0f6" type="button" id="minusB2" class="btn btn-primary"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
+                        </button>
+                        <input style="font-size: 20px;width: 50px;" class="quantity" name="toP" id="toP" value=2 type="number" required >
+                        <!--check num-->
+                        <button style="background-color: #5eb0f6" type="button" class="btn btn-primary" id ="plusB2"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                class="plus">+
+                        </button>
+                    </div>
+             <label class="form-check-label"  for="private" >اكتمال الكتاب! </label>
+             <input type="checkbox" style="width: 30px;margin-right: 20px"  name="completed" >
+
+        </div>
+        <div class="modal-footer">
+           <button type="submit" name="addRange" class="btn btn-primary">إضافة </button>
+           <button type="button" class="btn btn-default" data-dismiss="modal">إغلاق</button>
+
+        </div>
+      </div>
+        </form>
+    </div>
+  </div>
+
+
+<a href="{% url 'search' %}"><button class="add" >إضافة كتاب</button></a>
+<button type="button" class="add" data-toggle="modal" data-target="#myModal">إضافة رف</button>
+
 </section><!-- End Section -->
 </main>
+      <script>
+
+    document.getElementById("minusB1").addEventListener("click",constrain1);
+    document.getElementById("plusB1").addEventListener("click",constrain1);
+    document.getElementById("minusB2").addEventListener("click",constrain2);
+    document.getElementById("plusB2").addEventListener("click",constrain2);
+    document.getElementById("fromP").addEventListener("input",update);
+    document.getElementById("toP").addEventListener("input",update);
+    function constrain1(){
+         var fromP = document.getElementById("fromP");
+     var toP = document.getElementById("toP");
+     toP.setAttribute("min",fromP.value);
+     fromP.setAttribute("max",toP.value);
+    }
+
+    function constrain2(){
+        var fromP = document.getElementById("fromP");
+        var toP = document.getElementById("toP");
+     fromP.setAttribute("max",toP.value);
+     toP.setAttribute("min",fromP.value);
+    }
+
+</script>
 {% endblock %}
