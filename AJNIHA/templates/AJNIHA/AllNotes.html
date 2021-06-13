@@ -65,13 +65,10 @@
 </div>
 
 
-
-
-
 <!-- The Modal -->
 	<div style="padding-top: 1%" id="myModal" class="modal" >
 	  <!-- Modal content -->
-	  <div style="padding: 0;width:60%;top:1%" class="modal-content" id="changi">
+	  <div style="padding: 0;width:80%;top:1%" class="modal-content" id="changi">
 	    <div class="modal-body">
 	      <div style="border: transparent  3px" id="myModel1" class="modal1">
 	    <div  class="modal__container">
@@ -88,7 +85,6 @@
           <li style="" class="form-list__row form-list__row--inline">
         <h2>إضافة تدوينة</h2>
                 <div class="dropdown">
-
                     <select name="shelfSelect" id="shelfSelect"style="width: 100px;margin: 7px;" title="اختر كتاب"  required>
                     <option disabled selected value> اختر كتاب</option>
                       {% for book in bookForShelf %}
@@ -102,37 +98,12 @@
               <input placeholder="عنوان التدوينة" type="text" name="title" required />
             </li>
             <li class="form-list__row">
-              <textarea placeholder=" التدوينة" name="note" required></textarea>
+            {{ editor.media }}
+
+            {{ editor.as_p }}
             </li>
                   <h2>اضافة ورد</h2>
-              <li class="form-list__row form-list__row--inline" style="margin: auto">
-              من
-                    <div style="direction: rtl;" class="number-input">
-                        <button style="background-color: #5eb0f6" type="button" id = "minusB1" class="btn btn-primary"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
-                        </button>
-                        <input style="font-size: 20px;" class="quantity" min=1 name="fromP" id ="fromP" value=1 type="number" required>
-                        <button style="background-color: #5eb0f6; direction: rtl;" type="button" id ="plusB1" class="btn btn-primary"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                class="plus">+
-                        </button>
-                    </div>
-إلى
-                    <div style="direction: rtl;" class="number-input">
-                        <button style="background-color: #5eb0f6" type="button" id="minusB2" class="btn btn-primary"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
-                        </button>
-                        <input style="font-size: 20px;" class="quantity" name="toP" id="toP" value=2 type="number" required >
-                        <!--check num-->
-                        <button style="background-color: #5eb0f6" type="button" class="btn btn-primary" id ="plusB2"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                class="plus">+
-                        </button>
-                    </div>
-            </li>
-              <li class="form-list__row">
 
-              </li>
               <li class="" style="margin: auto">
                      <label class="form-check-label"  for="private" >تدوينة خاصة</label>
                   <input type="checkbox" style="width: 30px;margin-right: 20px"  name="private" >
@@ -140,6 +111,7 @@
 
             </li>
               <hr>
+              <input style="border: transparent;width: 20%;" type="file" name="myfile" id="input" >
                 <li class="form-list__row" >
               <button style="width: 100%;
     "; type="submit" name="AddNote" id="AddNote" class="button">نشر</button>
@@ -153,6 +125,7 @@
       </div> <!-- END: .modal__content -->
     </div> <!-- END: .modal__container -->
   </div> <!-- END: .modal -->
+
     </div>
 
 
@@ -162,33 +135,6 @@
                 <input type="text" style="visibility: hidden" name="t" value="{{ nav }}" >
      <input type="submit" name = "FavA" id="FavA" style="visibility: hidden">
         </form>
-<script>
-// Get the modal
-var modal = document.getElementById("myModal1");
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close");
-// When the user clicks the button, open the modal
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }}
-
-</script>
-
 {% if error == "no results" %}
               <h3 style="width: auto" class=" border-warning alert-warning bg-warning  text-center" >لا توجد نتائج.. </h3>
 
@@ -196,8 +142,7 @@ window.onclick = function(event) {
 
 <div style="" class="row" data-aos="fade-up" data-aos-delay="100">
 {% for note in notes %}
-
- <div style=""  data-aos="fade-up" data-aos-delay="100">
+<div style=""  data-aos="fade-up" data-aos-delay="100">
 
 
     <div style="  border-color: hsla(0, 0%, 100%, .6);
@@ -211,50 +156,55 @@ padding: 10px;
 
             <p style="text-align: right">
 
+               <p style="float: right;margin: 10px;">   <img src="{{ note.book_shelf_user.reader.prof_pic.url }}" style="height: 50px;width: 50px;" > {{ note.book_shelf_user.reader.username }} في  {{ note.date.date}}</p>
+                    <br><br><br>
 
                     <b style="font-size: 24px;float: right;" >{{ note.note_title }}</b>
-            <br>
-               <p style="float: right;">  {{ note.book_shelf_user.reader.username }} في  {{ note.date.date}}</p>
                     <br><br>
                     <b style="float: right;">من كتاب:  {{ note.book_shelf_user.book.bookTitle }}</b>
                     <br><br>
 
-            <p style="float: right; margin-right: 10px"><i class="bx bxs-quote-alt-right" style="float: right;margin-right: 10px;margin-left: 10px"></i>{{ note.summary }} <i class="bx bxs-quote-alt-left" style="margin-left: 10px;margin-right: 10px"></i></p>
+            <p style="float: right; margin-right: 10px"><i class="bx bxs-quote-alt-right" style="float: right;margin-right: 10px;margin-left: 10px"></i>{{ note.summary|safe }} <i class="bx bxs-quote-alt-left" style="margin-left: 10px;margin-right: 10px"></i></p><br><br>
 
 
 
-            </p>
-            <div class="portfolio-links" >
-                 <a  class="portfolio-lightbox" title="
-	                  <h3 style='color:#e16912;' > عنوان التدوينة: {{ note.note_title }} </h3> </b>
+            <div class="portfolio-links" style="float: right;display: block;" >
+
+                     <a  class="portfolio-lightbox" title="
+	                  <h3 style='color:#e16912;margin-top: 30px;' > عنوان التدوينة: {{ note.note_title }} </h3> </b>
 	                  <h5 style='color:#e16912;' > من كتاب: {{ note.book_shelf_user.book.bookTitle }}
-	                   من صفحة {{ note.fromPage }}
-	                   إلى {{ note.toPage }}</h5>
+	                   </h5>
 	                  <hr>
-	<h4 style='color: #322e2f;'>
+     {% if note.headerImg  %}
+	  <img src='{{ note.headerImg.url }}' style='width:500px; display:block;margin:auto;' >
+        {% endif %}
+        <br><br>
+	<h4 style='color: #322e2f;display:block;overflow: auto;height:100px;width:90%; margin:auto;'>
 	 {{ note.note }}
 	 </h4>
-	 <br>
 	 <hr>
 	 <h4 style='color:#12a4d9;'>
+	<img src='{{ note.book_shelf_user.reader.prof_pic.url }}' style='height: 70px;width: 70px;' >
+
 	{{ note.book_shelf_user.reader.username }} :نشرت بواسطة
-	<br>
 	</h4>
 	<h6 style='color:#12a4d9;'>
 	{{ note.date}}
 	</h6>
-	</div>
 	" style="padding-left: 5px;">
 
-               <i class="bx bx-detail hvr-icon-bounce" style="padding-left: 5px; color: #1d71b8; font-size:24px; "></i>
+               <i style="float: right;padding-right: 5px;text-decoration:underline;cursor: pointer ">عرض كامل المنشور</i>
 </a>
-                <div style="display: inline-block; margin-bottom: 15px; padding: 0px" >
-                <a title="إضافة إلى المفضلة" id="{{ note.id }}" name="addFav" ><i class="bx bx-heart hvr-icon-bounce" style="padding-left: 5px; color: darkred; font-size:24px; "id="{{ note.id }}"></i> </a>
-                </div>
+
         </div>
+<div style="display: inline-block; margin-bottom: 15px; padding: 0px" >
+                <a title="إضافة إلى المفضلة" id="{{ note.id }}" name="addFav" ><i class="bx bx-heart hvr-icon-bounce" style="padding-left: 5px; color: darkred; font-size:24px; "id="{{ note.id }}"></i> </a>
+
+                </div>
 
 
     </div>
+
 
 </div>
 {% endfor %}
@@ -297,6 +247,31 @@ anyway noProblem  all matters to know it I made with love:} -->
         }
         {% endfor %}
     }
+
+// Get the modal
+var modal = document.getElementById("myModal");
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }}
 
  </script>
 

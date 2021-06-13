@@ -26,8 +26,6 @@ def myNotes(request):
         if "AddNote" in request.POST:
             title = request.POST.get('title')
             note = request.POST.get('note')
-            fromP = request.POST.get('fromP')
-            toP = request.POST.get('toP')
             date = datetime.now()
             private = request.POST.get('private')
             if private == "on":
@@ -44,7 +42,7 @@ def myNotes(request):
             book_shelf_user = shelves_Readers_Books.objects.filter(reader__username__exact=user,
                                                                    book__bookTitle__exact=bookSelect)
             record = ReadingRecords(book_shelf_user=book_shelf_user.first(), note_title=title, date=date,
-                                    fromPage=fromP, toPage=toP, note=note, private=private,headerImg=myfile)
+                                     note=note, private=private,headerImg=myfile)
 
             record.save()
             return niv(request, nav1, "succA")
@@ -62,8 +60,6 @@ def myNotes(request):
         elif "AddNoteEdit" in request.POST:
             title = request.POST.get('titleEdit')
             note = request.POST.get('noteEdit')
-            fromP = request.POST.get('fromPEdit')
-            toP = request.POST.get('toPEdit')
             noteId = request.POST.get("noteSelected")
             private = request.POST.get('privateEdit')
             if private == "on":
@@ -77,8 +73,6 @@ def myNotes(request):
             Record = ReadingRecords.objects.filter(id__exact=noteId).first()
             Record.book_shelf_user=book_shelf_user.first()
             Record.note_title=title
-            Record.fromPage=fromP
-            Record.toPage=toP
             Record.note=note
             Record.private=private
             Record.save()
@@ -103,8 +97,6 @@ def allNotes(request):
         if "AddNote" in request.POST:
             title = request.POST.get('title')
             note = request.POST.get('note')
-            fromP = request.POST.get('fromP')
-            toP = request.POST.get('toP')
             date = datetime.now()
             private = request.POST.get('private')
             if private == "on":
@@ -115,7 +107,7 @@ def allNotes(request):
             book_shelf_user = shelves_Readers_Books.objects.filter(reader__username__exact=user,
                                                                    book__bookTitle__exact=bookSelect)
             record = ReadingRecords(book_shelf_user=book_shelf_user.first(), note_title=title, date=date,
-                                    fromPage=fromP, toPage=toP, note=note, private=private)
+                                     note=note, private=private)
             record.save()
             return niv(request, nav1, "succA")
         elif "FavA" in request.POST:
@@ -144,8 +136,6 @@ def liked(request):
         if "AddNote" in request.POST:
             title = request.POST.get('title')
             note = request.POST.get('note')
-            fromP = request.POST.get('fromP')
-            toP = request.POST.get('toP')
             date = datetime.now()
             private = request.POST.get('private')
             if private == "on":
@@ -156,7 +146,7 @@ def liked(request):
             book_shelf_user = shelves_Readers_Books.objects.filter(reader__username__exact=user,
                                                                    book__bookTitle__exact=bookSelect)
             record = ReadingRecords(book_shelf_user=book_shelf_user.first(), note_title=title, date=date,
-                                    fromPage=fromP, toPage=toP, note=note, private=private)
+                                    note=note, private=private)
             record.save()
             return niv(request, nav1, "succA")
         elif "FavA" in request.POST:
@@ -197,15 +187,15 @@ def niv(request,nav1,msg):
     elif nav1 == "glob":
         return render(request, ['AJNIHA/AllNotes.html'],
                       {'notes': allNotes, 'shelves': shelves, 'shelf_books': shelf_books,
-                       'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader': reader})
+                       'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader': reader,'editor':editor})
     elif nav1 == "liked":
         return render(request, ['AJNIHA/favNotes.html'],
                       {'notes': liskedNotes, "nav": nav1, 'shelves': shelves, 'shelf_books': shelf_books,
-                       'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader': reader})
+                       'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader': reader,'editor':editor})
 
     return render(request, ['AJNIHA/myNotes.html'],
                   {'notes': "", "nav": nav1, 'shelves': shelves, 'shelf_books': shelf_books,
-                   'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader': reader,'body':content})
+                   'bookForShelf': shelf_reader_books, 'message': msg, 'fav': liskedNotes,'reader': reader,'body':content,'editor':editor})
 
 
 #for note searching

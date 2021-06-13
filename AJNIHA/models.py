@@ -79,8 +79,6 @@ class ReadingRecords(models.Model):
     note_title = models.CharField(max_length=40)
     date = models.DateTimeField()
     #delete from to
-    fromPage = models.IntegerField()
-    toPage = models.IntegerField()
     note = RichTextField()
     private = models.BooleanField(default=False)
     bookcompleted = models.BooleanField(default=False)

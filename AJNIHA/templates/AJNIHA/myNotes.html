@@ -19,7 +19,7 @@
 </script>
 </head>
 <body>
-<!--header  -->
+<!--header -->
 
 <header class="topnav">
     <div class="navTypes">
@@ -106,38 +106,7 @@
 
             {{ editor.as_p }}
             </li>
-                  <h2>اضافة ورد</h2>
-              <li class="form-list__row form-list__row--inline" style="margin: auto">
-              من
-                    <div style="direction: rtl;" class="number-input">
-                        <button style="background-color: #5eb0f6" type="button" id = "minusB1" class="btn btn-primary"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
-                        </button>
-                        <input style="font-size: 20px;" class="quantity" min=1 name="fromP" id ="fromP" value=1 type="number" required>
-                        <button style="background-color: #5eb0f6; direction: rtl;" type="button" id ="plusB1" class="btn btn-primary"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                class="plus">+
-                        </button>
-                    </div>
-إلى
-                    <div style="direction: rtl;" class="number-input">
-                        <button style="background-color: #5eb0f6" type="button" id="minusB2" class="btn btn-primary"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
-                        </button>
-                        <input style="font-size: 20px;" class="quantity" name="toP" id="toP" value=2 type="number" required >
-                        <!--check num-->
-                        <button style="background-color: #5eb0f6" type="button" class="btn btn-primary" id ="plusB2"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                class="plus">+
-                        </button>
-                    </div>
-            </li>
-              <li class="" style="margin: auto">
-                     <label class="form-check-label"  for="private" >تدوينة خاصة</label>
-                  <input type="checkbox" style="width: 30px;margin-right: 20px"  name="private" >
 
-
-            </li>
               <hr>
               <input style="border: transparent;width: 20%;" type="file" name="myfile" id="input" >
                 <li class="form-list__row" >
@@ -194,36 +163,6 @@
             <li class="form-list__row" >
                 {{ editNote.media }}
                 {{ editNote.as_p }}
-            </li>
-                  <h2>اضافة ورد</h2>
-
-              <li class="form-list__row form-list__row--inline" style="margin: auto">
-              من
-                    <div style="direction: rtl;" class="number-input">
-                        <button style="background-color: #5eb0f6" type="button" id = "minusB1Edit" class="btn btn-primary"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
-                        </button>
-                        <input style="font-size: 20px;" class="quantity" min=1 name="fromPEdit" id ="fromPEdit" value=1 type="number" required>
-                        <button style="background-color: #5eb0f6; direction: rtl;" type="button" id ="plusB1Edit" class="btn btn-primary"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                class="plus">+
-                        </button>
-
-                    </div>
-إلى
-                    <div style="direction: rtl;" class="number-input">
-                        <button style="background-color: #5eb0f6" type="button" id="minusB2Edit" class="btn btn-primary"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
-                        </button>
-                        <input style="font-size: 20px;" class="quantity" name="toPEdit" id="toPEdit" value=2 type="number" required>
-                        <!--check num-->
-                        <button style="background-color: #5eb0f6" type="button" class="btn btn-primary" id ="plusB2Edit"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                class="plus">+
-                        </button>
-
-                    </div>
-
             </li>
               <li class="form-list__row">
 
@@ -287,8 +226,7 @@ padding: 10px;
                  <a  class="portfolio-lightbox" title="
 	                  <h3 style='color:#e16912;margin-top: 30px;' > عنوان التدوينة: {{ note.note_title }} </h3> </b>
 	                  <h5 style='color:#e16912;' > من كتاب: {{ note.book_shelf_user.book.bookTitle }}
-	                   من صفحة {{ note.fromPage }}
-	                   إلى {{ note.toPage }}</h5>
+	                   </h5>
 	                  <hr>
      {% if note.headerImg  %}
 	  <img src='{{ note.headerImg.url }}' style='width:500px; display:block;margin:auto;' >
@@ -380,38 +318,7 @@ anyway noProblem  all matters to know it I made with love:} -->
     }
 
 
-    document.getElementById("minusB1").addEventListener("click",constrain1);
-    document.getElementById("plusB1").addEventListener("click",constrain1);
-    document.getElementById("minusB2").addEventListener("click",constrain2);
-    document.getElementById("plusB2").addEventListener("click",constrain2);
-    document.getElementById("fromP").addEventListener("input",update);
-    document.getElementById("toP").addEventListener("input",update);
-    function constrain1(){
-         var fromP = document.getElementById("fromP");
-     var toP = document.getElementById("toP");
-     toP.setAttribute("min",fromP.value);
-     fromP.setAttribute("max",toP.value);
-    }
 
-    function constrain2(){
-        var fromP = document.getElementById("fromP");
-        var toP = document.getElementById("toP");
-     fromP.setAttribute("max",toP.value);
-     toP.setAttribute("min",fromP.value);
-    }
-
-    function update(e){
-         var fromP = document.getElementById("fromP");
-        var toP = document.getElementById("toP");
-         if (fromP.value>toP.value){
-         e.target.value=fromP.getAttribute("max");
-     }if (toP.value<fromP.value){
-             e.target.value=toP.getAttribute("min");
-        }
-         if (e.target.value==""){
-             e.target.value=1;
-         }
-     }
      //for edit and delete
     var elements = document.getElementsByName("edit");
     var myModal = document.getElementById("editModal");
@@ -437,9 +344,6 @@ anyway noProblem  all matters to know it I made with love:} -->
             document.getElementById("noteSelected").value="{{ note.id }}";
             document.getElementById("titleEdit").value= "{{ note.note_title }}" ;
             CKEDITOR.instances['id_noteEdit'].setData('{{ note.note|escapejs }}');
-            //CKEDITOR.instances[noteEdit].setData();
-            document.getElementById("fromPEdit").value = "{{ note.fromPage }}";
-            document.getElementById("toPEdit").value = "{{ note.toPage }}";
             if ("{{ note.private }}" =="True"){
                 document.getElementById("privateEdit").checked = true;
             }
