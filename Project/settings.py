@@ -132,10 +132,13 @@ STATICFILES_DIRS = (
 CKEDITOR_CONFIGS = {
     'default': {
         'skin': 'moono',
-        'height': 300,
+        'height': 200,
         'width': 400,
+        'align':'right',
 
-    },
+
+},
+
 }
 
 

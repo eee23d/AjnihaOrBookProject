@@ -6,7 +6,6 @@ from django.db.models import Max
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
-from datetime import datetime
 
 @receiver(post_save, sender=User)
 def create_auto_sheleves(sender, instance, created, **kwargs):
@@ -94,7 +93,7 @@ class readingRange(models.Model):
     book_shelf_user = models.ForeignKey(shelves_Readers_Books, on_delete=models.CASCADE)
     fromPage = models.IntegerField()
     toPage = models.IntegerField()
-    date = models.DateTimeField(default=datetime.now())
+    date = models.DateTimeField()
     bookcompleted = models.BooleanField(default=False)
 
     def __str__(self):

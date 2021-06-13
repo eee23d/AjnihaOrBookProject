@@ -396,15 +396,16 @@ def library(request):
             book = shelves_Readers_Books.objects.filter(id__exact=book_id).first()
             shelf = Shelves.objects.filter(Reader=reader,shelfType=4).first()
             recentShelf =shelves_Readers_Books.objects.filter(reader=book.reader,shelf__shelfType__exact=1)
+            time = datetime.now()
             if completed == "on":
-                record = readingRange(book_shelf_user=book,fromPage=fromP,toPage=toP,bookcompleted=True)
+                record = readingRange(book_shelf_user=book,fromPage=fromP,toPage=toP,bookcompleted=True,date=time)
                 bookCompleted = shelves_Readers_Books(reader=book.reader,book=book.book,shelf=shelf)
                 try:
                     bookCompleted.save()
                 except:
                     pass
             else:
-                record = readingRange(book_shelf_user=book, fromPage=fromP, toPage=toP, bookcompleted=False)
+                record = readingRange(book_shelf_user=book, fromPage=fromP, toPage=toP, bookcompleted=False,date=time)
             if book.shelf.shelfType != 1:
                 recent = shelves_Readers_Books(reader=book.reader,book=book.book,shelf=Shelves.objects.filter(Reader=reader,shelfType=1).first())
 
